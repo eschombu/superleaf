@@ -1,4 +1,5 @@
-from . import operator, Operator
+from . import operator
+from .base import Operator
 
 
 def attr_getter(name: str) -> Operator:
