@@ -1,6 +1,7 @@
 from typing import Any
 
-from .base import BooleanFunctionOperator, BooleanOperator
+from . import bool_operator
+from .base import BooleanOperator
 
 
 def _isna(x: Any) -> bool:
@@ -10,46 +11,62 @@ def _isna(x: Any) -> bool:
         return False
 
 
+def _parse_exc_args(*exc_args, **exc_kwargs) -> dict:
+    if exc_args:
+        fallback = exc_args[0]
+        exc_args = exc_args[1:]
+        if exc_args:
+            exceptions = exc_args[0]
+        elif "exceptions" in exc_kwargs:
+            exceptions = exc_kwargs["exceptions"]
+        else:
+            exceptions = Exception
+        return {"fallback": fallback, "exceptions": exceptions}
+    else:
+        return exc_kwargs
+
+
+
 class ComparisonFunctions:
     @staticmethod
-    def eq(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x == value)
+    def eq(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x == value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def ne(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x != value)
+    def ne(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x != value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def lt(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x < value)
+    def lt(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x < value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def le(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x <= value)
+    def le(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x <= value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def gt(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x > value)
+    def gt(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x > value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def ge(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x >= value)
+    def ge(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x >= value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def isin(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: x in value)
+    def isin(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: x in value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def contains(value: Any) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda x: value in x)
+    def contains(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda x: value in x, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def startswith(value: str) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda s: s.startswith(value))
+    def startswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda s: s.startswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def endswith(value: str) -> BooleanOperator:
-        return BooleanFunctionOperator(lambda s: s.endswith(value))
+    def endswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda s: s.endswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
     
-    isna = BooleanFunctionOperator(_isna)
+    isna = bool_operator(_isna)
     notna = ~isna

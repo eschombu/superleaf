@@ -1,7 +1,8 @@
 import numpy as np
 import pytest
 
-from superleaf.operators import bool_operator, ComparisonFunctions as F
+from superleaf.operators import bool_operator
+from superleaf.operators.comparison import ComparisonFunctions as F
 
 
 def test_individual_comparisons():
@@ -60,3 +61,12 @@ def test_generic_bool_op():
     assert op(4) is True
     assert op(np.nan) is True
     assert (~F.isna)(np.nan) is False
+
+
+def test_exception_fallback():
+    with pytest.raises(TypeError):
+        F.lt(0)("a")
+    assert F.lt(0, False)("a") is False
+    with pytest.raises(TypeError):
+        (F.lt(0, False) | F.gt(0))("a")
+    assert (F.lt(0, False) | F.gt(0, True))("a") is True

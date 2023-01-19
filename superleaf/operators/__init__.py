@@ -1,10 +1,16 @@
-from .base import BooleanFunctionOperator, FunctionOperator, Operator
-from .comparison import ComparisonFunctions
+from .base import BooleanFunctionOperator, FunctionOperator
+from .wrappers import with_fallback
 
 
-def operator(f):
+def operator(f, fallback=None, exceptions=None):
+    if exceptions is not None:
+        f = with_fallback(f, fallback=fallback, exceptions=exceptions)
     return FunctionOperator(f)
 
 
-def bool_operator(f):
+def bool_operator(f, fallback=False, exceptions=None):
+    if exceptions is not None:
+        if not isinstance(fallback, bool):
+            raise TypeError("fallback value must be of type `bool`")
+        f = with_fallback(f, fallback=fallback, exceptions=exceptions)
     return BooleanFunctionOperator(f)
