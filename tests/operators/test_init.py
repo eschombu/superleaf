@@ -9,7 +9,7 @@ def _times_two(x):
     return x * 2
 
 
-def test_basic():
+def test_basic_operator():
     op = operator(_plus_one)
     assert op(1) == 2
 

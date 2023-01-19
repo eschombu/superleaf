@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 
 from superleaf.dataframe.selection import Col, dfilter
+from superleaf.operators.comparison import ComparisonFunctions as F
 
 
 @pytest.fixture
@@ -25,16 +26,18 @@ def test_dfilter(df):
     # Progressively increase complexity
     assert _iseq(dfilter(df, col1=0), df.iloc[[0]])
     assert _iseq(dfilter(df, Col("col3").isna()), df[df["col3"].isna()])
-    assert _iseq(dfilter(df, Col("col3").notna()), dfilter(df, col3=pd.notna))
+    assert _iseq(dfilter(df, col3=pd.notna), dfilter(df, Col("col3").notna()))
+    assert _iseq(dfilter(df, col3=pd.notna), dfilter(df, col3=F.notna))
 
     assert _iseq(dfilter(df, col3=1), df[df["col3"] == 1])
     assert _iseq(dfilter(df, col3=1, col4="four"), df.iloc[[4]])
 
     assert _iseq(dfilter(df, Col("col2") >= 0), df[df["col2"] >= 0])
-
+    assert _iseq(dfilter(df, col2=F.ge(0)), dfilter(df, Col("col2") >= 0))
     assert _iseq(dfilter(df, (Col("col2") < 0) | ~(Col("col4").contains("o"))), df.iloc[[0, 1, 3]])
     assert _iseq(dfilter(df, (Col("col2") > 0) & ~(Col("col4").contains("o"))), dfilter(df, Col("col3").isna()))
+    assert _iseq(dfilter(df, col2=(F.lt(0) | ~(F.le(0)))), df[df["col2"] != 0])
 
-    assert _iseq(dfilter(df, Col("col2") >= 0, col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
-    assert _iseq(dfilter(df, Col("col2") >= 0, col3=1, col5=1), df.iloc[[4]])
-    assert _iseq(dfilter(df, Col("col2") >= 0, col3=Col("col5")), df.iloc[[4]])
+    assert _iseq(dfilter(df, col2=F.ge(0), col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
+    assert _iseq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
+    assert _iseq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
