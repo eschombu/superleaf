@@ -1,7 +1,10 @@
+from typing import Sequence, Union
+
 import numpy as np
 import pandas as pd
 
-from .column_ops import Col, ColOp
+from superleaf.dataframe.column_ops import Col, ColOp
+from superleaf.collections.ordered_set import OrderedSet
 
 
 def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
@@ -28,3 +31,24 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
                 "Keyword filters must be values, column operators, or callables to apply to each value in the column"
             )
     return df[row_bools].copy()
+
+
+def reorder_columns(df: pd.DataFrame, columns: Union[str, Sequence[str]], back=False, after=None, before=None
+                    ) -> pd.DataFrame:
+    if isinstance(columns, str):
+        columns = [columns]
+    df_cols = OrderedSet(df.columns)
+    columns = OrderedSet(columns)
+    if sum([back, after is not None, before is not None]) > 1:
+        raise ValueError("Only one of the following parameters can be used at a time: (back, after, before)")
+    if back:
+        col_order = list((df_cols - columns) + columns)
+    elif after or before:
+        if after:
+            insert_idx = list(df.columns).index(after) + 1
+        elif before:
+            insert_idx = list(df.columns).index(before)
+        col_order = list((OrderedSet(df_cols[:insert_idx]) - columns) + columns + OrderedSet(df_cols[insert_idx:]))
+    else:
+        col_order = list(columns + df_cols)
+    return pd.DataFrame(df[col_order])

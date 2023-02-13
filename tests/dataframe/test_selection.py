@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from superleaf.dataframe.selection import Col, dfilter
+from superleaf.dataframe.selection import Col, dfilter, reorder_columns
 from superleaf.operators.comparison import ComparisonFunctions as F
 
 
@@ -41,3 +41,64 @@ def test_dfilter(df):
     assert _iseq(dfilter(df, col2=F.ge(0), col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
     assert _iseq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
     assert _iseq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
+
+
+def test_reorder_columns(df: pd.DataFrame):
+    df_cols = list(df.columns)
+    new_df = reorder_columns(df, "col2")
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert df_cols != new_df_cols
+    assert set(df_cols) == set(new_df_cols)
+    assert new_df_cols[0] == "col2"
+
+    new_df = reorder_columns(df, "col2", back=True)
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[-1] == "col2"
+
+    new_df = reorder_columns(df, ["col1", "col3"], back=True)
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[-2] == "col1"
+    assert new_df_cols[-1] == "col3"
+
+    last_col = df_cols[-1]
+    second_to_last = df_cols[-2]
+    first_col = df_cols[0]
+    second_col = df_cols[1]
+
+    new_df = reorder_columns(df, last_col, after=second_col)
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[-1] == second_to_last
+    assert new_df_cols[2] == last_col
+
+    new_df = reorder_columns(df, [first_col, last_col], after=second_col)
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[0] == second_col
+    assert new_df_cols[1] == first_col
+    assert new_df_cols[2] == last_col
+    assert new_df_cols[-1] == second_to_last
+
+    new_df = reorder_columns(df, last_col, before=first_col)
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[0] == last_col
+    assert new_df_cols[1] == first_col
+
+    with pytest.raises(ValueError):
+        _ = reorder_columns(df, last_col, before=second_col, after=second_to_last)
+    with pytest.raises(ValueError):
+        _ = reorder_columns(df, last_col, back=True, before=second_col)
