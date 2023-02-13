@@ -1,8 +1,8 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Optional
 
 
-def with_fallback(f=None, fallback=None, exceptions=Exception):
+def with_fallback(f: Optional[Callable] = None, fallback=None, exceptions=Exception):
     def wrapper(fun):
         @wraps(fun)
         def wrapped(*args, **kwargs):

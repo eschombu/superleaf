@@ -1,7 +1,7 @@
 from typing import Any
 
-from . import bool_operator
-from .base import BooleanOperator
+from superleaf.operators import bool_operator
+from superleaf.operators.base import BooleanOperator
 
 
 def _isna(x: Any) -> bool:

@@ -1,5 +1,5 @@
-from .base import BooleanFunctionOperator, FunctionOperator
-from .wrappers import with_fallback
+from superleaf.operators.base import BooleanFunctionOperator, FunctionOperator
+from superleaf.operators.wrappers import with_fallback
 
 
 def operator(f, fallback=None, exceptions=None):
