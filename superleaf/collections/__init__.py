@@ -1,1 +1,1 @@
-from ordered_set import OrderedSet
+from superleaf.collections.ordered_set import OrderedSet
