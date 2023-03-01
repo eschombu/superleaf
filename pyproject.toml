@@ -14,10 +14,12 @@ dependencies = [
     "ipython",
     "numpy",
     "pandas",
+    "pendulum",
+    "scipy",
 ]
 
 [project.optional-dependencies]
-test = ["pytest"]
+test = ["pytest", "pytest-mock"]
 jupyter = ["jupyter"]
 
 [tool.setuptools.packages.find]
