@@ -26,7 +26,7 @@ def test_piped():
 
 
 def test_fallbacks():
-    try_a_1 = operator(_plus_one, fallback=-1, exceptions=Exception)
+    try_a_1 = operator(_plus_one, exceptions=Exception, fallback=-1)
     try_a_2 = operator(_plus_one, exceptions=Exception)
     try_b = operator(_times_two, exceptions=Exception)
     c_1 = try_a_1 | try_b
