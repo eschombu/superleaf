@@ -1,41 +1,21 @@
-from collections import defaultdict
-from typing import Callable, Dict, Iterable, List, TypeVar
+from typing import Callable, Iterable, List, TypeVar
 
+from superleaf.sequences.serial import filtered, flatten, flat_map as _flat_map_s, groupby, mapped as _mapped_s
+from superleaf.sequences.parallel import flat_map as _flat_map_p, mapped as _mapped_p
 
 T = TypeVar("T")
 U = TypeVar("U")
 
 
-def mapped(f: Callable[[T], U], seq: Iterable[T]) -> List[U]:
-    return list(map(f, seq))
+def mapped(f: Callable[[T], U], seq: Iterable[T], parallel=False, workers=None) -> List[U]:
+    if parallel or (workers is not None and workers > 1):
+        return _mapped_p(f, seq, workers=workers)
+    else:
+        return _mapped_s(f, seq)
 
 
-def filtered(f: Callable[[T], bool], seq: Iterable[T]) -> List[T]:
-    return list(filter(f, seq))
-
-
-def groupby(f: Callable[[T], U], seq: Iterable[T]) -> Dict[U, List[T]]:
-    grouped = defaultdict(list)
-    for item in seq:
-        grouped[f(item)].append(item)
-    return dict(grouped)
-
-
-def flatten(seq: Iterable, depth=None, drop_null=False) -> list:
-    if depth == 0:
-        return list(seq)
-    flattened = []
-    for item in seq:
-        next_depth = depth - 1 if depth is not None else None
-        if isinstance(item, str) or not (hasattr(item, "__len__") or hasattr(item, "__next__")):
-            if drop_null and (item is None or item != item):
-                continue
-            else:
-                flattened.append(item)
-        else:
-            flattened.extend(flatten(item, next_depth, drop_null=drop_null))
-    return flattened
-
-
-def flat_map(f: Callable, seq: Iterable, depth=None, drop_null=True) -> list:
-    return flatten(mapped(f, seq), depth=depth, drop_null=drop_null)
+def flat_map(f: Callable, seq: Iterable, depth=None, drop_null=True, parallel=False, workers=None) -> list:
+    if parallel or (workers is not None and workers > 1):
+        return _flat_map_p(f, seq, depth=depth, drop_null=drop_null, workers=workers)
+    else:
+        return _flat_map_s(f, seq, depth=depth, drop_null=drop_null)
