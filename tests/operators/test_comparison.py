@@ -27,6 +27,20 @@ def test_individual_comparisons():
     with pytest.raises(TypeError):
         F.contains(2)(1)
 
+    assert F.contains_any(0)([0, 1, 2]) is True
+    assert F.contains_any(3)([0, 1, 2]) is False
+    assert F.contains_any([0, 1])([0, 1, 2]) is True
+    assert F.contains_any([0, 3])([0, 1, 2]) is True
+    assert F.contains_any([3, 4])([0, 1, 2]) is False
+
+    assert F.contains_all(0)([0, 1, 2]) is True
+    assert F.contains_all(3)([0, 1, 2]) is False
+    assert F.contains_all([0, 1])([0, 1, 2]) is True
+    assert F.contains_all([0, 3])([0, 1, 2]) is False
+
+    assert F.contains_any('hello universe')('hello world') is False
+    assert F.contains_all('helo')('hello world') is False
+
     assert F.startswith("he")("hello") is True
     assert F.startswith("lo")("hello") is False
     with pytest.raises(AttributeError):

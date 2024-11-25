@@ -61,6 +61,18 @@ class ComparisonFunctions:
         return bool_operator(lambda x: value in x, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
+    def contains_all(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(value, str) or not hasattr(value, "__iter__"):
+            value = [value]
+        return bool_operator(lambda x: all(v in x for v in value), **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
+    def contains_any(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(value, str) or not hasattr(value, "__iter__"):
+            value = [value]
+        return bool_operator(lambda x: any(v in x for v in value), **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
     def startswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
         return bool_operator(lambda s: s.startswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
 
