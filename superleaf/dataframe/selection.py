@@ -22,10 +22,7 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
         if isinstance(filt, ColOp) or not callable(filt):
             row_bools = row_bools & (Col(col) == filt)(df)
         elif callable(filt):
-            try:
-                row_bools = row_bools & Col(col).apply(filt)(df)
-            except Exception:
-                row_bools = row_bools & Col(col).map(filt)(df)
+            row_bools = row_bools & Col(col).map(filt)(df)
         else:
             raise TypeError(
                 "Keyword filters must be values, column operators, or callables to apply to each value in the column"
