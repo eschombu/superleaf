@@ -1,6 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable
 
+from superleaf.operators.wrappers import with_fallback
+
 
 class Operator(metaclass=ABCMeta):
     @abstractmethod
@@ -74,3 +76,17 @@ class _NotBoolOp(BooleanOperator):
 
     def __call__(self, arg: Any) -> bool:
         return not self._op(arg)
+
+
+def operator(f, exceptions=None, fallback=None) -> FunctionOperator:
+    if exceptions is not None:
+        f = with_fallback(f, fallback=fallback, exceptions=exceptions)
+    return FunctionOperator(f)
+
+
+def bool_operator(f, exceptions=None, fallback=False) -> BooleanFunctionOperator:
+    if exceptions is not None:
+        if not isinstance(fallback, bool):
+            raise TypeError("fallback value must be of type `bool`")
+        f = with_fallback(f, fallback=fallback, exceptions=exceptions)
+    return BooleanFunctionOperator(f)
