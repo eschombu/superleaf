@@ -7,7 +7,7 @@ class Operator(metaclass=ABCMeta):
     def __call__(self, arg: Any) -> Any:
         pass
 
-    def __or__(self, right: "Operator") -> "_PipedOperator":
+    def __rshift__(self, right: "Operator") -> "_PipedOperator":
         return _PipedOperator(self, right)
 
 

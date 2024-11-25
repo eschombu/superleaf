@@ -35,7 +35,7 @@ def test_mapped(seq):
 
 
 def test_filtered(seq):
-    lens = filtered(operator(_try_len) | F.gt(0), seq)
+    lens = filtered(operator(_try_len) >> F.gt(0), seq)
     assert len(lens) == 5
 
 

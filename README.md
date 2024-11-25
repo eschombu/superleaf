@@ -20,7 +20,7 @@ import numpy as np
 from superleaf.operators import operator
 from superlead.getters import attr_getter
 
-exp_field_op = attr_getter("field_a") | operator(np.log)  # "or" operator overloaded for piping
+exp_field_op = attr_getter("field_a") >> operator(np.log)  # "right shift" operator used for piping
 results_iter = map(exp_field_op, data_containers)
 ```
 

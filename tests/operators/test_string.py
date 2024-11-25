@@ -9,5 +9,5 @@ def test_str_op():
 
     squeezed = "abc.12.3.you.and me!!"
     assert ".".join(
-        mapped(str_op("strip"), flat_map(str_op("strip") | str_op("split", ","), original))
+        mapped(str_op("strip"), flat_map(str_op("strip") >> str_op("split", ","), original))
     ) == squeezed

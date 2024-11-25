@@ -17,8 +17,8 @@ def obj():
 
 
 def test_nested_getter(obj):
-    getter = attr_getter("a") | index_getter("key") | index_getter(1)
+    getter = attr_getter("a") >> index_getter("key") >> index_getter(1)
     assert getter(obj) == 11
 
-    getter_plus_one = getter | operator(lambda x: x + 1)
+    getter_plus_one = getter >> operator(lambda x: x + 1)
     assert getter_plus_one(obj) == 12
