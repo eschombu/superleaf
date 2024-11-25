@@ -7,7 +7,7 @@ from superleaf.dataframe.column_ops import Col, ColOp
 from superleaf.collections.ordered_set import OrderedSet
 
 
-def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
+def _pass_filter(df: pd.DataFrame, *filters, **col_filters) -> np.ndarray[bool]:
     row_bools = np.ones(len(df)).astype(bool)
     for filt in filters:
         if isinstance(filt, ColOp):
@@ -27,7 +27,16 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
             raise TypeError(
                 "Keyword filters must be values, column operators, or callables to apply to each value in the column"
             )
-    return df[row_bools].copy()
+    return row_bools
+
+
+def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
+    return df[_pass_filter(df, *filters, **col_filters)].copy()
+
+
+def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, pd.DataFrame]:
+    row_bools = _pass_filter(df, *filters, **col_filters)
+    return df[row_bools].copy(), df[~row_bools].copy()
 
 
 def reorder_columns(df: pd.DataFrame, columns: Union[str, Sequence[str]], back=False, after=None, before=None

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from superleaf.dataframe.selection import Col, dfilter, reorder_columns
+from superleaf.dataframe.selection import Col, dfilter, partition, reorder_columns
 from superleaf.operators.comparison import ComparisonFunctions as F
 
 
@@ -41,6 +41,14 @@ def test_dfilter(df):
     assert _iseq(dfilter(df, col2=F.ge(0), col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
     assert _iseq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
     assert _iseq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
+
+
+def test_partition(df):
+    filtered, remaining = partition(df, col2=F.ge(0), col3=1, col5=1)
+    filt_exp = df.iloc[[4]]
+    assert len(filtered) + len(remaining) == len(df)
+    assert _iseq(filtered, filt_exp)
+    assert _iseq(remaining, df[~df.index.isin(filt_exp.index)])
 
 
 def test_reorder_columns(df: pd.DataFrame):
