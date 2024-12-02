@@ -18,37 +18,37 @@ def df():
     return pd.DataFrame(data)
 
 
-def _iseq(df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
+def _eq(df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
     return ((df1 == df2) | (df1.isna() & df2.isna())).all().all()
 
 
 def test_dfilter(df):
     # Progressively increase complexity
-    assert _iseq(dfilter(df, col1=0), df.iloc[[0]])
-    assert _iseq(dfilter(df, Col("col3").isna()), df[df["col3"].isna()])
-    assert _iseq(dfilter(df, col3=pd.notna), dfilter(df, Col("col3").notna()))
-    assert _iseq(dfilter(df, col3=pd.notna), dfilter(df, col3=F.notna))
+    assert _eq(dfilter(df, col1=0), df.iloc[[0]])
+    assert _eq(dfilter(df, Col("col3").isna()), df[df["col3"].isna()])
+    assert _eq(dfilter(df, col3=pd.notna), dfilter(df, Col("col3").notna()))
+    assert _eq(dfilter(df, col3=pd.notna), dfilter(df, col3=F.notna))
 
-    assert _iseq(dfilter(df, col3=1), df[df["col3"] == 1])
-    assert _iseq(dfilter(df, col3=1, col4="four"), df.iloc[[4]])
+    assert _eq(dfilter(df, col3=1), df[df["col3"] == 1])
+    assert _eq(dfilter(df, col3=1, col4="four"), df.iloc[[4]])
 
-    assert _iseq(dfilter(df, Col("col2") >= 0), df[df["col2"] >= 0])
-    assert _iseq(dfilter(df, col2=F.ge(0)), dfilter(df, Col("col2") >= 0))
-    assert _iseq(dfilter(df, (Col("col2") < 0) | ~(Col("col4").contains("o"))), df.iloc[[0, 1, 3]])
-    assert _iseq(dfilter(df, (Col("col2") > 0) & ~(Col("col4").contains("o"))), dfilter(df, Col("col3").isna()))
-    assert _iseq(dfilter(df, col2=(F.lt(0) | ~(F.le(0)))), df[df["col2"] != 0])
+    assert _eq(dfilter(df, Col("col2") >= 0), df[df["col2"] >= 0])
+    assert _eq(dfilter(df, col2=F.ge(0)), dfilter(df, Col("col2") >= 0))
+    assert _eq(dfilter(df, (Col("col2") < 0) | ~(Col("col4").contains("o"))), df.iloc[[0, 1, 3]])
+    assert _eq(dfilter(df, (Col("col2") > 0) & ~(Col("col4").contains("o"))), dfilter(df, Col("col3").isna()))
+    assert _eq(dfilter(df, col2=(F.lt(0) | ~(F.le(0)))), df[df["col2"] != 0])
 
-    assert _iseq(dfilter(df, col2=F.ge(0), col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
-    assert _iseq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
-    assert _iseq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
+    assert _eq(dfilter(df, col2=F.ge(0), col3=1), df[(df["col2"] >= 0) & (df["col3"] == 1)])
+    assert _eq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
+    assert _eq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
 
 
 def test_partition(df):
     filtered, remaining = partition(df, col2=F.ge(0), col3=1, col5=1)
     filt_exp = df.iloc[[4]]
     assert len(filtered) + len(remaining) == len(df)
-    assert _iseq(filtered, filt_exp)
-    assert _iseq(remaining, df[~df.index.isin(filt_exp.index)])
+    assert _eq(filtered, filt_exp)
+    assert _eq(remaining, df[~df.index.isin(filt_exp.index)])
 
 
 def test_reorder_columns(df: pd.DataFrame):
