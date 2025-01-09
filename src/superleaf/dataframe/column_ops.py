@@ -121,7 +121,7 @@ class _GtOp(_ComparisonOp):
 class _GeOp(_ComparisonOp):
     def __call__(self, df: pd.DataFrame) -> pd.Series:
         return self._col(df) >= self._value(df)
-    
+
 
 class _BinaryOp(ColOp):
     def __init__(self, left: Union[ColOp, Any], right: Union[ColOp, Any]) -> None:
@@ -133,12 +133,12 @@ class _BinaryOp(ColOp):
             self._right = right
         else:
             self._right = _LiteralOp(right)
-    
+
 
 class _OrOp(_BinaryOp):
     def __call__(self, df: pd.DataFrame) -> pd.Series:
         return self._left(df) | self._right(df)
-    
+
 
 class _AndOp(_BinaryOp):
     def __call__(self, df: pd.DataFrame) -> pd.Series:
@@ -163,6 +163,7 @@ class _MultiplyOp(_BinaryOp):
 class _DivideOp(_BinaryOp):
     def __call__(self, df: pd.DataFrame) -> pd.Series:
         return self._left(df) / self._right(df)
+
 
 class _PowOp(_BinaryOp):
     def __call__(self, df: pd.DataFrame) -> pd.Series:

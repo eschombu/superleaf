@@ -62,13 +62,16 @@ class _BinaryBoolOp(BooleanOperator, metaclass=ABCMeta):
         self._left = left
         self._right = right
 
+
 class _OrBoolOp(_BinaryBoolOp):
     def __call__(self, arg: Any) -> bool:
         return self._left(arg) | self._right(arg)
 
+
 class _AndBoolOp(_BinaryBoolOp):
     def __call__(self, arg: Any) -> bool:
         return self._left(arg) & self._right(arg)
+
 
 class _NotBoolOp(BooleanOperator):
     def __init__(self, op: BooleanOperator):

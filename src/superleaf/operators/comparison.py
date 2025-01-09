@@ -25,7 +25,6 @@ def _parse_exc_args(*exc_args, **exc_kwargs) -> dict:
         return exc_kwargs
 
 
-
 class ComparisonFunctions:
     @staticmethod
     def eq(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
@@ -78,6 +77,6 @@ class ComparisonFunctions:
     @staticmethod
     def endswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
         return bool_operator(lambda s: s.endswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
-    
+
     isna = bool_operator(_isna)
     notna = ~isna
