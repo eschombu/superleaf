@@ -3,7 +3,7 @@ from typing import Dict, Tuple
 
 import pytest
 
-from superleaf.operators import operator
+from superleaf.operators.base import operator
 from superleaf.operators.getters import attr_getter, index_getter
 
 

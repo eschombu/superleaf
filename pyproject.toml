@@ -1,21 +1,21 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "superleaf"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
     {name = "Erik Schomburg", email = "eschomburg@gmail.com"},
 ]
-description = ""
-requires-python = ">=3.7"
+description = "A library for intuitive and readable data manipulation, using functional and pipeable syntax."
+requires-python = ">=3.8"
 dependencies = [
     "ipython",
     "multiprocess",
     "numpy",
     "pandas",
-    "pendulum",
+    "pendulum>=3.0.0",
     "scipy",
 ]
 
@@ -23,8 +23,6 @@ dependencies = [
 test = ["pytest", "pytest-mock"]
 jupyter = ["jupyter"]
 
-[tool.setuptools.packages.find]
-exclude = ["notebooks", "tests"]
-
-[tool.pytest.ini_options]
-pythonpath = ["."]
+[project.urls]
+Homepage = "https://github.com/eschombu/superleaf"
+Issues = "https://github.com/eschombu/superleaf/issues"

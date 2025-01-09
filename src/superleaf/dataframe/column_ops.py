@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable, Iterable, Union
 
-import numpy as np
 import pandas as pd
 
 

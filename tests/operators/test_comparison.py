@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from superleaf.operators import bool_operator
+from superleaf.operators.base import bool_operator
 from superleaf.operators.comparison import ComparisonFunctions as F
 
 

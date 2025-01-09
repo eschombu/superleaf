@@ -3,9 +3,9 @@ from functools import partial
 import numpy as np
 import pytest
 
-from superleaf.operators import operator
+from superleaf.operators.base import operator
 from superleaf.operators.comparison import ComparisonFunctions as F
-from superleaf.sequences import filtered, flatten, flat_map, groupby, mapped
+from superleaf.sequences.serial import filtered, flatten, flat_map, groupby, mapped
 
 
 def _try_len(x) -> int:
