@@ -1,6 +1,6 @@
 from datetime import datetime, time, timedelta
 import pytz
-from typing import List, Optional, Sequence, Tuple, Union
+from typing import Dict, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -31,7 +31,7 @@ def to_datetime(dt, tz=None) -> pendulum.DateTime:
                 dt = pendulum.parse(' '.join(dt_parts), tz=dtz)
             else:
                 raise err
-    elif isinstance(dt, (int, float, np.int_, np.float_)):
+    elif isinstance(dt, (int, float, np.int_, np.float64)):
         if (dt / _SECONDS_YEAR_2020) > 1e2:
             dt /= 1e9
         dt = pendulum.from_timestamp(dt, tz='UTC')
@@ -42,6 +42,13 @@ def to_datetime(dt, tz=None) -> pendulum.DateTime:
     if tz is not None:
         dt = dt.astimezone(tz)
     return dt
+
+
+def as_dict(dt) -> Dict[str, int]:
+    units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']
+    if isinstance(dt, time):
+        units = units[3:]
+    return {unit: getattr(dt, unit) for unit in units}
 
 
 def to_date(dt, tz=None, end_of_day=False) -> datetime:
@@ -106,9 +113,23 @@ def get_hours_minutes_seconds(time_1, time_2=None) -> Tuple[int, int, float]:
 
 
 def nearly_simultaneous(t1, t2, epsilon_seconds) -> bool:
-    t1 = to_datetime(t1)
-    t2 = to_datetime(t2)
-    return abs((t1 - t2).total_seconds()) < epsilon_seconds
+    if isinstance(t1, time) and isinstance(t2, time):
+        dt1 = datetime(1970, 1, 1, **as_dict(t1))
+        dt2 = datetime(1970, 1, 1, **as_dict(t2))
+    elif isinstance(t1, time):
+        dt2 = to_datetime(t2)
+        t1_dict = as_dict(dt2)
+        t1_dict.update(as_dict(t1))
+        dt1 = datetime(**t1_dict)
+    elif isinstance(t2, time):
+        dt1 = to_datetime(t1)
+        t2_dict = as_dict(dt1)
+        t2_dict.update(as_dict(t2))
+        dt2 = datetime(**t2_dict)
+    else:
+        dt1 = to_datetime(t1)
+        dt2 = to_datetime(t2)
+    return abs((dt1 - dt2).total_seconds()) <= epsilon_seconds
 
 
 def to_period(period_or_start, end=None, **delta_kwargs) -> pendulum.Interval:
