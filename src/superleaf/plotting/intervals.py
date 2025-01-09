@@ -36,7 +36,7 @@ def _get_intervals_from_series(states, t=None) -> List[StateInterval]:
     t_trans = np.mean(np.vstack([t[transitions], t[transitions + 1]]), axis=0)
     # except:  # I'm not sure why I did this, can't seem to find the failure cases now...
     #     t_trans = t_vec[transitions+1]
-    
+
     intervals = []
     for i in range(len(t_trans) + 1):
         if i == 0:
@@ -75,6 +75,8 @@ def _get_intervals_from_tuples(interval_tuples, states=None) -> List[StateInterv
             elif len(first_tup[1]) == 2:
                 intervals = [tup[1] for tup in first_tup]
                 states = [tup[0] for tup in first_tup]
+            else:
+                intervals = interval_tuples
         except TypeError:
             intervals = interval_tuples
             if (
@@ -117,10 +119,10 @@ def shade_intervals(
     ends=None,
     states=None,
 ):
-    if colors is not None and len(intervals) == len(colors) and len(colors) in (3, 4):
+    if colors is not None and len(intervals_or_states) == len(colors) and len(colors) in (3, 4):
         try:
             c = mpl.colors.to_rgb(colors)
-            colors = [c for _ in range(len(intervals))]
+            colors = [c for _ in range(len(intervals_or_states))]
         except ValueError:
             pass
 
@@ -144,7 +146,7 @@ def shade_intervals(
             warn("Many distinct states, series variable may be continuous.")
     else:
         raise ValueError("Cannot parse intervals/states argument(s)")
-    
+
     if len(set([intvl.state for intvl in intervals])) == 1:
         shade_nan = True
 
@@ -153,8 +155,8 @@ def shade_intervals(
         cmap = mpl.cm.get_cmap('Paired', len(distinct_states))
         colors = {
             s: c[:3]
-            for s, c in zip(distinct_states, [cmap(i/(len(distinct_states)-1))
-            for i in range(len(distinct_states))])
+            for s, c in zip(distinct_states,
+                            [cmap(i/(len(distinct_states)-1)) for i in range(len(distinct_states))])
         }
 
     if isinstance(colors, dict):
@@ -162,7 +164,7 @@ def shade_intervals(
 
     if ax is None:
         ax = plt.gca()
-    
+
     labeled = []
     objects = []
     for (start, end, state), color in zip(intervals, colors):

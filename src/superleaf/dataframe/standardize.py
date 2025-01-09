@@ -3,6 +3,7 @@ from typing import Iterable
 
 import pandas as pd
 
+
 def _is_iter(obj):
     try:
         iter(obj)
