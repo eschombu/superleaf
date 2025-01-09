@@ -1,5 +1,4 @@
-from superleaf.operators import operator
-from superleaf.operators.base import Operator
+from superleaf.operators.base import Operator, operator
 
 
 def attr_getter(name: str) -> Operator:

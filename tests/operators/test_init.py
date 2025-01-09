@@ -1,4 +1,4 @@
-from superleaf.operators import operator
+from superleaf.operators.base import operator
 
 
 def _plus_one(x):

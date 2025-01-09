@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pendulum
 from pendulum.exceptions import ParserError
-from pendulum.tz.zoneinfo.exceptions import InvalidTimezone
+from pendulum.tz.exceptions import InvalidTimezone
 
 from superleaf.stats.circular import circmean
 
@@ -111,8 +111,8 @@ def nearly_simultaneous(t1, t2, epsilon_seconds) -> bool:
     return abs((t1 - t2).total_seconds()) < epsilon_seconds
 
 
-def to_period(period_or_start, end=None, **delta_kwargs) -> pendulum.Period:
-    if isinstance(period_or_start, pendulum.Period):
+def to_period(period_or_start, end=None, **delta_kwargs) -> pendulum.Interval:
+    if isinstance(period_or_start, pendulum.Interval):
         return period_or_start
     else:
         if hasattr(period_or_start, 'start') and hasattr(period_or_start, 'end'):
@@ -131,7 +131,7 @@ def to_period(period_or_start, end=None, **delta_kwargs) -> pendulum.Period:
             end = to_datetime(end)
         if start > end:
             raise ValueError(f"Start ({start}) is after end ({end})")
-        return pendulum.period(start, end)
+        return pendulum.interval(start, end)
 
 
 def to_seconds_in_day(timestamps, local=False) -> np.ndarray:
