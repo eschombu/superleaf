@@ -23,6 +23,10 @@ dependencies = [
 test = ["pytest", "pytest-mock"]
 jupyter = ["jupyter"]
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
 [project.urls]
 Homepage = "https://github.com/eschombu/superleaf"
 Issues = "https://github.com/eschombu/superleaf/issues"
