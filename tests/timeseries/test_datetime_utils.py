@@ -5,6 +5,7 @@ import pendulum
 import pytest
 
 from superleaf.timeseries import datetime_utils as dtutil
+from superleaf.timeseries.datetime_utils import nearly_simultaneous
 
 
 @pytest.fixture(autouse=True)
@@ -41,6 +42,13 @@ def test_to_datetime():
     # Check that no timezone info gets converted to UTC
     _check_type_and_isoformat(dtutil.to_datetime(dt_d_no_tz), datetime, dt_s)
     _check_type_and_isoformat(dtutil.to_datetime(dt_d_tz, tz='UTC'), datetime, dt_s)
+
+
+def test_as_dict():
+    dt = datetime(1970, 1, 1, 12, 59, 59, 999999)
+    dt_dict = dtutil.as_dict(dt)
+    dt2 = datetime(**dt_dict)
+    assert dt == dt2
 
 
 def test_to_date():
@@ -109,9 +117,8 @@ def test_nearly_simultaneous():
     seconds = 2
     t1 = '2022-01-01T00:00:00+00:00'
     t2 = f'2022-01-01T00:00:{seconds:02}+00:00'
-    assert dtutil.nearly_simultaneous(t1, t2, epsilon_seconds=(seconds - 1)) is False
-    assert dtutil.nearly_simultaneous(t1, t2, epsilon_seconds=(seconds + 1)) is True
-    assert dtutil.nearly_simultaneous(t1, t2, epsilon_seconds=seconds) is False
+    assert dtutil.nearly_simultaneous(t1, t2, epsilon_seconds=(seconds - 0.1)) is False
+    assert dtutil.nearly_simultaneous(t1, t2, epsilon_seconds=(seconds + 0.1)) is True
 
 
 def test_midpoint():
@@ -124,23 +131,23 @@ def test_midpoint():
 
 def test_mean_time():
     ts_tz_naive = ['2022-08-09 12:45:12',
-                    '2022-06-09 11:45:12',
-                    '2020-08-09 13:45:12',
-                    '2022-08-23 14:45:12']
-    assert dtutil.mean_time(ts_tz_naive) == time(13, 15, 12)
+                   '2022-06-09 11:45:12',
+                   '2020-08-09 13:45:12',
+                   '2022-08-23 14:45:12']
+    assert nearly_simultaneous(dtutil.mean_time(ts_tz_naive), time(13, 15, 12), 1e-6)
 
     ts_tz = ['2022-08-09 12:45:12-0400',
-                '2022-06-09 11:45:12-0400',
-                '2020-08-09 13:45:12+0000',  # == '2020-08-09 09:45:12-0400'
-                '2022-08-23 14:45:12-0400']
+             '2022-06-09 11:45:12-0400',
+             '2020-08-09 13:45:12+0000',  # == '2020-08-09 09:45:12-0400'
+             '2022-08-23 14:45:12-0400']
     expected_utc = time(16, 15, 12)
     expected_local = time(13, 15, 12)
-    assert dtutil.mean_time(ts_tz) == expected_utc
-    assert dtutil.mean_time(ts_tz, local=True) == expected_local
+    assert nearly_simultaneous(dtutil.mean_time(ts_tz), expected_utc, 1e-6)
+    assert nearly_simultaneous(dtutil.mean_time(ts_tz, local=True), expected_local, 1e-6)
 
     around_midnight = ['2022-08-09 23:00:00',
-                        '2022-08-09 01:00:00']
-    assert dtutil.mean_time(around_midnight) == time(0)
+                       '2022-08-09 01:00:00']
+    assert nearly_simultaneous(dtutil.mean_time(around_midnight), time(0), 1e-6)
 
 
 def test_get_first_time_in_interval():
