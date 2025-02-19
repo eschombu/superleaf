@@ -15,9 +15,12 @@ def _pass_filter(df: pd.DataFrame, *filters, **col_filters) -> np.ndarray[bool]:
         elif callable(filt):
             row_bools = row_bools & df.apply(filt, axis=1)
         else:
-            raise TypeError(
-                "Positional filters must be column operators or callables to apply to each row"
-            )
+            try:
+                row_bools = row_bools & np.array(list(filt))
+            except:
+                raise TypeError(
+                    "Positional filters must be column operators or callables to apply to each row"
+                )
     for col, filt in col_filters.items():
         if isinstance(filt, ColOp) or not callable(filt):
             row_bools = row_bools & (Col(col) == filt)(df)
