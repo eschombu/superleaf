@@ -1,6 +1,6 @@
 import pytest
 
-from superleaf.collections import OrderedSet
+from superleaf.collections.ordered_set import OrderedSet
 
 
 @pytest.fixture
