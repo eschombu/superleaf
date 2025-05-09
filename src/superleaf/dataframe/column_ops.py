@@ -58,7 +58,11 @@ class ColOp(metaclass=ABCMeta):
         return _ColMapOp(self, f)
 
     def isin(self, values: Iterable[Any]) -> "ColOp":
-        return self.apply(lambda s: s.isin(values))
+        if isinstance(values, ColOp):
+            combined_vals = self.to_list() + values.to_list()
+            return combined_vals.map(lambda x: x[0] in x[1])
+        else:
+            return self.apply(lambda s: s.isin(values))
 
     def contains(self, value: Any) -> "ColOp":
         return self.map(lambda x: value in x)
@@ -71,6 +75,9 @@ class ColOp(metaclass=ABCMeta):
 
     def astype(self, type_) -> "ColOp":
         return self.apply(lambda s: s.astype(type_))
+
+    def to_list(self):
+        return self.map(lambda x: [x])
 
 
 class Index(ColOp):
