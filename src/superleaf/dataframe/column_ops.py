@@ -73,6 +73,11 @@ class ColOp(metaclass=ABCMeta):
         return self.apply(lambda s: s.astype(type_))
 
 
+class Index(ColOp):
+    def __call__(self, df: pd.DataFrame) -> pd.Index:
+        return df.index
+
+
 class Col(ColOp):
     def __init__(self, name: str):
         self._name = name

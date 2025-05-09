@@ -3,17 +3,20 @@ from typing import Sequence, Union
 import numpy as np
 import pandas as pd
 
-from superleaf.dataframe.column_ops import Col, ColOp
+from superleaf.dataframe.column_ops import Col, ColOp, Index
 from superleaf.collections.ordered_set import OrderedSet
 
 
-def _pass_filter(df: pd.DataFrame, *filters, **col_filters) -> np.ndarray[bool]:
+def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray[bool]:
     row_bools = np.ones(len(df)).astype(bool)
     for filt in filters:
         if isinstance(filt, ColOp):
             row_bools = row_bools & filt(df)
         elif callable(filt):
-            row_bools = row_bools & df.apply(filt, axis=1)
+            if isinstance(df, pd.DataFrame):
+                row_bools = row_bools & df.apply(filt, axis=1)
+            else:
+                row_bools = row_bools & filt(df)
         else:
             try:
                 row_bools = row_bools & np.array(list(filt))
@@ -22,10 +25,14 @@ def _pass_filter(df: pd.DataFrame, *filters, **col_filters) -> np.ndarray[bool]:
                     "Positional filters must be column operators or callables to apply to each row"
                 )
     for col, filt in col_filters.items():
+        if isinstance(df, pd.Series) and col.lower() == "index":
+            col_getter = Index()
+        else:
+            col_getter = Col(col)
         if isinstance(filt, ColOp) or not callable(filt):
-            row_bools = row_bools & (Col(col) == filt)(df)
+            row_bools = row_bools & (col_getter == filt)(df)
         elif callable(filt):
-            row_bools = row_bools & Col(col).map(filt)(df)
+            row_bools = row_bools & col_getter.map(filt)(df)
         else:
             raise TypeError(
                 "Keyword filters must be values, column operators, or callables to apply to each value in the column"
