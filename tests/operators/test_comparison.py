@@ -59,6 +59,7 @@ def test_individual_comparisons():
     assert F.notna(np.inf) is True
     assert F.notna(0) is True
 
+
 def test_comparison_combos():
     assert (F.gt("hello") & F.contains("wo") & F.isin("sweet world"))("world") is True
     assert (F.startswith("hello") | F.endswith("world"))("hello world") is True

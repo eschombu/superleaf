@@ -3,6 +3,7 @@ from typing import Generic, Iterable, Iterator, Self, TypeVar
 
 T = TypeVar('T')
 
+
 class OrderedSet(Generic[T]):
     """Similar interface to the native set class, but with item order maintained, and expanded functionality, including
     addition and summation. Implemented by storing the set items as keys in an internal dict."""

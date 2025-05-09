@@ -69,9 +69,9 @@ def test_summable_dict(d1, d2, d3, d4):
 
     # Negation and subtraction
     with pytest.raises(TypeError):
-        d1n = -d1
+        _ = -d1
     with pytest.raises(TypeError):
-        d1m2 = d1 - d2
+        _ = d1 - d2
 
     d3 = SummableDict(d3)
     d3n = -d3

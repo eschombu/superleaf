@@ -8,25 +8,25 @@ def test_get_hash_string():
     h = get_hash_string(v)
     assert h == get_hash_string(v)
 
-    l = len(h) - 1
-    h2 = get_hash_string(v, length=l)
-    assert len(h2) == l
+    n = len(h) - 1
+    h2 = get_hash_string(v, length=n)
+    assert len(h2) == n
     assert h2 != h
 
-    l = 8
-    h = get_hash_string(v, algo='sha1', length=l)
+    n = 8
+    h = get_hash_string(v, algo='sha1', length=n)
     h2 = get_hash_string(v, algo='sha1')
     assert len(h) != len(h2)
-    assert h == h2[:l]
+    assert h == h2[:n]
 
-    l = 8
-    h = get_hash_string(v, algo='shake_128', length=l)
-    h2 = get_hash_string(v, algo='shake_128', length=(l + 1))
+    n = 8
+    h = get_hash_string(v, algo='shake_128', length=n)
+    h2 = get_hash_string(v, algo='shake_128', length=(n + 1))
     assert h != h2
-    assert h == h2[:l]
+    assert h == h2[:n]
 
-    h = get_hash_string(v, algo='sha1', length=l)
-    h2 = get_hash_string(v, algo='shake_128', length=l)
+    h = get_hash_string(v, algo='sha1', length=n)
+    h2 = get_hash_string(v, algo='shake_128', length=n)
     assert h != h2
 
     assert get_hash_string(v) == get_hash_string([v])

@@ -12,7 +12,7 @@ def obj():
     @dataclass
     class Data:
         a: Dict[str, Tuple[int, int]]
-    
+
     return Data({"key": (10, 11)})
 
 

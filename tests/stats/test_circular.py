@@ -5,7 +5,7 @@ from superleaf.stats.circular import circmean
 
 
 def _approx_eq(a, b, tol=1e-12):
-        return abs(a - b) <= tol
+    return abs(a - b) <= tol
 
 
 def test_circmean():

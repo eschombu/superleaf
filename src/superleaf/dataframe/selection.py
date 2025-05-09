@@ -20,7 +20,7 @@ def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.nd
         else:
             try:
                 row_bools = row_bools & np.array(list(filt))
-            except:
+            except Exception:
                 raise TypeError(
                     "Positional filters must be column operators or callables to apply to each row"
                 )

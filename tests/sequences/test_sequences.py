@@ -1,5 +1,3 @@
-from functools import partial
-
 import numpy as np
 import pytest
 
@@ -50,7 +48,7 @@ def _equal(xy):
     try:
         return bool(x == y)
     except ValueError:
-        return all(x == y)    
+        return all(x == y)
 
 
 def test_flatten(seq):

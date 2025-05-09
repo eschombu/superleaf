@@ -96,7 +96,7 @@ def test_get_hours_minutes_seconds():
     h = 12
     m = 34
     s = 56
-    t1 = pendulum.parse(f'2022-01-01T00:00:00+00:00')
+    t1 = pendulum.parse('2022-01-01T00:00:00+00:00')
     t2 = pendulum.parse(f'2022-01-01T{h}:{m}:{s}+00:00')
     assert dtutil.get_hours_minutes_seconds(t1, t2) == (h, m, s)
     assert dtutil.get_hours_minutes_seconds(t2 - t1) == (h, m, s)

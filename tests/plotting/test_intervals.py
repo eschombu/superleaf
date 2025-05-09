@@ -19,7 +19,7 @@ def test_get_intervals():
 
     starts, ends, states = zip(*map(tuple, state_intervals))
     df = pd.DataFrame({"state": states, "start": starts, "end": ends})
-    
+
     def assert_eq(result, expected) -> bool:
         assert all([r == e for r, e in zip(result, expected)])
 

@@ -145,7 +145,7 @@ def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_
                     ]
                     for future in as_completed(futures):
                         results.extend(future.result())
-                # Results may not be in the original order, so sort them using the indices with which they were returned
+                # Results may not be in the original order, sort them using the indices with which they were returned
                 results.sort(key=lambda x: x[0])  # Sort by the original index
                 _, results = zip(*results)  # Unzip the results to get the values only
             except KeyboardInterrupt:
@@ -362,7 +362,7 @@ class PyArrowArray(PyArrowDataFrame):
             cls, array: np.ndarray, path: Optional[str] = None, dir: Optional[str] = None, overwrite: bool = False
     ) -> Self:
         if array.ndim > 2:
-            raise NotImplementedError(f"Only arrays with <=2 dimensions are supported.")
+            raise NotImplementedError("Only arrays with <=2 dimensions are supported.")
         if array.ndim == 1:
             array = array[:, np.newaxis]
         df = pd.DataFrame({str(i): array[:, i] for i in range(array.shape[1])})

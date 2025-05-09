@@ -13,10 +13,10 @@ def test_with_fallback():
     fail_add = (1, "2")
     succeed_add = (1, 2)
     succeed_result = 3
-    
+
     with pytest.raises(TypeError):
         add(*fail_add)
-    
+
     wrapped_add_default = with_fallback(add)
     assert wrapped_add_default(*succeed_add) == succeed_result
     assert wrapped_add_default(*succeed_add, c=0) == succeed_result

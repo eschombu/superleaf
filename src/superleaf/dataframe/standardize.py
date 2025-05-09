@@ -41,7 +41,7 @@ def standardize_columns(
                     warnings.simplefilter('error')
                     try:
                         df[col] = pd.to_datetime(df[col], errors='coerce')
-                    except UserWarning as e:
+                    except UserWarning:
                         if not quiet:
                             print(f"Could not convert column '{col}' to datetime")
             else:
