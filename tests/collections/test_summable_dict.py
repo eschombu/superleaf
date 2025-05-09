@@ -21,7 +21,23 @@ def d2():
     }
 
 
-def test_summable_dict(d1, d2):
+@pytest.fixture
+def d3():
+    return {
+        'a': 1,
+        'b': 2,
+    }
+
+
+@pytest.fixture
+def d4():
+    return {
+        'b': 3,
+        'c': 4,
+    }
+
+
+def test_summable_dict(d1, d2, d3, d4):
     d1 = SummableDict(d1)
 
     d1p2 = d1 + d2
@@ -50,3 +66,38 @@ def test_summable_dict(d1, d2):
 
     d12sum = sum([d1, d2])
     assert d12sum == d1p2
+
+    # Negation and subtraction
+    with pytest.raises(TypeError):
+        d1n = -d1
+    with pytest.raises(TypeError):
+        d1m2 = d1 - d2
+
+    d3 = SummableDict(d3)
+    d3n = -d3
+    assert d3n == SummableDict({k: -v for k, v in d3.items()})
+
+    d3m4 = d3 - d4
+    assert set(d3m4.keys()) == (set(d3.keys()) | set(d4.keys()))
+    for key in d3m4.keys():
+        if key in d3.keys() and key in d4.keys():
+            assert d3m4[key] == d3[key] - d4[key]
+        elif key in d3.keys():
+            assert d3m4[key] == d3[key]
+        else:
+            assert d3m4[key] == -d4[key]
+
+    d3m5 = d3 - 5
+    assert set(d3m5.keys()) == set(d3.keys())
+    for key in d3m5.keys():
+        assert d3m5[key] == d3[key] - 5
+
+    d4m3 = d4 - d3
+    assert set(d4m3.keys()) == (set(d3.keys()) | set(d4.keys()))
+    for key in d4m3.keys():
+        if key in d3.keys() and key in d4.keys():
+            assert d4m3[key] == d4[key] - d3[key]
+        elif key in d3.keys():
+            assert d4m3[key] == -d3[key]
+        else:
+            assert d4m3[key] == d4[key]
