@@ -1,3 +1,4 @@
+flake8
 ipython
 jupyter
 matplotlib
@@ -5,4 +6,8 @@ multiprocess
 numpy
 pandas
 pendulum>=3.0.0
+pyarrow
+pytest
+pytest-mock
 scipy
+tqdm
