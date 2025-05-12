@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Callable, Iterable, Union
+from typing import Any, Callable, Iterable, Optional, Union
 
 import pandas as pd
 
@@ -86,11 +86,24 @@ class Index(ColOp):
 
 
 class Col(ColOp):
-    def __init__(self, name: str):
+    def __init__(self, name: Optional[str]):
         self._name = name
 
     def __call__(self, df: pd.DataFrame) -> pd.Series:
-        return df[self._name]
+        if self._name is None:
+            return df.iloc[:]
+        else:
+            return df[self._name]
+
+
+class Values(Col):
+    def __init__(self):
+        super().__init__(None)
+
+    def __call__(self, s: pd.Series) -> pd.Series:
+        if isinstance(s, pd.DataFrame):
+            raise TypeError("Values can only be called on a Series")
+        return s.iloc[:]
 
 
 class _LiteralOp(ColOp):

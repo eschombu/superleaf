@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from superleaf.dataframe.column_ops import Col
+from superleaf.dataframe.column_ops import Col, Values
 
 
 @pytest.fixture
@@ -44,3 +44,7 @@ def test_col_ops(df: pd.DataFrame):
     assert _iseq((Col("col1").astype(float) ** Col("col2"))(df), df["col1"].astype(float) ** df["col2"])
     assert _iseq(Col("col1").isin(Col("col2").to_list() + Col("col3").to_list())(df),
                  ((Col("col1") == Col("col2")) | (Col("col1") == Col("col3")))(df))
+
+    # Test Values operator on series
+    s = df["col1"]
+    assert _iseq(((Values() < 1) | (Values() >= 3))(s), (s < 1) | (s >= 3))
