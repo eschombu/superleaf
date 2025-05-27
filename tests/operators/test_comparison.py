@@ -50,6 +50,11 @@ def test_individual_comparisons():
     with pytest.raises(AttributeError):
         F.endswith("lo")(1)
 
+    assert F.startswith_one_of(["he", "no"])("hello") is True
+    assert F.startswith_one_of(["lo", "no"])("hello") is False
+    assert F.endswith_one_of(["lo", "no"])("hello") is True
+    assert F.endswith_one_of(["he", "no"])("hello") is False
+
     assert F.isna(np.nan) is True
     assert F.isna(None) is True
     assert F.isna(np.inf) is False

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Iterable
 
 from superleaf.operators.base import bool_operator, BooleanOperator
 
@@ -77,6 +77,16 @@ class ComparisonFunctions:
     @staticmethod
     def endswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
         return bool_operator(lambda s: s.endswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
+    def startswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda s: any(s.startswith(v) for v in values),
+                             **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
+    def endswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda s: any(s.endswith(v) for v in values),
+                             **_parse_exc_args(*exc_args, **exc_kwargs))
 
     isna = bool_operator(_isna)
     notna = ~isna
