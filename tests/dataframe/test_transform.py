@@ -9,8 +9,16 @@ from superleaf.dataframe.transform import expand_dict_to_cols
 def df():
     data = {
         "col1": [0, 1, 2, 3, 4],
-        "col2": [{'field1': 1, 'field2': 2}, {'field1': 3, 'field2': 4}, {}, {'field1': 5, 'field2': 6}, {'field3': 7}],
-        "col3": [{'field1': 1, 'field3': 2}, {'field1': 3, 'field4': 4}, {}, {'field3': 5, 'field4': 6}, {'field4': 7}],
+        "col2": [{'field1': 1, 'field2': 2},
+                 {'field1': 3, 'field2': 4},
+                 {},
+                 {'field1': 5, 'field2': 6},
+                 {'field3': 7}],
+        "col3": [{'field1': 1, 'field3': 2},
+                 {'field1': 3, 'field4': 4},
+                 {},
+                 {'field3': 5, 'field4': 6},
+                 {'field4': 7}],
     }
     return pd.DataFrame(data)
 

@@ -110,7 +110,7 @@ def expand_dict_to_cols(
                 current_fields = fields
             for field in current_fields:
                 values = df[col].map(get_field(field))
-                #if len(values.dropna()) > 0:
+                # if len(values.dropna()) > 0:
                 if with_col_prefix:
                     col_prefix = prefix or f"{col}{sep}"
                 else:
