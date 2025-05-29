@@ -41,16 +41,79 @@ def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.nd
 
 
 def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
+    """
+    Filters a DataFrame by applying provided conditions.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame to filter.
+        *filters: Variable positional arguments that can be:
+            - Instances of ColOp.
+            - Callables applied row-wise, returning boolean values.
+            - Iterable of boolean values indicating row selection.
+        **col_filters: Keyword arguments mapping column names to conditions, which can be:
+            - Values (equality filter).
+            - Instances of ColOp.
+            - Callables applied element-wise to the specified column.
+
+    Returns:
+        pd.DataFrame: A copy of the DataFrame containing only rows satisfying all filters.
+
+    Example:
+        filtered_df = dfilter(df, Col('age') > 30, status='active')
+    """
     return df[_pass_filter(df, *filters, **col_filters)].copy()
 
 
 def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Partitions a DataFrame into two subsets based on provided filtering conditions.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame to partition.
+        *filters: Variable positional arguments (see `dfilter` documentation).
+        **col_filters: Keyword arguments (see `dfilter` documentation).
+
+    Returns:
+        tuple[pd.DataFrame, pd.DataFrame]:
+            - First DataFrame contains rows matching the provided filters.
+            - Second DataFrame contains rows that do not match.
+
+    Example:
+        passed_df, failed_df = partition(df, score=lambda x: x > 50)
+    """
     row_bools = _pass_filter(df, *filters, **col_filters)
     return df[row_bools].copy(), df[~row_bools].copy()
 
 
-def reorder_columns(df: pd.DataFrame, columns: Union[str, Sequence[str]], back=False, after=None, before=None
-                    ) -> pd.DataFrame:
+def reorder_columns(
+        df: pd.DataFrame,
+        columns: Union[str, Sequence[str]],
+        back=False,
+        after=None,
+        before=None,
+) -> pd.DataFrame:
+    """
+    Reorders columns in a DataFrame based on the provided parameters.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame whose columns to reorder.
+        columns (Union[str, Sequence[str]]): Column name or sequence of column names to reorder.
+        back (bool, optional): If True, moves specified columns to the end. Default is False.
+        after (str, optional): Column name after which the specified columns should be placed. Default is None.
+        before (str, optional): Column name before which the specified columns should be placed. Default is None.
+
+    Notes:
+        Exactly one of `back`, `after`, or `before` can be used at a time.
+
+    Returns:
+        pd.DataFrame: A new DataFrame with reordered columns.
+
+    Raises:
+        ValueError: If more than one of `back`, `after`, or `before` parameters are provided simultaneously.
+
+    Example:
+        reordered_df = reorder_columns(df, ['age', 'name'], after='id')
+    """
     if isinstance(columns, str):
         columns = [columns]
     df_cols = OrderedSet(df.columns)
@@ -62,7 +125,7 @@ def reorder_columns(df: pd.DataFrame, columns: Union[str, Sequence[str]], back=F
     elif after or before:
         if after:
             insert_idx = list(df.columns).index(after) + 1
-        elif before:
+        else:  # before -- already enforced that before and after cannot both be True
             insert_idx = list(df.columns).index(before)
         col_order = list((OrderedSet(df_cols[:insert_idx]) - columns) + columns + OrderedSet(df_cols[insert_idx:]))
     else:

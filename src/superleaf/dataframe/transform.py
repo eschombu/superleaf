@@ -32,6 +32,76 @@ def expand_dict_to_cols(
         uniform_keys=False,
         default=np.nan,
 ) -> pd.DataFrame:
+    """
+    Expand dictionary-like values in one or more DataFrame columns into new, flat columns.
+
+    For each column in `cols`, any dictionary-like entries will be unpacked into
+    separate columns (one per key).  You can control which keys to expand, how
+    to name the new columns, whether to drop the original column, and whether
+    nested dicts should be expanded recursively.
+
+    Parameters:
+        df (pd.DataFrame)
+            The input DataFrame.
+        cols (str or Sequence[str])
+            Column name or list of column names whose values are dicts to expand.
+        fields (str or Sequence[str], optional)
+            Specific keys to extract from each dict.  If None (default), all keys
+            encountered (or, if `uniform_keys=True`, the keys from the first non-null
+            dict) will be used.
+        with_col_prefix (bool, optional)
+            If True (default), each new column name is prefixed by the source column
+            name and `sep`.  If False, only `prefix` (if provided) will be used.
+        prefix (str, optional)
+            A string to prepend to all new column names.  Defaults to ''.
+        prefix_fun (callable, optional)
+            Function of signature `fn(col_name, current_prefix) -> new_prefix`
+            to dynamically compute the prefix for each source column.
+        sep (str, optional)
+            Separator inserted between the prefix and the field name.  Default is '_'.
+        drop (bool, optional)
+            If True (default), drop the original `cols` from the output DataFrame.
+        dropna (bool, optional)
+            If True, omit creating new columns when all values for a given key are null.
+            Default is False.
+        col_renamer (dict or callable, optional)
+            - If dict: maps original field names (or source columns) to final column names
+              or to a callable that returns one.
+            - If callable: applied to each generated name.
+        recursive (bool, optional)
+            If True, and if a extracted value is itself a dict, apply this same expansion
+            logic recursively to that nested dict.  Default is False.
+        uniform_keys (bool, optional)
+            If True, assume each dict in a column has the same set of keys and extract
+            those keys from the first non-null entry (faster).  Otherwise, collect the
+            union of all keys across rows.  Default is False.
+        default (scalar, optional)
+            Value to use when a key is missing in a particular row.  Default is `np.nan`.
+
+    Returns:
+        pd.DataFrame
+            A new DataFrame in which each specified dict‐column has been replaced (or
+            supplemented, if `drop=False`) by one column per key, with names determined
+            by the combination of `prefix`, source column name, and key.
+
+    Raises:
+        TypeError: if a non-dict-like value is encountered when expanding and cannot
+                   be interpreted as a dict.
+
+    Example:
+        >>> df = pd.DataFrame({
+        ...     'metadata': [
+        ...         {'id': 1, 'score': 9},
+        ...         {'id': 2, 'score': 7, 'extra': 5},
+        ...         None
+        ...     ]
+        ... })
+        >>> expand_dict_to_cols(df, 'metadata')
+           metadata_id  metadata_score  metadata_extra
+        0            1             9.0             NaN
+        1            2             7.0             5.0
+        2          NaN             NaN             NaN
+    """
 
     def has_vals(meta: Optional[dict]) -> bool:
         try:
@@ -110,7 +180,6 @@ def expand_dict_to_cols(
                 current_fields = fields
             for field in current_fields:
                 values = df[col].map(get_field(field))
-                # if len(values.dropna()) > 0:
                 if with_col_prefix:
                     col_prefix = prefix or f"{col}{sep}"
                 else:
