@@ -12,20 +12,9 @@ class ColOp(metaclass=ABCMeta):
     arithmetic operators.
 
     Operators defined on this class:
-        | (bitwise or)
-        & (bitwise and)
-        ~ (bitwise not)
-        == (equal to)
-        != (not equal to)
-        < (less than)
-        <= (less than or equal to)
-        > (greater than)
-        >= (greater than or equal to)
-        + (addition)
-        - (subtraction)
-        * (multiplication)
-        / (division)
-        ^ (power)
+    ``|`` (bitwise or), ``&`` (bitwise and), ``~`` (bitwise not), ``==`` (equal to), ``!=`` (not equal to),
+    ``<`` (less than), ``<=`` (less than or equal to), ``>`` (greater than), ``>=`` (greater than or equal to),
+    ``+`` (addition), ``-`` (subtraction), ``*`` (multiplication), ``/`` (division), ``^`` (power)
     """
 
     @abstractmethod
@@ -97,7 +86,7 @@ class ColOp(metaclass=ABCMeta):
         Returns
         -------
         ColOp
-            A new ColOp representing the application of `f` to this operation’s output.
+            A new ColOp representing the application of ``f`` to this operation’s output.
         """
         return _ColApplyOp(self, f)
 

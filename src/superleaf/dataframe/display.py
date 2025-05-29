@@ -64,7 +64,7 @@ def show_all(df, mode=None, columns=True, rows=True):
         One of:
         - 'columns': expand only columns
         - 'rows': expand only rows
-        - None (default): use the `columns` and `rows` flags below
+        - None (default): use the ``columns`` and ``rows`` flags below
     columns : bool, optional
         When mode is None, if True (default) all columns are shown.
     rows : bool, optional

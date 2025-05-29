@@ -34,7 +34,7 @@ def expand_dict_to_cols(
 ) -> pd.DataFrame:
     """Expand dictionary-like values in one or more DataFrame columns into new, flat columns.
 
-    For each column in `cols`, dictionary-like entries are unpacked into separate
+    For each column in ``cols``, dictionary-like entries are unpacked into separate
     columns (one per key). You can control which keys to expand, how to name the new
     columns, whether to drop the original columns, and whether nested dictionaries
     should be expanded recursively.
@@ -47,11 +47,11 @@ def expand_dict_to_cols(
         Column name or list of column names whose values are dicts to expand.
     fields : str or Sequence[str], optional
         Specific keys to extract from each dict. If None, all keys encountered
-        (or, if `uniform_keys=True`, the keys from the first non-null dict) will
+        (or, if ``uniform_keys=True``, the keys from the first non-null dict) will
         be used.
     with_col_prefix : bool, optional
-        If True, prefix new column names with the source column name and `sep`.
-        If False, only `prefix` (if provided) is used.
+        If True, prefix new column names with the source column name and ``sep``.
+        If False, only ``prefix`` (if provided) is used.
     prefix : str, optional
         A string to prepend to all new column names.
     prefix_fun : callable, optional

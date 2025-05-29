@@ -83,7 +83,7 @@ def _process_worker(func, enumerated_items, star, counter, lock, nthreads_per_pr
 def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_per_process=None, pbar_desc=None,
            verbose=False):
     """
-    Apply `func` to every item in `iterable`.
+    Apply ``func`` to every item in ``iterable``.
 
     mode:
       - "thread": use ThreadPoolExecutor with n_workers.

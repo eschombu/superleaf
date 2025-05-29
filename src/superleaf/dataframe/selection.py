@@ -78,9 +78,9 @@ def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, 
     df : pd.DataFrame
         The DataFrame to partition.
     *filters
-        Variable positional arguments (see `dfilter` documentation).
+        Variable positional arguments (see ``dfilter`` documentation).
     **col_filters
-        Keyword arguments (see `dfilter` documentation).
+        Keyword arguments (see ``dfilter`` documentation).
 
     Returns
     -------
@@ -125,12 +125,12 @@ def reorder_columns(
 
     Notes
     -----
-    Exactly one of `back`, `after`, or `before` can be used at a time.
+    Exactly one of ``back``, ``after``, or ``before`` can be used at a time.
 
     Raises
     ------
     ValueError
-        If more than one of `back`, `after`, or `before` parameters are provided simultaneously.
+        If more than one of ``back``, ``after``, or ``before`` parameters are provided simultaneously.
 
     Examples
     --------
