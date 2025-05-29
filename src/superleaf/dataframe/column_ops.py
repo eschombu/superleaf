@@ -5,6 +5,15 @@ import pandas as pd
 
 
 class ColOp(metaclass=ABCMeta):
+    """
+    Abstract base class for column operations on pandas DataFrames.
+
+    Subclasses implement transformations or evaluations that produce pandas Series or scalar results when applied to
+    DataFrames.
+
+    Supports chaining and combining using logical and arithmetic operators.
+    """
+
     @abstractmethod
     def __call__(self, df: pd.DataFrame) -> Union[pd.Series, Any]:
         pass
@@ -81,11 +90,28 @@ class ColOp(metaclass=ABCMeta):
 
 
 class Index(ColOp):
+    """
+    Represents the index of a pandas DataFrame.
+
+    Usage:
+        idx = Index()
+        index = idx(df)
+    """
     def __call__(self, df: pd.DataFrame) -> pd.Index:
         return df.index
 
 
 class Col(ColOp):
+    """
+    Represents a named column in a DataFrame.
+
+    Parameters:
+        name (Optional[str]): The column name. If None, selects the entire DataFrame.
+
+    Usage:
+        col = Col('column_name')
+        series = col(df)
+    """
     def __init__(self, name: Optional[str]):
         self._name = name
 
@@ -97,6 +123,16 @@ class Col(ColOp):
 
 
 class Values(Col):
+    """
+    Represents the values of a pandas Series.
+
+    Raises:
+        TypeError: If called on a DataFrame instead of a Series.
+
+    Usage:
+        values = Values()
+        series_values = values(series)
+    """
     def __init__(self):
         super().__init__(None)
 

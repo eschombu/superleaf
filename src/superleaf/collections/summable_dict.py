@@ -2,7 +2,7 @@ from typing import Self
 
 
 class SummableDict(dict):
-    """A dictionary-like object that supports addition of values."""
+    """A dictionary-like object that supports addition and subtraction of values."""
 
     def __add__(self, other) -> Self:
         summed = self.copy()
