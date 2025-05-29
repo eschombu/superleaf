@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["flake8", "pytest", "pytest-mock"]
+dev = ["flake8", "pydoclint", "pytest", "pytest-mock"]
 notebook = ["jupyter"]
 parallel = ["multiprocess", "pyarrow", "tqdm"]
 
