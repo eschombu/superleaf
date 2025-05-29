@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>superleaf.dataframe.selection &#8212; superleaf 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="superleaf.dataframe.standardize" href="superleaf.dataframe.standardize.html" />
+    <link rel="prev" title="superleaf.dataframe.display" href="superleaf.dataframe.display.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-superleaf.dataframe.selection">
+<span id="superleaf-dataframe-selection"></span><h1>superleaf.dataframe.selection<a class="headerlink" href="#module-superleaf.dataframe.selection" title="Link to this heading">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.selection.dfilter" title="superleaf.dataframe.selection.dfilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dfilter</span></code></a>(df, *filters, **col_filters)</p></td>
+<td><p>Filters a DataFrame by applying provided conditions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.selection.partition" title="superleaf.dataframe.selection.partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partition</span></code></a>(df, *filters, **col_filters)</p></td>
+<td><p>Partitions a DataFrame into two subsets based on provided filtering conditions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.selection.reorder_columns" title="superleaf.dataframe.selection.reorder_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reorder_columns</span></code></a>(df, columns[, back, after, ...])</p></td>
+<td><p>Reorders columns in a DataFrame based on the provided parameters.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.dataframe.selection.dfilter">
+<span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.selection.</span></span><span class="sig-name descname"><span class="pre">dfilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">col_filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.dataframe.selection.dfilter" title="Link to this definition">¶</a></dt>
+<dd><p>Filters a DataFrame by applying provided conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to filter.</p></li>
+<li><p><strong>*filters</strong> – Variable positional arguments that can be:
+- Instances of ColOp.
+- Callables applied row-wise, returning boolean values.
+- Iterable of boolean values indicating row selection.</p></li>
+<li><p><strong>**col_filters</strong> – Keyword arguments mapping column names to conditions, which can be:
+- Values (equality filter).
+- Instances of ColOp.
+- Callables applied element-wise to the specified column.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A copy of the DataFrame containing only rows satisfying all filters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>filtered_df = dfilter(df, Col(‘age’) &gt; 30, status=’active’)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.dataframe.selection.partition">
+<span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.selection.</span></span><span class="sig-name descname"><span class="pre">partition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">col_filters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#superleaf.dataframe.selection.partition" title="Link to this definition">¶</a></dt>
+<dd><p>Partitions a DataFrame into two subsets based on provided filtering conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to partition.</p></li>
+<li><p><strong>*filters</strong> – Variable positional arguments (see <cite>dfilter</cite> documentation).</p></li>
+<li><p><strong>**col_filters</strong> – Keyword arguments (see <cite>dfilter</cite> documentation).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>First DataFrame contains rows matching the provided filters.</p></li>
+<li><p>Second DataFrame contains rows that do not match.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[pd.DataFrame, pd.DataFrame]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>passed_df, failed_df = partition(df, score=lambda x: x &gt; 50)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.dataframe.selection.reorder_columns">
+<span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.selection.</span></span><span class="sig-name descname"><span class="pre">reorder_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">back</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.dataframe.selection.reorder_columns" title="Link to this definition">¶</a></dt>
+<dd><p>Reorders columns in a DataFrame based on the provided parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame whose columns to reorder.</p></li>
+<li><p><strong>columns</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Column name or sequence of column names to reorder.</p></li>
+<li><p><strong>back</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, moves specified columns to the end. Default is False.</p></li>
+<li><p><strong>after</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name after which the specified columns should be placed. Default is None.</p></li>
+<li><p><strong>before</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name before which the specified columns should be placed. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Exactly one of <cite>back</cite>, <cite>after</cite>, or <cite>before</cite> can be used at a time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new DataFrame with reordered columns.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If more than one of <cite>back</cite>, <cite>after</cite>, or <cite>before</cite> parameters are provided simultaneously.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>reordered_df = reorder_columns(df, [‘age’, ‘name’], after=’id’)</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">superleaf</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="superleaf.html">superleaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superleaf.collections.html">superleaf.collections</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.column_ops.html">superleaf.dataframe.column_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">superleaf.dataframe.selection</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.selection.dfilter"><code class="docutils literal notranslate"><span class="pre">dfilter()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.selection.partition"><code class="docutils literal notranslate"><span class="pre">partition()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.selection.reorder_columns"><code class="docutils literal notranslate"><span class="pre">reorder_columns()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.transform.html">superleaf.dataframe.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.plotting.html">superleaf.plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.sequences.html">superleaf.sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.stats.html">superleaf.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.html">superleaf.timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Reference</a><ul>
+  <li><a href="superleaf.html">superleaf</a><ul>
+  <li><a href="superleaf.dataframe.html">superleaf.dataframe</a><ul>
+      <li>Previous: <a href="superleaf.dataframe.display.html" title="previous chapter">superleaf.dataframe.display</a></li>
+      <li>Next: <a href="superleaf.dataframe.standardize.html" title="next chapter">superleaf.dataframe.standardize</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Erik Schomburg.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/api/*/superleaf.dataframe.selection.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

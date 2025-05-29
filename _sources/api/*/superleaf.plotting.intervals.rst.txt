@@ -1,0 +1,18 @@
+superleaf.plotting.intervals
+============================
+
+.. automodule:: superleaf.plotting.intervals
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      shade_intervals
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      StateInterval
+   

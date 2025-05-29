@@ -1,0 +1,18 @@
+superleaf.utils.hashing
+=======================
+
+.. automodule:: superleaf.utils.hashing
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_hash_string
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      HashStringGenerator
+   

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>superleaf.dataframe.column_ops &#8212; superleaf 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="superleaf.dataframe.display" href="superleaf.dataframe.display.html" />
+    <link rel="prev" title="superleaf.dataframe" href="superleaf.dataframe.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-superleaf.dataframe.column_ops">
+<span id="superleaf-dataframe-column-ops"></span><h1>superleaf.dataframe.column_ops<a class="headerlink" href="#module-superleaf.dataframe.column_ops" title="Link to this heading">¶</a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Col</span></code></a>(name)</p></td>
+<td><p>Represents a named column in a DataFrame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ColOp</span></code></a>()</p></td>
+<td><p>Abstract base class for column operations on pandas DataFrames.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Index" title="superleaf.dataframe.column_ops.Index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Index</span></code></a>()</p></td>
+<td><p>Represents the index of a pandas DataFrame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Values" title="superleaf.dataframe.column_ops.Values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Values</span></code></a>()</p></td>
+<td><p>Represents the values of a pandas Series.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
+<p>Represents a named column in a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The column name. If None, selects the entire DataFrame.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>col = Col(‘column_name’)
+series = col(df)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.astype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.contains" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.isin">
+<span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.isin" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.isna">
+<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.isna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.map">
+<span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.map" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.notna">
+<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.notna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.to_list">
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.to_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract base class for column operations on pandas DataFrames.</p>
+<p>Subclasses implement transformations or evaluations that produce pandas Series or scalar results when applied to
+DataFrames.</p>
+<p>Supports chaining and combining using logical and arithmetic operators.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.astype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.contains" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.isin">
+<span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isin" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.isna">
+<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.map">
+<span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.map" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.notna">
+<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.notna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.to_list">
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.to_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
+<p>Represents the index of a pandas DataFrame.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>idx = Index()
+index = idx(df)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.astype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.contains" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.isin">
+<span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.isin" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.isna">
+<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.isna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.map">
+<span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.map" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.notna">
+<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.notna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.to_list">
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.to_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-class docutils literal notranslate"><span class="pre">Col</span></code></a></p>
+<p>Represents the values of a pandas Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – If called on a DataFrame instead of a Series.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>values = Values()
+series_values = values(series)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.astype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.contains" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.isin">
+<span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.isin" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.isna">
+<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.isna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.map">
+<span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.map" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.notna">
+<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.notna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.to_list">
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.to_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">superleaf</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="superleaf.html">superleaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superleaf.collections.html">superleaf.collections</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">superleaf.dataframe.column_ops</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.column_ops.Col"><code class="docutils literal notranslate"><span class="pre">Col</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp"><code class="docutils literal notranslate"><span class="pre">ColOp</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.column_ops.Index"><code class="docutils literal notranslate"><span class="pre">Index</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.column_ops.Values"><code class="docutils literal notranslate"><span class="pre">Values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.selection.html">superleaf.dataframe.selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.transform.html">superleaf.dataframe.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.plotting.html">superleaf.plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.sequences.html">superleaf.sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.stats.html">superleaf.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.html">superleaf.timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Reference</a><ul>
+  <li><a href="superleaf.html">superleaf</a><ul>
+  <li><a href="superleaf.dataframe.html">superleaf.dataframe</a><ul>
+      <li>Previous: <a href="superleaf.dataframe.html" title="previous chapter">superleaf.dataframe</a></li>
+      <li>Next: <a href="superleaf.dataframe.display.html" title="next chapter">superleaf.dataframe.display</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Erik Schomburg.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/api/*/superleaf.dataframe.column_ops.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

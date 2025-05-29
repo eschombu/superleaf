@@ -1,0 +1,12 @@
+superleaf.collections.summable\_dict
+====================================
+
+.. automodule:: superleaf.collections.summable_dict
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      SummableDict
+   

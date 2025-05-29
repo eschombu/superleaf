@@ -1,0 +1,14 @@
+superleaf.dataframe.selection
+=============================
+
+.. automodule:: superleaf.dataframe.selection
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      dfilter
+      partition
+      reorder_columns
+   

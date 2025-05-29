@@ -1,0 +1,14 @@
+superleaf.stats
+===============
+
+.. automodule:: superleaf.stats
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   circular
+   count

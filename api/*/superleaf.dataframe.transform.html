@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>superleaf.dataframe.transform &#8212; superleaf 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="superleaf.operators" href="superleaf.operators.html" />
+    <link rel="prev" title="superleaf.dataframe.standardize" href="superleaf.dataframe.standardize.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-superleaf.dataframe.transform">
+<span id="superleaf-dataframe-transform"></span><h1>superleaf.dataframe.transform<a class="headerlink" href="#module-superleaf.dataframe.transform" title="Link to this heading">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.transform.expand_dict_to_cols" title="superleaf.dataframe.transform.expand_dict_to_cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_dict_to_cols</span></code></a>(df, cols[, fields, ...])</p></td>
+<td><p>Expand dictionary-like values in one or more DataFrame columns into new, flat columns.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.transform.notna" title="superleaf.dataframe.transform.notna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">notna</span></code></a>(x)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.dataframe.transform.expand_dict_to_cols">
+<span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.transform.</span></span><span class="sig-name descname"><span class="pre">expand_dict_to_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_col_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_renamer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.dataframe.transform.expand_dict_to_cols" title="Link to this definition">¶</a></dt>
+<dd><p>Expand dictionary-like values in one or more DataFrame columns into new, flat columns.</p>
+<p>For each column in <cite>cols</cite>, any dictionary-like entries will be unpacked into
+separate columns (one per key).  You can control which keys to expand, how
+to name the new columns, whether to drop the original column, and whether
+nested dicts should be expanded recursively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame.</p></li>
+<li><p><strong>cols</strong> (<em>str</em><em> or </em><em>Sequence</em><em>[</em><em>str</em><em>]</em>) – Column name or list of column names whose values are dicts to expand.</p></li>
+<li><p><strong>fields</strong> (<em>str</em><em> or </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Specific keys to extract from each dict.  If None (default), all keys
+encountered (or, if <cite>uniform_keys=True</cite>, the keys from the first non-null
+dict) will be used.</p></li>
+<li><p><strong>with_col_prefix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (default), each new column name is prefixed by the source column
+name and <cite>sep</cite>.  If False, only <cite>prefix</cite> (if provided) will be used.</p></li>
+<li><p><strong>prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – A string to prepend to all new column names.  Defaults to ‘’.</p></li>
+<li><p><strong>prefix_fun</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function of signature <cite>fn(col_name, current_prefix) -&gt; new_prefix</cite>
+to dynamically compute the prefix for each source column.</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – Separator inserted between the prefix and the field name.  Default is ‘_’.</p></li>
+<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (default), drop the original <cite>cols</cite> from the output DataFrame.</p></li>
+<li><p><strong>dropna</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, omit creating new columns when all values for a given key are null.
+Default is False.</p></li>
+<li><p><strong>col_renamer</strong> (<em>dict</em><em> or </em><em>callable</em><em>, </em><em>optional</em>) – <ul>
+<li><p>If dict: maps original field names (or source columns) to final column names
+or to a callable that returns one.</p></li>
+<li><p>If callable: applied to each generated name.</p></li>
+</ul>
+</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, and if a extracted value is itself a dict, apply this same expansion
+logic recursively to that nested dict.  Default is False.</p></li>
+<li><p><strong>uniform_keys</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, assume each dict in a column has the same set of keys and extract
+those keys from the first non-null entry (faster).  Otherwise, collect the
+union of all keys across rows.  Default is False.</p></li>
+<li><p><strong>default</strong> (<em>scalar</em><em>, </em><em>optional</em>) – Value to use when a key is missing in a particular row.  Default is <cite>np.nan</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A new DataFrame in which each specified dict‐column has been replaced (or
+supplemented, if <cite>drop=False</cite>) by one column per key, with names determined
+by the combination of <cite>prefix</cite>, source column name, and key.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – if a non-dict-like value is encountered when expanding and cannot
+    be interpreted as a dict.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
+<span class="gp">... </span>        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+<span class="gp">... </span>        <span class="kc">None</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_dict_to_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">)</span>
+<span class="go">   metadata_id  metadata_score  metadata_extra</span>
+<span class="go">0            1             9.0             NaN</span>
+<span class="go">1            2             7.0             5.0</span>
+<span class="go">2          NaN             NaN             NaN</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.dataframe.transform.notna">
+<span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.transform.</span></span><span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#superleaf.dataframe.transform.notna" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">superleaf</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="superleaf.html">superleaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superleaf.collections.html">superleaf.collections</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.column_ops.html">superleaf.dataframe.column_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.selection.html">superleaf.dataframe.selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">superleaf.dataframe.transform</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.transform.expand_dict_to_cols"><code class="docutils literal notranslate"><span class="pre">expand_dict_to_cols()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.dataframe.transform.notna"><code class="docutils literal notranslate"><span class="pre">notna()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.plotting.html">superleaf.plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.sequences.html">superleaf.sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.stats.html">superleaf.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.html">superleaf.timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Reference</a><ul>
+  <li><a href="superleaf.html">superleaf</a><ul>
+  <li><a href="superleaf.dataframe.html">superleaf.dataframe</a><ul>
+      <li>Previous: <a href="superleaf.dataframe.standardize.html" title="previous chapter">superleaf.dataframe.standardize</a></li>
+      <li>Next: <a href="superleaf.operators.html" title="next chapter">superleaf.operators</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Erik Schomburg.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/api/*/superleaf.dataframe.transform.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

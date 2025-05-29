@@ -1,0 +1,20 @@
+﻿superleaf
+=========
+
+.. automodule:: superleaf
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   collections
+   dataframe
+   operators
+   plotting
+   sequences
+   stats
+   timeseries
+   utils

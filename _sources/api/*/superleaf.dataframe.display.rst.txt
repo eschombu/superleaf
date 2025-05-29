@@ -1,0 +1,14 @@
+superleaf.dataframe.display
+===========================
+
+.. automodule:: superleaf.dataframe.display
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      set_max_columns
+      set_max_rows
+      show_all
+   

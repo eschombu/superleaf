@@ -1,0 +1,12 @@
+superleaf.stats.count
+=====================
+
+.. automodule:: superleaf.stats.count
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CountStat
+   

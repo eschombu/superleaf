@@ -1,0 +1,15 @@
+superleaf.utils
+===============
+
+.. automodule:: superleaf.utils
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   hashing
+   ipython
+   parallel

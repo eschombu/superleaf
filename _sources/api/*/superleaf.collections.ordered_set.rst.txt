@@ -1,0 +1,12 @@
+superleaf.collections.ordered\_set
+==================================
+
+.. automodule:: superleaf.collections.ordered_set
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      OrderedSet
+   

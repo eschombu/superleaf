@@ -1,0 +1,12 @@
+superleaf.dataframe.standardize
+===============================
+
+.. automodule:: superleaf.dataframe.standardize
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      standardize_columns
+   

@@ -1,0 +1,24 @@
+superleaf.utils.parallel
+========================
+
+.. automodule:: superleaf.utils.parallel
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      parmap
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      PyArrowArray
+      PyArrowData
+      PyArrowDataFrame
+      SharedDataDict
+      SharedMemoryArray
+      SharedMemoryContainer
+      SharedMemoryList
+   

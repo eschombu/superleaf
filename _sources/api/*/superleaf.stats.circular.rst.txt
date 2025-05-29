@@ -1,0 +1,12 @@
+superleaf.stats.circular
+========================
+
+.. automodule:: superleaf.stats.circular
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      circmean
+   

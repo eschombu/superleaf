@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>superleaf.operators.base &#8212; superleaf 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="superleaf.operators.comparison" href="superleaf.operators.comparison.html" />
+    <link rel="prev" title="superleaf.operators" href="superleaf.operators.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-superleaf.operators.base">
+<span id="superleaf-operators-base"></span><h1>superleaf.operators.base<a class="headerlink" href="#module-superleaf.operators.base" title="Link to this heading">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.base.bool_operator" title="superleaf.operators.base.bool_operator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool_operator</span></code></a>(f[, exceptions, fallback])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.operators.base.operator" title="superleaf.operators.base.operator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operator</span></code></a>(f[, exceptions, fallback])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.base.BooleanFunctionOperator" title="superleaf.operators.base.BooleanFunctionOperator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanFunctionOperator</span></code></a>(f)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BooleanOperator</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.base.FunctionOperator" title="superleaf.operators.base.FunctionOperator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FunctionOperator</span></code></a>(f)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Operator</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.operators.base.BooleanFunctionOperator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">BooleanFunctionOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.operators.base.BooleanFunctionOperator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanOperator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.operators.base.BooleanOperator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">BooleanOperator</span></span><a class="headerlink" href="#superleaf.operators.base.BooleanOperator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Operator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.operators.base.FunctionOperator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">FunctionOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.operators.base.FunctionOperator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Operator</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.operators.base.Operator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><a class="headerlink" href="#superleaf.operators.base.Operator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.operators.base.bool_operator">
+<span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">bool_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.operators.base.BooleanFunctionOperator" title="superleaf.operators.base.BooleanFunctionOperator"><span class="pre">BooleanFunctionOperator</span></a></span></span><a class="headerlink" href="#superleaf.operators.base.bool_operator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.operators.base.operator">
+<span class="sig-prename descclassname"><span class="pre">superleaf.operators.base.</span></span><span class="sig-name descname"><span class="pre">operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.operators.base.FunctionOperator" title="superleaf.operators.base.FunctionOperator"><span class="pre">FunctionOperator</span></a></span></span><a class="headerlink" href="#superleaf.operators.base.operator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">superleaf</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="superleaf.html">superleaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superleaf.collections.html">superleaf.collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">superleaf.operators.base</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.BooleanFunctionOperator"><code class="docutils literal notranslate"><span class="pre">BooleanFunctionOperator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.BooleanOperator"><code class="docutils literal notranslate"><span class="pre">BooleanOperator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.FunctionOperator"><code class="docutils literal notranslate"><span class="pre">FunctionOperator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.bool_operator"><code class="docutils literal notranslate"><span class="pre">bool_operator()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.operators.base.operator"><code class="docutils literal notranslate"><span class="pre">operator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.operators.comparison.html">superleaf.operators.comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.operators.getters.html">superleaf.operators.getters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.operators.string.html">superleaf.operators.string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.operators.wrappers.html">superleaf.operators.wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.plotting.html">superleaf.plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.sequences.html">superleaf.sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.stats.html">superleaf.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.html">superleaf.timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Reference</a><ul>
+  <li><a href="superleaf.html">superleaf</a><ul>
+  <li><a href="superleaf.operators.html">superleaf.operators</a><ul>
+      <li>Previous: <a href="superleaf.operators.html" title="previous chapter">superleaf.operators</a></li>
+      <li>Next: <a href="superleaf.operators.comparison.html" title="next chapter">superleaf.operators.comparison</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Erik Schomburg.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/api/*/superleaf.operators.base.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

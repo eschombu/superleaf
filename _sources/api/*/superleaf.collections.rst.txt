@@ -1,0 +1,14 @@
+superleaf.collections
+=====================
+
+.. automodule:: superleaf.collections
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   ordered_set
+   summable_dict

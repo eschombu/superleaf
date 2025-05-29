@@ -1,0 +1,13 @@
+superleaf.plotting
+==================
+
+.. automodule:: superleaf.plotting
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   intervals

@@ -1,0 +1,20 @@
+superleaf.sequences
+===================
+
+.. automodule:: superleaf.sequences
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      flat_map
+      mapped
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   serial

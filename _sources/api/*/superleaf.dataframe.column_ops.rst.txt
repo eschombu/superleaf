@@ -1,0 +1,15 @@
+superleaf.dataframe.column\_ops
+===============================
+
+.. automodule:: superleaf.dataframe.column_ops
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Col
+      ColOp
+      Index
+      Values
+   

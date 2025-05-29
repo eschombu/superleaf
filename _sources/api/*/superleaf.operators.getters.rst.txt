@@ -1,0 +1,13 @@
+superleaf.operators.getters
+===========================
+
+.. automodule:: superleaf.operators.getters
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      attr_getter
+      index_getter
+   

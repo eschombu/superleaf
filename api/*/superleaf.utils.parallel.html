@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>superleaf.utils.parallel &#8212; superleaf 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="superleaf.utils.ipython" href="superleaf.utils.ipython.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-superleaf.utils.parallel">
+<span id="superleaf-utils-parallel"></span><h1>superleaf.utils.parallel<a class="headerlink" href="#module-superleaf.utils.parallel" title="Link to this heading">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.parallel.parmap" title="superleaf.utils.parallel.parmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parmap</span></code></a>(func, iterable[, star, mode, ...])</p></td>
+<td><p>Apply <cite>func</cite> to every item in <cite>iterable</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.parallel.PyArrowArray" title="superleaf.utils.parallel.PyArrowArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PyArrowArray</span></code></a>(path)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.utils.parallel.PyArrowData" title="superleaf.utils.parallel.PyArrowData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PyArrowData</span></code></a>(path)</p></td>
+<td><p>Abstract base class for PyArrow data containers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.parallel.PyArrowDataFrame" title="superleaf.utils.parallel.PyArrowDataFrame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PyArrowDataFrame</span></code></a>(path)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.utils.parallel.SharedDataDict" title="superleaf.utils.parallel.SharedDataDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SharedDataDict</span></code></a>(data)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryArray" title="superleaf.utils.parallel.SharedMemoryArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SharedMemoryArray</span></code></a>(shared_mem, shape, dtype)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a>()</p></td>
+<td><p>Abstract base class for shared memory containers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryList" title="superleaf.utils.parallel.SharedMemoryList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SharedMemoryList</span></code></a>(shared_mem)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">PyArrowArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.PyArrowDataFrame" title="superleaf.utils.parallel.PyArrowDataFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyArrowDataFrame</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from the file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowArray.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowArray.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">PyArrowData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a></p>
+<p>Abstract base class for PyArrow data containers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.create">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.load">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from the file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowData.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowData.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">PyArrowDataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.PyArrowData" title="superleaf.utils.parallel.PyArrowData"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyArrowData</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from the file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.PyArrowDataFrame.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.PyArrowDataFrame.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">SharedDataDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><span class="pre">SharedMemoryContainer</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><span class="pre">SharedMemoryContainer</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from shared memory.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedDataDict.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedDataDict.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">SharedMemoryArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shared_mem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SharedMemory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SharedMemoryManager</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.create_empty">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SharedMemoryManager</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.create_empty" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from shared memory.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryArray.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryArray.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">SharedMemoryContainer</span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for shared memory containers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.close">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.create">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.from_metadata">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.load">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from shared memory.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.metadata">
+<em class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryContainer.unlink">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryContainer.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">SharedMemoryList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shared_mem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ShareableList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer" title="superleaf.utils.parallel.SharedMemoryContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the shared memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SharedMemoryManager</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.from_metadata">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.from_metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load the data from shared memory.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.metadata">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.metadata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.SharedMemoryList.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#superleaf.utils.parallel.SharedMemoryList.unlink" title="Link to this definition">¶</a></dt>
+<dd><p>Unlink the shared memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superleaf.utils.parallel.parmap">
+<span class="sig-prename descclassname"><span class="pre">superleaf.utils.parallel.</span></span><span class="sig-name descname"><span class="pre">parmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">star</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'process'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nthreads_per_process</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.utils.parallel.parmap" title="Link to this definition">¶</a></dt>
+<dd><p>Apply <cite>func</cite> to every item in <cite>iterable</cite>.</p>
+<dl class="simple">
+<dt>mode:</dt><dd><ul class="simple">
+<li><p>“thread”: use ThreadPoolExecutor with n_workers.</p></li>
+<li><p>“process”: use ProcessPoolExecutor; each process runs a ThreadPoolExecutor of size nthreads_per_process.</p></li>
+</ul>
+</dd>
+</dl>
+<p>A tqdm progress bar shows overall progress.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">superleaf</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="superleaf.html">superleaf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superleaf.collections.html">superleaf.collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.plotting.html">superleaf.plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.sequences.html">superleaf.sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.stats.html">superleaf.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.html">superleaf.timeseries</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="superleaf.utils.hashing.html">superleaf.utils.hashing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superleaf.utils.ipython.html">superleaf.utils.ipython</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">superleaf.utils.parallel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.PyArrowArray"><code class="docutils literal notranslate"><span class="pre">PyArrowArray</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.PyArrowData"><code class="docutils literal notranslate"><span class="pre">PyArrowData</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.PyArrowDataFrame"><code class="docutils literal notranslate"><span class="pre">PyArrowDataFrame</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.SharedDataDict"><code class="docutils literal notranslate"><span class="pre">SharedDataDict</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryArray"><code class="docutils literal notranslate"><span class="pre">SharedMemoryArray</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryContainer"><code class="docutils literal notranslate"><span class="pre">SharedMemoryContainer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.SharedMemoryList"><code class="docutils literal notranslate"><span class="pre">SharedMemoryList</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#superleaf.utils.parallel.parmap"><code class="docutils literal notranslate"><span class="pre">parmap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Reference</a><ul>
+  <li><a href="superleaf.html">superleaf</a><ul>
+  <li><a href="superleaf.utils.html">superleaf.utils</a><ul>
+      <li>Previous: <a href="superleaf.utils.ipython.html" title="previous chapter">superleaf.utils.ipython</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Erik Schomburg.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/api/*/superleaf.utils.parallel.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,14 @@
+superleaf.timeseries
+====================
+
+.. automodule:: superleaf.timeseries
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   datetime_utils
+   time_intervals
