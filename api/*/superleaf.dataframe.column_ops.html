@@ -39,16 +39,16 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Col</span></code></a>(name)</p></td>
-<td><p>Represents a named column in a DataFrame.</p></td>
+<td><p>Represent a named column in a DataFrame.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ColOp</span></code></a>()</p></td>
 <td><p>Abstract base class for column operations on pandas DataFrames.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Index" title="superleaf.dataframe.column_ops.Index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Index</span></code></a>()</p></td>
-<td><p>Represents the index of a pandas DataFrame.</p></td>
+<td><p>Represent the index of a pandas DataFrame.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#superleaf.dataframe.column_ops.Values" title="superleaf.dataframe.column_ops.Values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Values</span></code></a>()</p></td>
-<td><p>Represents the values of a pandas Series.</p></td>
+<td><p>Represent the values of a pandas Series.</p></td>
 </tr>
 </tbody>
 </table>
@@ -56,56 +56,145 @@
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
-<p>Represents a named column in a DataFrame.</p>
+<p>Represent a named column in a DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The column name. If None, selects the entire DataFrame.</p>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name to select. If None, selects the entire DataFrame.</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Usage:</dt><dd><p>col = Col(‘column_name’)
-series = col(df)</p>
-</dd>
-</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">col</span> <span class="o">=</span> <span class="n">Col</span><span class="p">(</span><span class="s1">&#39;column_name&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="go">0    ...</span>
+<span class="go">Name: column_name, dtype: dtype</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.apply">
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.apply" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply a transformation function to the result of this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function that takes a pandas Series and returns a transformed Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the application of <cite>f</cite> to this operation’s output.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.astype">
 <span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.astype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Cast the Series to a specified dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>type</em><em> or </em><em>str</em>) – The target data type for the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the cast operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.contains">
 <span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.contains" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series contains the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – Value to search for within each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.isin">
 <span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.isin" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series is in the given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>iterable</em>) – A collection of values to test membership against.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.isna">
 <span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.isna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.map" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Map a function over each element of the Series produced by this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function applied element-wise to each value in the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the mapped operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.notna">
 <span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.notna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for non-missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates non-null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col.to_list">
-<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.to_list" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Col.to_list" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap each element in the Series into a single-element list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp that converts each scalar to a list containing that value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -114,48 +203,154 @@ series = col(df)</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Abstract base class for column operations on pandas DataFrames.</p>
-<p>Subclasses implement transformations or evaluations that produce pandas Series or scalar results when applied to
-DataFrames.</p>
-<p>Supports chaining and combining using logical and arithmetic operators.</p>
+<p>Subclasses implement transformations or evaluations that produce pandas Series or scalar
+results when applied to DataFrames. Supports chaining and combining using logical and
+arithmetic operators.</p>
+<dl>
+<dt>Operators defined on this class:</dt><dd><div class="line-block">
+<div class="line">(bitwise or)</div>
+</div>
+<p>&amp; (bitwise and)
+~ (bitwise not)
+== (equal to)
+!= (not equal to)
+&lt; (less than)
+&lt;= (less than or equal to)
+&gt; (greater than)
+&gt;= (greater than or equal to)
++ (addition)
+- (subtraction)
+* (multiplication)
+/ (division)
+^ (power)</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.apply">
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.apply" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply a transformation function to the result of this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function that takes a pandas Series and returns a transformed Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the application of <cite>f</cite> to this operation’s output.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.astype">
 <span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.astype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Cast the Series to a specified dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>type</em><em> or </em><em>str</em>) – The target data type for the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the cast operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.contains">
 <span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.contains" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series contains the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – Value to search for within each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.isin">
 <span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isin" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series is in the given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>iterable</em>) – A collection of values to test membership against.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.isna">
 <span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.map" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Map a function over each element of the Series produced by this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function applied element-wise to each value in the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the mapped operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.notna">
 <span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.notna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for non-missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates non-null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.to_list">
-<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.to_list" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.to_list" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap each element in the Series into a single-element list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp that converts each scalar to a list containing that value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -163,51 +358,144 @@ DataFrames.</p>
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
-<p>Represents the index of a pandas DataFrame.</p>
-<dl class="simple">
-<dt>Usage:</dt><dd><p>idx = Index()
-index = idx(df)</p>
+<p>Represent the index of a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">idx</span> <span class="o">=</span> <span class="n">Index</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">idx</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="go">DatetimeIndex([...])</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.apply">
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.apply" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply a transformation function to the result of this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function that takes a pandas Series and returns a transformed Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the application of <cite>f</cite> to this operation’s output.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.astype">
 <span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.astype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Cast the Series to a specified dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>type</em><em> or </em><em>str</em>) – The target data type for the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the cast operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.contains">
 <span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.contains" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series contains the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – Value to search for within each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.isin">
 <span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.isin" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series is in the given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>iterable</em>) – A collection of values to test membership against.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.isna">
 <span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.isna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.map" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Map a function over each element of the Series produced by this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function applied element-wise to each value in the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the mapped operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.notna">
 <span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.notna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for non-missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates non-null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index.to_list">
-<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.to_list" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Index.to_list" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap each element in the Series into a single-element list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp that converts each scalar to a list containing that value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -215,56 +503,141 @@ index = idx(df)</p>
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-class docutils literal notranslate"><span class="pre">Col</span></code></a></p>
-<p>Represents the values of a pandas Series.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>TypeError</strong> – If called on a DataFrame instead of a Series.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Usage:</dt><dd><p>values = Values()
-series_values = values(series)</p>
-</dd>
-</dl>
+<p>Represent the values of a pandas Series.</p>
+<p class="rubric">Notes</p>
+<p>This raises a TypeError if called on a DataFrame instead of a Series.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">Values</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+<span class="go">array([...])</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.apply">
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.apply" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Apply a transformation function to the result of this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function that takes a pandas Series and returns a transformed Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the application of <cite>f</cite> to this operation’s output.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.astype">
 <span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.astype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Cast the Series to a specified dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>type</em><em> or </em><em>str</em>) – The target data type for the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the cast operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.contains">
 <span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.contains" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series contains the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – Value to search for within each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.isin">
 <span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.isin" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test whether each element of the Series is in the given values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>iterable</em>) – A collection of values to test membership against.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.isna">
 <span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.isna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.map" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Map a function over each element of the Series produced by this operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>callable</em>) – A function applied element-wise to each value in the Series.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp representing the mapped operation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.notna">
 <span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.notna" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test for non-missing values in the Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp yielding a boolean Series where True indicates non-null values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values.to_list">
-<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.to_list" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="headerlink" href="#superleaf.dataframe.column_ops.Values.to_list" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap each element in the Series into a single-element list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new ColOp that converts each scalar to a list containing that value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

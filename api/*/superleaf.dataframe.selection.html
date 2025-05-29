@@ -74,8 +74,10 @@
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<p>filtered_df = dfilter(df, Col(‘age’) &gt; 30, status=’active’)</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_df</span> <span class="o">=</span> <span class="n">dfilter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">Col</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -102,7 +104,9 @@
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<p>passed_df, failed_df = partition(df, score=lambda x: x &gt; 50)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">passed_df</span><span class="p">,</span> <span class="n">failed_df</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -113,28 +117,30 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame whose columns to reorder.</p></li>
-<li><p><strong>columns</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Column name or sequence of column names to reorder.</p></li>
+<li><p><strong>columns</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>]</em><em>)</em>) – Column name or sequence of column names to reorder.</p></li>
 <li><p><strong>back</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, moves specified columns to the end. Default is False.</p></li>
 <li><p><strong>after</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name after which the specified columns should be placed. Default is None.</p></li>
 <li><p><strong>before</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name before which the specified columns should be placed. Default is None.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new DataFrame with reordered columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
 </dl>
 <p class="rubric">Notes</p>
 <p>Exactly one of <cite>back</cite>, <cite>after</cite>, or <cite>before</cite> can be used at a time.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A new DataFrame with reordered columns.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pd.DataFrame</p>
-</dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ValueError</strong> – If more than one of <cite>back</cite>, <cite>after</cite>, or <cite>before</cite> parameters are provided simultaneously.</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<p>reordered_df = reorder_columns(df, [‘age’, ‘name’], after=’id’)</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reordered_df</span> <span class="o">=</span> <span class="n">reorder_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">after</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

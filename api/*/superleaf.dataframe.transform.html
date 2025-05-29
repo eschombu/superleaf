@@ -50,56 +50,42 @@
 <dt class="sig sig-object py" id="superleaf.dataframe.transform.expand_dict_to_cols">
 <span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.transform.</span></span><span class="sig-name descname"><span class="pre">expand_dict_to_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_col_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_renamer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.dataframe.transform.expand_dict_to_cols" title="Link to this definition">¶</a></dt>
 <dd><p>Expand dictionary-like values in one or more DataFrame columns into new, flat columns.</p>
-<p>For each column in <cite>cols</cite>, any dictionary-like entries will be unpacked into
-separate columns (one per key).  You can control which keys to expand, how
-to name the new columns, whether to drop the original column, and whether
-nested dicts should be expanded recursively.</p>
+<p>For each column in <cite>cols</cite>, dictionary-like entries are unpacked into separate
+columns (one per key). You can control which keys to expand, how to name the new
+columns, whether to drop the original columns, and whether nested dictionaries
+should be expanded recursively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame.</p></li>
 <li><p><strong>cols</strong> (<em>str</em><em> or </em><em>Sequence</em><em>[</em><em>str</em><em>]</em>) – Column name or list of column names whose values are dicts to expand.</p></li>
-<li><p><strong>fields</strong> (<em>str</em><em> or </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Specific keys to extract from each dict.  If None (default), all keys
-encountered (or, if <cite>uniform_keys=True</cite>, the keys from the first non-null
-dict) will be used.</p></li>
-<li><p><strong>with_col_prefix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (default), each new column name is prefixed by the source column
-name and <cite>sep</cite>.  If False, only <cite>prefix</cite> (if provided) will be used.</p></li>
-<li><p><strong>prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – A string to prepend to all new column names.  Defaults to ‘’.</p></li>
-<li><p><strong>prefix_fun</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function of signature <cite>fn(col_name, current_prefix) -&gt; new_prefix</cite>
-to dynamically compute the prefix for each source column.</p></li>
-<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – Separator inserted between the prefix and the field name.  Default is ‘_’.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (default), drop the original <cite>cols</cite> from the output DataFrame.</p></li>
-<li><p><strong>dropna</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, omit creating new columns when all values for a given key are null.
-Default is False.</p></li>
-<li><p><strong>col_renamer</strong> (<em>dict</em><em> or </em><em>callable</em><em>, </em><em>optional</em>) – <ul>
-<li><p>If dict: maps original field names (or source columns) to final column names
-or to a callable that returns one.</p></li>
-<li><p>If callable: applied to each generated name.</p></li>
-</ul>
-</p></li>
-<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, and if a extracted value is itself a dict, apply this same expansion
-logic recursively to that nested dict.  Default is False.</p></li>
-<li><p><strong>uniform_keys</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, assume each dict in a column has the same set of keys and extract
-those keys from the first non-null entry (faster).  Otherwise, collect the
-union of all keys across rows.  Default is False.</p></li>
-<li><p><strong>default</strong> (<em>scalar</em><em>, </em><em>optional</em>) – Value to use when a key is missing in a particular row.  Default is <cite>np.nan</cite>.</p></li>
+<li><p><strong>fields</strong> (<em>str</em><em> or </em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Specific keys to extract from each dict. If None, all keys encountered
+(or, if <cite>uniform_keys=True</cite>, the keys from the first non-null dict) will
+be used.</p></li>
+<li><p><strong>with_col_prefix</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, prefix new column names with the source column name and <cite>sep</cite>.
+If False, only <cite>prefix</cite> (if provided) is used.</p></li>
+<li><p><strong>prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – A string to prepend to all new column names.</p></li>
+<li><p><strong>prefix_fun</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function mapping (col_name, current_prefix) to a new prefix.</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – Separator between prefix and field name. Default is ‘_’.</p></li>
+<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, drop the original columns from the output DataFrame.</p></li>
+<li><p><strong>dropna</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, omit creating new columns when all values for a given key are null.</p></li>
+<li><p><strong>col_renamer</strong> (<em>dict</em><em> or </em><em>callable</em><em>, </em><em>optional</em>) – Mapping or function to rename generated column names.</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, expand nested dict values recursively.</p></li>
+<li><p><strong>uniform_keys</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, assume all dicts have the same keys and extract from the first non-null entry.</p></li>
+<li><p><strong>default</strong> (<em>scalar</em><em>, </em><em>optional</em>) – Value to use when a key is missing in a particular row.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>pd.DataFrame</dt><dd><p>A new DataFrame in which each specified dict‐column has been replaced (or
-supplemented, if <cite>drop=False</cite>) by one column per key, with names determined
-by the combination of <cite>prefix</cite>, source column name, and key.</p>
+<dd class="field-even"><p>A new DataFrame with each specified dict-column expanded into its own column(s).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If a non-dict-like value is encountered when expanding.</p>
 </dd>
 </dl>
-</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>TypeError</strong> – if a non-dict-like value is encountered when expanding and cannot
-    be interpreted as a dict.</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
 <span class="gp">... </span>    <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">[</span>
 <span class="gp">... </span>        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>

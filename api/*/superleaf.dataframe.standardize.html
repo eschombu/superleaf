@@ -39,14 +39,52 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.dataframe.standardize.standardize_columns" title="superleaf.dataframe.standardize.standardize_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standardize_columns</span></code></a>(df[, to_datetime, ...])</p></td>
-<td><p></p></td>
+<td><p>Standardize DataFrame column names and optionally convert columns to datetime.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="superleaf.dataframe.standardize.standardize_columns">
 <span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.standardize.</span></span><span class="sig-name descname"><span class="pre">standardize_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_datetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_datetime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#superleaf.dataframe.standardize.standardize_columns" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Standardize DataFrame column names and optionally convert columns to datetime.</p>
+<p>This function returns a copy of the input DataFrame with column names stripped of
+leading/trailing whitespace, lowercased, and spaces replaced by underscores. Optionally,
+specified columns (or auto-detected date/time columns) are converted to pandas datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame whose column names will be standardized.</p></li>
+<li><p><strong>to_datetime</strong> (<em>bool</em><em>, </em><em>str</em><em>, </em><em>Iterable</em><em>[</em><em>str</em><em>]</em><em>, or </em><em>None</em><em>, </em><em>optional</em>) – If False (default), no datetime conversion is attempted.
+If True, attempts to convert columns named ‘date’, ‘datetime’, ‘time’, or ‘timestamp’.
+If a string or non-iterable, converts the specified column name.
+If an iterable of strings, converts the listed column names.</p></li>
+<li><p><strong>force_datetime</strong> (<em>bool</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If True, forces conversion to datetime and raises on errors.
+If False, quietly coerces invalid parsing to NaT and may emit warnings.
+If None (default), set to True when converting specific columns (str or iterable),
+otherwise False.</p></li>
+<li><p><strong>quiet</strong> (<em>bool</em><em>, </em><em>default False</em>) – If False, prints a message when a column cannot be converted to datetime under
+non-forced mode.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new DataFrame with standardized column names and datetime-converted columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s1">&#39; Date &#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2021-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2021-02-01&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">standardize_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">to_datetime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">  date  value</span>
+<span class="go">0 2021-01-01     10</span>
+<span class="go">1 2021-02-01     20</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </section>
 

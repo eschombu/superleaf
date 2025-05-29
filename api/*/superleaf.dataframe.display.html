@@ -56,11 +56,7 @@
 <p>Temporarily controls how many columns pandas will print when formatting DataFrames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>max_columns</strong> (<em>int</em><em> or </em><em>None</em>) – Maximum number of columns to show.
-If None, pandas will use its own default (usually 20).</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-odd"><p><strong>max_columns</strong> (<em>int</em><em> or </em><em>None</em>) – Maximum number of columns to show. If None, pandas will use its own default (usually 20).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -72,11 +68,7 @@ If None, pandas will use its own default (usually 20).</p>
 <p>Temporarily controls how many rows pandas will print when formatting DataFrames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>max_rows</strong> (<em>int</em><em> or </em><em>None</em>) – Maximum number of rows to show.
-If None, pandas will use its own default (usually 60).</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-odd"><p><strong>max_rows</strong> (<em>int</em><em> or </em><em>None</em>) – Maximum number of rows to show. If None, pandas will use its own default (usually 60).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -91,21 +83,13 @@ and display.max_rows options, then calls IPython.display.display.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to render in the notebook.</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
-<dt>One of:</dt><dd><ul>
-<li><p>’columns’: expand only columns</p></li>
-<li><p>’rows’: expand only rows</p></li>
-<li><p>None (default): use the <cite>columns</cite> and <cite>rows</cite> flags below</p></li>
-</ul>
-</dd>
-</dl>
-</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – One of:
+- ‘columns’: expand only columns
+- ‘rows’: expand only rows
+- None (default): use the <cite>columns</cite> and <cite>rows</cite> flags below</p></li>
 <li><p><strong>columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – When mode is None, if True (default) all columns are shown.</p></li>
 <li><p><strong>rows</strong> (<em>bool</em><em>, </em><em>optional</em>) – When mode is None, if True (default) all rows are shown.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
