@@ -5,17 +5,43 @@ import pandas as pd
 
 
 class ColOp(metaclass=ABCMeta):
-    """
-    Abstract base class for column operations on pandas DataFrames.
+    """Abstract base class for column operations on pandas DataFrames.
 
-    Subclasses implement transformations or evaluations that produce pandas Series or scalar results when applied to
-    DataFrames.
+    Subclasses implement transformations or evaluations that produce pandas Series or scalar
+    results when applied to DataFrames. Supports chaining and combining using logical and
+    arithmetic operators.
 
-    Supports chaining and combining using logical and arithmetic operators.
+    Operators defined on this class:
+        | (bitwise or)
+        & (bitwise and)
+        ~ (bitwise not)
+        == (equal to)
+        != (not equal to)
+        < (less than)
+        <= (less than or equal to)
+        > (greater than)
+        >= (greater than or equal to)
+        + (addition)
+        - (subtraction)
+        * (multiplication)
+        / (division)
+        ^ (power)
     """
 
     @abstractmethod
     def __call__(self, df: pd.DataFrame) -> Union[pd.Series, Any]:
+        """Evaluate the operation on the DataFrame.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Input DataFrame on which to apply the operation.
+
+        Returns
+        -------
+        Union[pd.Series, Any]
+            The resulting pandas Series or scalar value produced by this operation.
+        """
         pass
 
     def __or__(self, right: "ColOp") -> "ColOp":
@@ -61,12 +87,48 @@ class ColOp(metaclass=ABCMeta):
         return _PowOp(self, right)
 
     def apply(self, f: Callable[[pd.Series], pd.Series]) -> "ColOp":
+        """Apply a transformation function to the result of this operation.
+
+        Parameters
+        ----------
+        f : callable
+            A function that takes a pandas Series and returns a transformed Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp representing the application of `f` to this operation’s output.
+        """
         return _ColApplyOp(self, f)
 
     def map(self, f: Callable[[Any], Any]) -> "ColOp":
+        """Map a function over each element of the Series produced by this operation.
+
+        Parameters
+        ----------
+        f : callable
+            A function applied element-wise to each value in the Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp representing the mapped operation.
+        """
         return _ColMapOp(self, f)
 
     def isin(self, values: Iterable[Any]) -> "ColOp":
+        """Test whether each element of the Series is in the given values.
+
+        Parameters
+        ----------
+        values : iterable
+            A collection of values to test membership against.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
         if isinstance(values, ColOp):
             combined_vals = self.to_list() + values.to_list()
             return combined_vals.map(lambda x: x[0] in x[1])
@@ -74,43 +136,97 @@ class ColOp(metaclass=ABCMeta):
             return self.apply(lambda s: s.isin(values))
 
     def contains(self, value: Any) -> "ColOp":
+        """Test whether each element of the Series contains the specified value.
+
+        Parameters
+        ----------
+        value : Any
+            Value to search for within each element.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
         return self.map(lambda x: value in x)
 
     def notna(self) -> "ColOp":
+        """Test for non-missing values in the Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp yielding a boolean Series where True indicates non-null values.
+        """
         return self.apply(lambda s: s.notna())
 
     def isna(self) -> "ColOp":
+        """Test for missing values in the Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp yielding a boolean Series where True indicates null values.
+        """
         return self.apply(lambda s: s.isna())
 
     def astype(self, type_) -> "ColOp":
+        """Cast the Series to a specified dtype.
+
+        Parameters
+        ----------
+        type_ : type or str
+            The target data type for the Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp representing the cast operation.
+        """
         return self.apply(lambda s: s.astype(type_))
 
-    def to_list(self):
+    def to_list(self) -> "ColOp":
+        """Wrap each element in the Series into a single-element list.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that converts each scalar to a list containing that value.
+        """
         return self.map(lambda x: [x])
 
 
 class Index(ColOp):
-    """
-    Represents the index of a pandas DataFrame.
+    """Represent the index of a pandas DataFrame.
 
-    Usage:
-        idx = Index()
-        index = idx(df)
+    Parameters
+    ----------
+    None
+
+    Examples
+    --------
+    >>> idx = Index()
+    >>> idx(df)
+    DatetimeIndex([...])
     """
     def __call__(self, df: pd.DataFrame) -> pd.Index:
         return df.index
 
 
 class Col(ColOp):
-    """
-    Represents a named column in a DataFrame.
+    """Represent a named column in a DataFrame.
 
-    Parameters:
-        name (Optional[str]): The column name. If None, selects the entire DataFrame.
+    Parameters
+    ----------
+    name : str, optional
+        Column name to select. If None, selects the entire DataFrame.
 
-    Usage:
-        col = Col('column_name')
-        series = col(df)
+    Examples
+    --------
+    >>> col = Col('column_name')
+    >>> col(df)
+    0    ...
+    Name: column_name, dtype: dtype
     """
     def __init__(self, name: Optional[str]):
         self._name = name
@@ -123,15 +239,17 @@ class Col(ColOp):
 
 
 class Values(Col):
-    """
-    Represents the values of a pandas Series.
+    """Represent the values of a pandas Series.
 
-    Raises:
-        TypeError: If called on a DataFrame instead of a Series.
+    Notes
+    -----
+    This raises a TypeError if called on a DataFrame instead of a Series.
 
-    Usage:
-        values = Values()
-        series_values = values(series)
+    Examples
+    --------
+    >>> values = Values()
+    >>> values(series)
+    array([...])
     """
     def __init__(self):
         super().__init__(None)

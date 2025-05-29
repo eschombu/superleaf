@@ -3,35 +3,27 @@ from IPython.display import display
 
 
 def set_max_columns(max_columns=None):
-    """
-    Set pandas’ display.max_columns option.
+    """Set pandas’ display.max_columns option.
 
     Temporarily controls how many columns pandas will print when formatting DataFrames.
 
-    Parameters:
-        max_columns (int or None):
-            Maximum number of columns to show.
-            If None, pandas will use its own default (usually 20).
-
-    Returns:
-        None
+    Parameters
+    ----------
+    max_columns : int or None
+        Maximum number of columns to show. If None, pandas will use its own default (usually 20).
     """
     pd.set_option('display.max_columns', max_columns)
 
 
 def set_max_rows(max_rows=None):
-    """
-    Set pandas’ display.max_rows option.
+    """Set pandas’ display.max_rows option.
 
     Temporarily controls how many rows pandas will print when formatting DataFrames.
 
-    Parameters:
-        max_rows (int or None):
-            Maximum number of rows to show.
-            If None, pandas will use its own default (usually 60).
-
-    Returns:
-        None
+    Parameters
+    ----------
+    max_rows : int or None
+        Maximum number of rows to show. If None, pandas will use its own default (usually 60).
     """
     pd.set_option('display.max_rows', max_rows)
 
@@ -59,27 +51,24 @@ class _PandasDisplayCM:
 
 
 def show_all(df, mode=None, columns=True, rows=True):
-    """
-    Display a DataFrame with all rows and/or columns visible.
+    """Display a DataFrame with all rows and/or columns visible.
 
     Uses a context manager to temporarily override pandas’ display.max_columns
     and display.max_rows options, then calls IPython.display.display.
 
-    Parameters:
-        df (pd.DataFrame):
-            The DataFrame to render in the notebook.
-        mode (str, optional):
-            One of:
-              - 'columns': expand only columns
-              - 'rows': expand only rows
-              - None (default): use the `columns` and `rows` flags below
-        columns (bool, optional):
-            When mode is None, if True (default) all columns are shown.
-        rows (bool, optional):
-            When mode is None, if True (default) all rows are shown.
-
-    Returns:
-        None
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The DataFrame to render in the notebook.
+    mode : str, optional
+        One of:
+        - 'columns': expand only columns
+        - 'rows': expand only rows
+        - None (default): use the `columns` and `rows` flags below
+    columns : bool, optional
+        When mode is None, if True (default) all columns are shown.
+    rows : bool, optional
+        When mode is None, if True (default) all rows are shown.
     """
     if mode == 'columns':
         cm = _PandasDisplayCM(all_columns=True)
