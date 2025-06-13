@@ -11,6 +11,7 @@ authors = [
 description = "A library for intuitive and readable data manipulation, using functional and pipeable syntax."
 requires-python = ">=3.8"
 dependencies = [
+    "matplotlib",
     "numpy",
     "pandas",
     "pendulum>=3.0.0",
