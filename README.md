@@ -10,6 +10,13 @@ cumbersome. This library provides utilities for quickly and intuitively specifyi
 column and row conditions. It also includes utilities for piping and composing value accessor and manipulation operators
 on more general datatypes.
 
+## Installation
+
+This package is available on the Python Package Index (PyPI): https://pypi.org/project/superleaf/.
+```
+pip install superleaf
+```
+
 ## Operators
 
 Some of the operators in this library have analogues in the Python standard library `operator` module, but the ones here
