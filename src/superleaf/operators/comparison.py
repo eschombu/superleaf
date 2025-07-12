@@ -1,3 +1,4 @@
+import re
 from typing import Any, Iterable
 
 from superleaf.operators.base import bool_operator, BooleanOperator
@@ -86,6 +87,11 @@ class ComparisonFunctions:
     @staticmethod
     def endswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
         return bool_operator(lambda s: any(s.endswith(v) for v in values),
+                             **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
+    def matches_regex(pattern: str, *exc_args, **exc_kwargs) -> BooleanOperator:
+        return bool_operator(lambda s: re.match(pattern, s) is not None,
                              **_parse_exc_args(*exc_args, **exc_kwargs))
 
     isna = bool_operator(_isna)
