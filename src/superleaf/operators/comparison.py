@@ -1,6 +1,8 @@
 import re
 from typing import Any, Iterable
 
+import pandas as pd
+
 from superleaf.operators.base import bool_operator, BooleanOperator
 
 
@@ -52,24 +54,30 @@ class ComparisonFunctions:
         return bool_operator(lambda x: x >= value, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def isin(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda x: x in value, **_parse_exc_args(*exc_args, **exc_kwargs))
+    def isin(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(values, pd.Series):
+            values = values.values
+        return bool_operator(lambda x: x in values, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
     def contains(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
         return bool_operator(lambda x: value in x, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def contains_all(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        if isinstance(value, str) or not hasattr(value, "__iter__"):
-            value = [value]
-        return bool_operator(lambda x: all(v in x for v in value), **_parse_exc_args(*exc_args, **exc_kwargs))
+    def contains_all(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(values, str) or not hasattr(values, "__iter__"):
+            values = [values]
+        elif isinstance(values, pd.Series):
+            values = values.values
+        return bool_operator(lambda x: all(v in x for v in values), **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def contains_any(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        if isinstance(value, str) or not hasattr(value, "__iter__"):
-            value = [value]
-        return bool_operator(lambda x: any(v in x for v in value), **_parse_exc_args(*exc_args, **exc_kwargs))
+    def contains_any(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(values, str) or not hasattr(values, "__iter__"):
+            values = [values]
+        elif isinstance(values, pd.Series):
+            values = values.values
+        return bool_operator(lambda x: any(v in x for v in values), **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
     def startswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
@@ -81,6 +89,8 @@ class ComparisonFunctions:
 
     @staticmethod
     def startswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
+        if isinstance(values, pd.Series):
+            values = values.values
         return bool_operator(lambda s: any(s.startswith(v) for v in values),
                              **_parse_exc_args(*exc_args, **exc_kwargs))
 
