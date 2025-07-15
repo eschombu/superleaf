@@ -13,4 +13,5 @@ superleaf.sequences.serial
       flatten
       groupby
       mapped
+      partitioned
    
