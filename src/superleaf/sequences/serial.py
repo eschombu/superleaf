@@ -1,19 +1,19 @@
 from collections import defaultdict
-from typing import Callable, Dict, Iterable, List, TypeVar
+from typing import Callable, Iterable, TypeVar
 
 T = TypeVar("T")
 U = TypeVar("U")
 
 
-def mapped(f: Callable[[T], U], seq: Iterable[T]) -> List[U]:
+def mapped(f: Callable[[T], U], seq: Iterable[T]) -> list[U]:
     return list(map(f, seq))
 
 
-def filtered(f: Callable[[T], bool], seq: Iterable[T]) -> List[T]:
+def filtered(f: Callable[[T], bool], seq: Iterable[T]) -> list[T]:
     return list(filter(f, seq))
 
 
-def groupby(f: Callable[[T], U], seq: Iterable[T]) -> Dict[U, List[T]]:
+def groupby(f: Callable[[T], U], seq: Iterable[T]) -> dict[U, list[T]]:
     grouped = defaultdict(list)
     for item in seq:
         grouped[f(item)].append(item)
@@ -38,3 +38,13 @@ def flatten(seq: Iterable, depth=None, drop_null=False) -> list:
 
 def flat_map(f: Callable, seq: Iterable, depth=None, drop_null=True) -> list:
     return flatten(mapped(f, seq), depth=depth, drop_null=drop_null)
+
+
+def partitioned(f: Callable[[T], bool], seq: Iterable[T]) -> tuple[list[T], ...]:
+    true_part, false_part = [], []
+    for item in seq:
+        if f(item):
+            true_part.append(item)
+        else:
+            false_part.append(item)
+    return true_part, false_part
