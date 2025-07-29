@@ -216,7 +216,7 @@ class SharedMemoryArray(SharedMemoryContainer):
         if smm:
             shared_mem = smm.SharedMemory(size=array.nbytes)
         else:
-            shared_mem = shared_memory.SharedMemory(size=array.nbytes)
+            shared_mem = shared_memory.SharedMemory(create=True, size=array.nbytes)
         shared_array = np.ndarray(array.shape, dtype=array.dtype, buffer=shared_mem.buf)
         np.copyto(shared_array, array)
         return cls(shared_mem, array.shape, array.dtype)
