@@ -162,7 +162,7 @@ def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_
                 updater.join(timeout=1)  # Wait briefly for it to finish.
     elif mode == "notebook":
         with Pool(n_workers) as p:
-            results = p.map(func, enumerate(iterable), chunksize=32)
+            results = p.map(func, iterable, chunksize=32)
         if verbose:
             print('done.')
     else:
