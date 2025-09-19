@@ -1,3 +1,6 @@
+import re
+from datetime import datetime
+
 import numpy as np
 import pytest
 
@@ -43,17 +46,65 @@ def test_individual_comparisons():
 
     assert F.startswith("he")("hello") is True
     assert F.startswith("lo")("hello") is False
-    with pytest.raises(AttributeError):
-        F.startswith("lo")(1)
     assert F.endswith("he")("hello") is False
     assert F.endswith("lo")("hello") is True
-    with pytest.raises(AttributeError):
-        F.endswith("lo")(1)
 
     assert F.startswith_one_of(["he", "no"])("hello") is True
     assert F.startswith_one_of(["lo", "no"])("hello") is False
     assert F.endswith_one_of(["lo", "no"])("hello") is True
     assert F.endswith_one_of(["he", "no"])("hello") is False
+
+    assert F.matches_regex('^h.*o$')('hello') is True
+    assert F.matches_regex('^h.*l$')('hello') is False
+    assert F.matches_regex('^h.*o$', flags=re.IGNORECASE)('Hello') is True
+
+    assert F.startswith("2025", str_converter=lambda dt: dt.strftime('%Y-%m-%d'))(datetime(2025, 1, 1)) is True
+
+    # TODO: test str comparisons for non-str inputs
+    assert F.startswith("he")(None) is False
+    assert F.startswith("he")(np.nan) is False
+    assert F.startswith("he")(1) is False
+    assert F.startswith(1)(123) is True
+
+    assert F.endswith("lo")(None) is False
+    assert F.endswith("lo")(np.nan) is False
+    assert F.endswith("lo")(1) is False
+    assert F.endswith(3)(123) is True
+
+    assert F.startswith_one_of(["he", "no"])(None) is False
+    assert F.startswith_one_of(["he", 1])(123) is True
+
+    assert F.endswith_one_of(["he", "no"])(None) is False
+    assert F.endswith_one_of(["he", 3])(123) is True
+
+    assert F.matches_regex('^1.*4$')(1234) is True
+
+    with pytest.raises(TypeError):
+        assert F.startswith("he", raise_type_error=True)(None)
+    with pytest.raises(TypeError):
+        assert F.startswith("he", raise_type_error=True)(1)
+    with pytest.raises(TypeError):
+        assert F.startswith(1, raise_type_error=True)(123)
+    with pytest.raises(TypeError):
+        assert F.startswith_one_of(["he"], raise_type_error=True)(None)
+    with pytest.raises(TypeError):
+        assert F.startswith_one_of(["he"], raise_type_error=True)(1)
+    with pytest.raises(TypeError):
+        assert F.startswith_one_of([1], raise_type_error=True)("1")
+    with pytest.raises(TypeError):
+        assert F.endswith("lo", raise_type_error=True)(None)
+    with pytest.raises(TypeError):
+        assert F.endswith("lo", raise_type_error=True)(1)
+    with pytest.raises(TypeError):
+        assert F.endswith(1, raise_type_error=True)("123")
+    with pytest.raises(TypeError):
+        assert F.endswith_one_of(["lo"], raise_type_error=True)(None)
+    with pytest.raises(TypeError):
+        assert F.endswith_one_of(["lo"], raise_type_error=True)(1)
+    with pytest.raises(TypeError):
+        assert F.endswith_one_of([1], raise_type_error=True)("1")
+    with pytest.raises(TypeError):
+        assert F.matches_regex('^1.*4$', raise_type_error=True)(1234) is True
 
     assert F.isna(np.nan) is True
     assert F.isna(None) is True

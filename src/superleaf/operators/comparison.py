@@ -1,5 +1,5 @@
 import re
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import pandas as pd
 
@@ -26,6 +26,38 @@ def _parse_exc_args(*exc_args, **exc_kwargs) -> dict:
         return {"fallback": fallback, "exceptions": exceptions}
     else:
         return exc_kwargs
+
+
+def _get_str_op(str_method: Callable[[str, str], bool], value, str_converter=str, raise_type_error=False):
+    if raise_type_error:
+        def op(s):
+            try:
+                return str_method(s, value)
+            except Exception as e:
+                raise TypeError(str(e))
+    elif str_converter is not None:
+        if not isinstance(value, str):
+            value = str_converter(value)
+
+        def convert(s) -> str:
+            if isinstance(s, str):
+                return s
+            else:
+                return str_converter(s)
+
+        def op(s):
+            return not _isna(s) and str_method(convert(s), value)
+    else:
+        def op(s):
+            return isinstance(s, str) and str_method(s, value)
+    return op
+
+
+def _get_any_op(str_method: Callable[[str, str], bool], values, str_converter=str, raise_type_error=False):
+    if isinstance(values, pd.Series):
+        values = values.values
+    ops = [_get_str_op(str_method, v, str_converter=str_converter, raise_type_error=raise_type_error) for v in values]
+    return lambda s: any(op(s) for op in ops)
 
 
 class ComparisonFunctions:
@@ -80,29 +112,43 @@ class ComparisonFunctions:
         return bool_operator(lambda x: any(v in x for v in values), **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def startswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda s: s.startswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
+    def startswith(value: str, *exc_args, str_converter=str, raise_type_error=False, **exc_kwargs) -> BooleanOperator:
+        op = _get_str_op(str.startswith, value, str_converter=str_converter, raise_type_error=raise_type_error)
+        return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def endswith(value: str, *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda s: s.endswith(value), **_parse_exc_args(*exc_args, **exc_kwargs))
+    def endswith(value: str, *exc_args, str_converter=str, raise_type_error=False, **exc_kwargs) -> BooleanOperator:
+        op = _get_str_op(str.endswith, value, str_converter=str_converter, raise_type_error=raise_type_error)
+        return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def startswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
-        if isinstance(values, pd.Series):
-            values = values.values
-        return bool_operator(lambda s: any(s.startswith(v) for v in values),
-                             **_parse_exc_args(*exc_args, **exc_kwargs))
+    def startswith_one_of(
+            values: Iterable[str], *exc_args, str_converter=str, raise_type_error=False, **exc_kwargs
+    ) -> BooleanOperator:
+        op = _get_any_op(str.startswith, values, str_converter=str_converter, raise_type_error=raise_type_error)
+        return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def endswith_one_of(values: Iterable[str], *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda s: any(s.endswith(v) for v in values),
-                             **_parse_exc_args(*exc_args, **exc_kwargs))
+    def endswith_one_of(
+            values: Iterable[str], *exc_args, str_converter=str, raise_type_error=False, **exc_kwargs
+    ) -> BooleanOperator:
+        op = _get_any_op(str.endswith, values, str_converter=str_converter, raise_type_error=raise_type_error)
+        return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def matches_regex(pattern: str, *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda s: re.match(pattern, s) is not None,
-                             **_parse_exc_args(*exc_args, **exc_kwargs))
+    def matches_regex(
+            pattern: str, *exc_args, flags=None, str_converter=str, raise_type_error=False, **exc_kwargs
+    ) -> BooleanOperator:
+        if flags is not None:
+            match_kws = {"flags": flags}
+        else:
+            match_kws = {}
+
+        def has_match(s, pattern):
+            return re.match(pattern, s, **match_kws) is not None
+
+        op = _get_str_op(has_match, pattern, str_converter=str_converter, raise_type_error=raise_type_error)
+        return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     isna = bool_operator(_isna)
     notna = ~isna
