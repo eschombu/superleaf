@@ -111,7 +111,11 @@ def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_
     if verbose:
         print(f"Using {n_workers} workers and {nthreads_per_process} threads per process.")
 
+    if not hasattr(iterable, '__len__'):
+        iterable = list(iterable)
     total = len(iterable)
+    if total == 0:
+        return []
     results = []
 
     if mode == "thread":
