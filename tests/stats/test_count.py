@@ -17,6 +17,17 @@ def test_with_total():
         CountStat(4, 10.5)
 
 
+def test_with_array():
+    n = 3
+    N = 5
+    bools = np.array([1] * n + [0] * (N - n), dtype=int)
+    count_stat = CountStat(bools)
+    assert count_stat.count == 3
+    assert count_stat.total == 5
+    with pytest.raises(ValueError):
+        CountStat(np.array([0, 1, 2]))
+
+
 def test_nan_total():
     n = 10
     count_stat = CountStat(n, None)

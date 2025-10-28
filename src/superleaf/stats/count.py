@@ -1,5 +1,9 @@
+from typing import Iterable, Optional
+
 import numpy as np
 import scipy.stats
+
+_NotSpecified = object()
 
 
 def _notna(x):
@@ -7,7 +11,32 @@ def _notna(x):
 
 
 class CountStat:
-    def __init__(self, count, total, expected=None, name=None, fractional=False):
+    def __init__(
+            self,
+            count: int | Iterable[bool],
+            total: Optional[int] = _NotSpecified,
+            expected=None, name=None,
+            fractional=False,
+    ):
+        if total is _NotSpecified:
+            try:
+                count_bools = np.asarray(count, dtype=bool)
+                if not (np.asarray(count) == count_bools).all():
+                    raise
+                count = count_bools.sum()
+                total = len(count_bools)
+            except Exception:
+                raise ValueError("If total is not provided, count must be an iterable of booleans.")
+        else:
+            try:
+                int(count)
+            except Exception:
+                raise ValueError("Count must be an integer if total is provided.")
+            if _notna(total):
+                try:
+                    int(total)
+                except Exception:
+                    raise ValueError("Total must be an integer if it is provided.")
         if fractional:
             self.count = count
             self.total = total
