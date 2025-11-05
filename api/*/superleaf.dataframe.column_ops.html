@@ -405,7 +405,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L7-L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L7-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Abstract base class for column operations on pandas DataFrames.</p>
 <p>Subclasses implement transformations or evaluations that produce pandas Series or scalar
@@ -484,8 +484,76 @@ arithmetic operators.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.startswith">
+<span class="sig-name descname"><span class="pre">startswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L142-L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.startswith" title="Link to this definition">#</a></dt>
+<dd><p>Test whether each element of the Series starts with the specified substring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Substring to check at the start of each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.endswith">
+<span class="sig-name descname"><span class="pre">endswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L158-L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.endswith" title="Link to this definition">#</a></dt>
+<dd><p>Test whether each element of the Series starts with the specified substring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Substring to check at the start of each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.startswith_one_of">
+<span class="sig-name descname"><span class="pre">startswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L174-L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.startswith_one_of" title="Link to this definition">#</a></dt>
+<dd><p>Test whether each element of the Series starts with the specified substring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Substring to check at the start of each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.endswith_one_of">
+<span class="sig-name descname"><span class="pre">endswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L193-L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.endswith_one_of" title="Link to this definition">#</a></dt>
+<dd><p>Test whether each element of the Series starts with the specified substring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – Substring to check at the start of each element.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new ColOp that yields a boolean Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp">ColOp</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.notna">
-<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L142-L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.notna" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L212-L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.notna" title="Link to this definition">#</a></dt>
 <dd><p>Test for non-missing values in the Series.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -499,7 +567,7 @@ arithmetic operators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.isna">
-<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L152-L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isna" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">isna</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L222-L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.isna" title="Link to this definition">#</a></dt>
 <dd><p>Test for missing values in the Series.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -513,7 +581,7 @@ arithmetic operators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.astype">
-<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L162-L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.astype" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L232-L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.astype" title="Link to this definition">#</a></dt>
 <dd><p>Cast the Series to a specified dtype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -530,7 +598,7 @@ arithmetic operators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp.to_list">
-<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L177-L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.to_list" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><span class="pre">ColOp</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L247-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp.to_list" title="Link to this definition">#</a></dt>
 <dd><p>Wrap each element in the Series into a single-element list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -546,7 +614,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L188-L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L258-L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
 <p>Represent the index of a pandas DataFrame.</p>
 <dl class="field-list simple">
@@ -564,7 +632,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L205-L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L275-L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
 <p>Represent a named column in a DataFrame.</p>
 <dl class="field-list simple">
@@ -583,7 +651,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L230-L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L300-L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-class docutils literal notranslate"><span class="pre">Col</span></code></a></p>
 <p>Represent the values of a pandas Series.</p>
 <p class="rubric">Notes</p>
@@ -650,6 +718,10 @@ arithmetic operators.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.map"><code class="docutils literal notranslate"><span class="pre">ColOp.map()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.isin"><code class="docutils literal notranslate"><span class="pre">ColOp.isin()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.contains"><code class="docutils literal notranslate"><span class="pre">ColOp.contains()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.startswith"><code class="docutils literal notranslate"><span class="pre">ColOp.startswith()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.endswith"><code class="docutils literal notranslate"><span class="pre">ColOp.endswith()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.startswith_one_of"><code class="docutils literal notranslate"><span class="pre">ColOp.startswith_one_of()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.endswith_one_of"><code class="docutils literal notranslate"><span class="pre">ColOp.endswith_one_of()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.notna"><code class="docutils literal notranslate"><span class="pre">ColOp.notna()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.isna"><code class="docutils literal notranslate"><span class="pre">ColOp.isna()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.dataframe.column_ops.ColOp.astype"><code class="docutils literal notranslate"><span class="pre">ColOp.astype()</span></code></a></li>
