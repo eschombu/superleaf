@@ -34,7 +34,13 @@ def test_col_ops(df: pd.DataFrame):
     assert _iseq(((Col("col1") * 3) / 2)(df), df["col1"] * 1.5)
     assert _iseq(Col("col1").isin([0, 1])(df), df["col1"] < 2)
     assert _iseq(Col("col1").isin(Col("col5"))(df), map(lambda x: x[0] in x[1], zip(df["col1"], df["col5"])))
-    assert _iseq(Col("col4").contains("o")(df), df["col4"].map(lambda s: "o" in s))
+    assert _iseq(Col("col4").contains("o")(df), df["col4"].map(lambda x: "o" in x))
+    assert _iseq(Col("col4").startswith("t")(df), df["col4"].map(lambda x: x.startswith("t")))
+    assert _iseq(Col("col4").endswith("o")(df), df["col4"].map(lambda x: x.endswith("o")))
+    assert _iseq(Col("col4").startswith_one_of(["o", "e"])(df),
+                 df["col4"].map(lambda x: x.startswith("o") or x.startswith("e")))
+    assert _iseq(Col("col4").endswith_one_of(["o", "e"])(df),
+                 df["col4"].map(lambda x: x.endswith("o") or x.endswith("e")))
     assert _iseq(Col("col3").isna()(df), df["col3"].isna())
     assert _iseq(Col("col3").notna()(df), df["col3"].notna())
     assert _iseq(~(Col("col3").notna())(df), Col("col3").isna()(df))

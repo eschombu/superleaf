@@ -139,6 +139,76 @@ class ColOp(metaclass=ABCMeta):
         """
         return self.map(lambda x: value in x)
 
+    def startswith(self, value: str) -> "ColOp":
+        """Test whether each element of the Series starts with the specified substring.
+
+        Parameters
+        ----------
+        value : str
+            Substring to check at the start of each element.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
+        value = str(value)
+        return self.map(lambda x: str(x).startswith(value))
+
+    def endswith(self, value: str) -> "ColOp":
+        """Test whether each element of the Series starts with the specified substring.
+
+        Parameters
+        ----------
+        value : str
+            Substring to check at the start of each element.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
+        value = str(value)
+        return self.map(lambda x: str(x).endswith(value))
+
+    def startswith_one_of(self, value: Iterable[str]) -> "ColOp":
+        """Test whether each element of the Series starts with the specified substring.
+
+        Parameters
+        ----------
+        value : str
+            Substring to check at the start of each element.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
+        if isinstance(value, str) or not isinstance(value, Iterable):
+            value = [str(value)]
+        else:
+            value = [str(v) for v in value]
+        return self.map(lambda x: any(str(x).startswith(s) for s in value))
+
+    def endswith_one_of(self, value: str) -> "ColOp":
+        """Test whether each element of the Series starts with the specified substring.
+
+        Parameters
+        ----------
+        value : str
+            Substring to check at the start of each element.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
+        if isinstance(value, str) or not isinstance(value, Iterable):
+            value = [str(value)]
+        else:
+            value = [str(v) for v in value]
+        return self.map(lambda x: any(str(x).endswith(s) for s in value))
+
     def notna(self) -> "ColOp":
         """Test for non-missing values in the Series.
 
