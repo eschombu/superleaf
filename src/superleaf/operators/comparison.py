@@ -97,7 +97,7 @@ class ComparisonFunctions:
 
     @staticmethod
     def contains_all(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        if isinstance(values, str) or not hasattr(values, "__iter__"):
+        if isinstance(values, str) or not isinstance(values, Iterable):
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
@@ -105,7 +105,7 @@ class ComparisonFunctions:
 
     @staticmethod
     def contains_any(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        if isinstance(values, str) or not hasattr(values, "__iter__"):
+        if isinstance(values, str) or not isinstance(values, Iterable):
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
