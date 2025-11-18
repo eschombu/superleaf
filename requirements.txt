@@ -11,5 +11,6 @@ pydata-sphinx-theme
 pydoclint
 pytest
 pytest-mock
+rapidfuzz
 scipy
 tqdm
