@@ -77,7 +77,10 @@ def test_individual_comparisons():
     assert F.endswith_one_of(["he", "no"])(None) is False
     assert F.endswith_one_of(["he", 3])(123) is True
 
-    assert F.matches_regex('^1.*4$')(1234) is True
+    assert F.matches_regex(r"^1.*4$")(1234) is True
+
+    assert F.fuzzy_match("hello", substring=False)("Helllo world!") is False
+    assert F.fuzzy_match("hello", substring=True)("Helllo world!") is True
 
     with pytest.raises(TypeError):
         assert F.startswith("he", raise_type_error=True)(None)
@@ -104,7 +107,9 @@ def test_individual_comparisons():
     with pytest.raises(TypeError):
         assert F.endswith_one_of([1], raise_type_error=True)("1")
     with pytest.raises(TypeError):
-        assert F.matches_regex('^1.*4$', raise_type_error=True)(1234) is True
+        assert F.matches_regex(r"^1.*4$", raise_type_error=True)(1234) is True
+    with pytest.raises(TypeError):
+        assert F.fuzzy_match("hello", raise_type_error=True)(1234) is True
 
     assert F.isna(np.nan) is True
     assert F.isna(None) is True

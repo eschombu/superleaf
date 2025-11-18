@@ -4,6 +4,7 @@ from typing import Any, Callable, Iterable
 import pandas as pd
 
 from superleaf.operators.base import bool_operator, BooleanOperator
+from superleaf.operators.string import FuzzyMatcher
 
 
 def _isna(x: Any) -> bool:
@@ -149,6 +150,23 @@ class ComparisonFunctions:
 
         op = _get_str_op(has_match, pattern, str_converter=str_converter, raise_type_error=raise_type_error)
         return bool_operator(op, **_parse_exc_args(*exc_args, **exc_kwargs))
+
+    @staticmethod
+    def fuzzy_match(
+            targets: str | Iterable[str],
+            *exc_args,
+            normalizer: Callable[[str], str] = None,
+            substring: bool = False,
+            score_threshold: float = 80.0,
+            raise_type_error=False,
+            **exc_kwargs,
+    ) -> BooleanOperator:
+        matcher = FuzzyMatcher(targets, normalizer=normalizer, substring=substring)
+        return matcher.to_bool_operator(
+            score_threshold,
+            raise_type_error=raise_type_error,
+            **_parse_exc_args(*exc_args, **exc_kwargs),
+        )
 
     isna = bool_operator(_isna)
     notna = ~isna
