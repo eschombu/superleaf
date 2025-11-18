@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>superleaf.utils.ipython &#8212; superleaf 0.2.0 documentation</title>
+    <title>superleaf.operators.getters &#8212; superleaf 0.2.0 documentation</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.utils.ipython';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.operators.getters';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="superleaf.utils.parallel" href="superleaf.utils.parallel.html" />
-    <link rel="prev" title="superleaf.utils.hashing" href="superleaf.utils.hashing.html" />
+    <link rel="next" title="superleaf.operators.string" href="superleaf.operators.string.html" />
+    <link rel="prev" title="superleaf.operators.comparison" href="superleaf.operators.comparison.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -283,10 +283,10 @@
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.transform.html">superleaf.dataframe.transform</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="superleaf.operators.html">superleaf.operators</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="superleaf.operators.base.html">superleaf.operators.base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.operators.comparison.html">superleaf.operators.comparison</a></li>
-<li class="toctree-l3"><a class="reference internal" href="superleaf.operators.getters.html">superleaf.operators.getters</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">superleaf.operators.getters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.operators.string.html">superleaf.operators.string</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.operators.wrappers.html">superleaf.operators.wrappers</a></li>
 </ul>
@@ -309,9 +309,9 @@
 <li class="toctree-l3"><a class="reference internal" href="superleaf.timeseries.time_intervals.html">superleaf.timeseries.time_intervals</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="superleaf.utils.html">superleaf.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.utils.hashing.html">superleaf.utils.hashing</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">superleaf.utils.ipython</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.utils.ipython.html">superleaf.utils.ipython</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.utils.parallel.html">superleaf.utils.parallel</a></li>
 </ul>
 </details></li>
@@ -364,9 +364,9 @@
     <li class="breadcrumb-item"><a href="superleaf.html" class="nav-link">superleaf</a></li>
     
     
-    <li class="breadcrumb-item"><a href="superleaf.utils.html" class="nav-link">superleaf.utils</a></li>
+    <li class="breadcrumb-item"><a href="superleaf.operators.html" class="nav-link">superleaf.operators</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">superleaf.utils.ipython</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">superleaf.operators.getters</span></li>
   </ul>
 </nav>
 </div>
@@ -383,28 +383,28 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-superleaf.utils.ipython">
-<span id="superleaf-utils-ipython"></span><h1>superleaf.utils.ipython<a class="headerlink" href="#module-superleaf.utils.ipython" title="Link to this heading">#</a></h1>
+  <section id="module-superleaf.operators.getters">
+<span id="superleaf-operators-getters"></span><h1>superleaf.operators.getters<a class="headerlink" href="#module-superleaf.operators.getters" title="Link to this heading">#</a></h1>
 <p class="rubric">Functions</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.utils.ipython.autoreload" title="superleaf.utils.ipython.autoreload"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoreload</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.getters.attr_getter" title="superleaf.operators.getters.attr_getter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attr_getter</span></code></a>(name[, default])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.utils.ipython.show_all_columns" title="superleaf.utils.ipython.show_all_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_all_columns</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#superleaf.operators.getters.index_getter" title="superleaf.operators.getters.index_getter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_getter</span></code></a>(index[, default])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py function">
-<dt class="sig sig-object py" id="superleaf.utils.ipython.autoreload">
-<span class="sig-prename descclassname"><span class="pre">superleaf.utils.ipython.</span></span><span class="sig-name descname"><span class="pre">autoreload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/utils/ipython.py#L5-L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.utils.ipython.autoreload" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="superleaf.operators.getters.attr_getter">
+<span class="sig-prename descclassname"><span class="pre">superleaf.operators.getters.</span></span><span class="sig-name descname"><span class="pre">attr_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><span class="pre">Operator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/getters.py#L6-L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.getters.attr_getter" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="superleaf.utils.ipython.show_all_columns">
-<span class="sig-prename descclassname"><span class="pre">superleaf.utils.ipython.</span></span><span class="sig-name descname"><span class="pre">show_all_columns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/utils/ipython.py#L9-L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.utils.ipython.show_all_columns" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="superleaf.operators.getters.index_getter">
+<span class="sig-prename descclassname"><span class="pre">superleaf.operators.getters.</span></span><span class="sig-name descname"><span class="pre">index_getter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><span class="pre">Operator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/getters.py#L15-L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.getters.index_getter" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -420,20 +420,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="superleaf.utils.hashing.html"
+       href="superleaf.operators.comparison.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">superleaf.utils.hashing</p>
+        <p class="prev-next-title">superleaf.operators.comparison</p>
       </div>
     </a>
     <a class="right-next"
-       href="superleaf.utils.parallel.html"
+       href="superleaf.operators.string.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">superleaf.utils.parallel</p>
+        <p class="prev-next-title">superleaf.operators.string</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -456,8 +456,8 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.utils.ipython.autoreload"><code class="docutils literal notranslate"><span class="pre">autoreload()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.utils.ipython.show_all_columns"><code class="docutils literal notranslate"><span class="pre">show_all_columns()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.getters.attr_getter"><code class="docutils literal notranslate"><span class="pre">attr_getter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.getters.index_getter"><code class="docutils literal notranslate"><span class="pre">index_getter()</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -465,7 +465,7 @@
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/eschombu/superleaf/edit/master/docs/api/*/superleaf.utils.ipython.rst">
+    <a href="https://github.com/eschombu/superleaf/edit/master/docs/api/*/superleaf.operators.getters.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -481,7 +481,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/api/*/superleaf.utils.ipython.rst.txt"
+      <li><a href="../../_sources/api/*/superleaf.operators.getters.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

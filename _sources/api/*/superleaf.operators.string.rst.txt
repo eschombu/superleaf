@@ -1,0 +1,21 @@
+superleaf.operators.string
+==========================
+
+.. automodule:: superleaf.operators.string
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      str_bool_op
+      str_op
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      FuzzyMatchResult
+      FuzzyMatchResults
+      FuzzyMatcher
+   

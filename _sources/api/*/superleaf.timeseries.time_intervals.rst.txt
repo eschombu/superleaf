@@ -1,0 +1,13 @@
+superleaf.timeseries.time\_intervals
+====================================
+
+.. automodule:: superleaf.timeseries.time_intervals
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      TimeInterval
+      TimeIntervals
+   

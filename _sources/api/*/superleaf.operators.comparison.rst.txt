@@ -1,0 +1,12 @@
+superleaf.operators.comparison
+==============================
+
+.. automodule:: superleaf.operators.comparison
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ComparisonFunctions
+   

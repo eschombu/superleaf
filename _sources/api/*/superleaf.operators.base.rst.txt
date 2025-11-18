@@ -1,0 +1,22 @@
+superleaf.operators.base
+========================
+
+.. automodule:: superleaf.operators.base
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      bool_operator
+      operator
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BooleanFunctionOperator
+      BooleanOperator
+      FunctionOperator
+      Operator
+   
