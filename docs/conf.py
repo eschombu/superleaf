@@ -3,23 +3,40 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import inspect
+import os
+import sys
+from pathlib import Path
+
+try:
+    # For Python 3.11+
+    import tomllib
+except ImportError:
+    # For older Python versions
+    import tomli as tomllib
+
+# Path to your pyproject.toml
+THIS_DIR = Path(os.path.dirname(__file__)).resolve()
+pyproject_path = THIS_DIR.parent / 'pyproject.toml'
+
+# Load the pyproject.toml file
+with open(pyproject_path, 'rb') as f:
+    pyproject_data = tomllib.load(f)
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'superleaf'
-copyright = '2025, Erik Schomburg'
-author = 'Erik Schomburg'
-release = '0.2.0'
+project = pyproject_data['project']['name']
+version = pyproject_data['project']['version']
+release = version
+author = pyproject_data['project']['authors'][0]['name']
+copyright = f'2025, {author}'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-import inspect
-import os
-import sys
-
 # assuming conf.py sits at repo_root/docs/conf.py
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, str(pyproject_path.parent / 'src'))
 
 extensions = [
     'sphinx.ext.autodoc',      # core autodoc support
