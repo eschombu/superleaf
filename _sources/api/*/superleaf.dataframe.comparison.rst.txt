@@ -1,0 +1,12 @@
+superleaf.dataframe.comparison
+==============================
+
+.. automodule:: superleaf.dataframe.comparison
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      nan_eq
+   

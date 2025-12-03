@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>superleaf.operators.wrappers &#8212; superleaf 0.2.0 documentation</title>
+    <title>superleaf.operators.wrappers &#8212; superleaf 0.2.4 documentation</title>
   
   
   
@@ -38,9 +38,9 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=6ffd866b"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.operators.wrappers';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -48,7 +48,7 @@
     <link rel="prev" title="superleaf.operators.string" href="superleaf.operators.string.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.2.4" />
   </head>
   
   
@@ -110,7 +110,7 @@
   
   
   
-    <p class="title logo__title">superleaf 0.2.0 documentation</p>
+    <p class="title logo__title">superleaf 0.2.4 documentation</p>
   
 </a></div>
     
@@ -277,6 +277,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.column_ops.html">superleaf.dataframe.column_ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.comparison.html">superleaf.dataframe.comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.selection.html">superleaf.dataframe.selection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
@@ -388,7 +389,7 @@
 <p class="rubric">Functions</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.wrappers.with_fallback" title="superleaf.operators.wrappers.with_fallback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_fallback</span></code></a>([f, fallback, exceptions])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#superleaf.operators.wrappers.with_fallback" title="superleaf.operators.wrappers.with_fallback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">with_fallback</span></code></a>(f[, fallback, exceptions])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -396,7 +397,7 @@
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="superleaf.operators.wrappers.with_fallback">
-<span class="sig-prename descclassname"><span class="pre">superleaf.operators.wrappers.</span></span><span class="sig-name descname"><span class="pre">with_fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f:</span> <span class="pre">~typing.Callable</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'Exception'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/wrappers.py#L5-L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.wrappers.with_fallback" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">superleaf.operators.wrappers.</span></span><span class="sig-name descname"><span class="pre">with_fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'Exception'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/wrappers.py#L5-L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.wrappers.with_fallback" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -511,7 +512,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.1.
     <br/>
   </p>
 </div>

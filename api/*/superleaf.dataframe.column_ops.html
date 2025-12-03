@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>superleaf.dataframe.column_ops &#8212; superleaf 0.2.0 documentation</title>
+    <title>superleaf.dataframe.column_ops &#8212; superleaf 0.2.4 documentation</title>
   
   
   
@@ -38,17 +38,17 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=6ffd866b"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.dataframe.column_ops';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="superleaf.dataframe.display" href="superleaf.dataframe.display.html" />
+    <link rel="next" title="superleaf.dataframe.comparison" href="superleaf.dataframe.comparison.html" />
     <link rel="prev" title="superleaf.dataframe" href="superleaf.dataframe.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.2.4" />
   </head>
   
   
@@ -110,7 +110,7 @@
   
   
   
-    <p class="title logo__title">superleaf 0.2.0 documentation</p>
+    <p class="title logo__title">superleaf 0.2.4 documentation</p>
   
 </a></div>
     
@@ -277,6 +277,7 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">superleaf.dataframe.column_ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.comparison.html">superleaf.dataframe.comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.selection.html">superleaf.dataframe.selection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
@@ -405,7 +406,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.ColOp">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L7-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">ColOp</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L7-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.ColOp" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Abstract base class for column operations on pandas DataFrames.</p>
 <p>Subclasses implement transformations or evaluations that produce pandas Series or scalar
@@ -614,7 +615,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Index">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L258-L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Index</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L258-L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Index" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
 <p>Represent the index of a pandas DataFrame.</p>
 <dl class="field-list simple">
@@ -632,7 +633,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Col">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L275-L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L275-L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Col" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.ColOp" title="superleaf.dataframe.column_ops.ColOp"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColOp</span></code></a></p>
 <p>Represent a named column in a DataFrame.</p>
 <dl class="field-list simple">
@@ -651,7 +652,7 @@ arithmetic operators.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.dataframe.column_ops.Values">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L300-L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.dataframe.column_ops.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/dataframe/column_ops.py#L300-L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.dataframe.column_ops.Values" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#superleaf.dataframe.column_ops.Col" title="superleaf.dataframe.column_ops.Col"><code class="xref py py-class docutils literal notranslate"><span class="pre">Col</span></code></a></p>
 <p>Represent the values of a pandas Series.</p>
 <p class="rubric">Notes</p>
@@ -686,11 +687,11 @@ arithmetic operators.</p>
       </div>
     </a>
     <a class="right-next"
-       href="superleaf.dataframe.display.html"
+       href="superleaf.dataframe.comparison.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">superleaf.dataframe.display</p>
+        <p class="prev-next-title">superleaf.dataframe.comparison</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -793,7 +794,7 @@ arithmetic operators.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.1.
     <br/>
   </p>
 </div>

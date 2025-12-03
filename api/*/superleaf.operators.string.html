@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>superleaf.operators.string &#8212; superleaf 0.2.0 documentation</title>
+    <title>superleaf.operators.string &#8212; superleaf 0.2.4 documentation</title>
   
   
   
@@ -38,9 +38,9 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=6ffd866b"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.operators.string';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -48,7 +48,7 @@
     <link rel="prev" title="superleaf.operators.getters" href="superleaf.operators.getters.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="0.2.4" />
   </head>
   
   
@@ -110,7 +110,7 @@
   
   
   
-    <p class="title logo__title">superleaf 0.2.0 documentation</p>
+    <p class="title logo__title">superleaf 0.2.4 documentation</p>
   
 </a></div>
     
@@ -277,6 +277,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="superleaf.dataframe.html">superleaf.dataframe</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.column_ops.html">superleaf.dataframe.column_ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.comparison.html">superleaf.dataframe.comparison</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.display.html">superleaf.dataframe.display</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.selection.html">superleaf.dataframe.selection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="superleaf.dataframe.standardize.html">superleaf.dataframe.standardize</a></li>
@@ -424,42 +425,42 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatchResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L17-L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatchResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L17-L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult.string">
-<span class="sig-name descname"><span class="pre">string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.string" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">string</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.string" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult.target">
-<span class="sig-name descname"><span class="pre">target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.target" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">target</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.target" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult.score">
-<span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.score" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.score" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult.string_raw">
-<span class="sig-name descname"><span class="pre">string_raw</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.string_raw" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">string_raw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.string_raw" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResult.target_raw">
-<span class="sig-name descname"><span class="pre">target_raw</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.target_raw" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">target_raw</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResult.target_raw" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResults">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatchResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superleaf.operators.string.FuzzyMatchResult" title="superleaf.operators.string.FuzzyMatchResult"><span class="pre">superleaf.operators.string.FuzzyMatchResult</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L29-L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResults" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatchResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superleaf.operators.string.FuzzyMatchResult" title="superleaf.operators.string.FuzzyMatchResult"><span class="pre">superleaf.operators.string.FuzzyMatchResult</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L29-L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResults" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatchResults.results">
-<span class="sig-name descname"><span class="pre">results</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superleaf.operators.string.FuzzyMatchResult" title="superleaf.operators.string.FuzzyMatchResult"><span class="pre">FuzzyMatchResult</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResults.results" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">results</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superleaf.operators.string.FuzzyMatchResult" title="superleaf.operators.string.FuzzyMatchResult"><span class="pre">FuzzyMatchResult</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#superleaf.operators.string.FuzzyMatchResults.results" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -471,7 +472,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatcher">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">targets:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">normalizer:</span> <span class="pre">~typing.Callable[[str],</span> <span class="pre">str]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;cyfunction</span> <span class="pre">default_process&gt;,</span> <span class="pre">substring:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L37-L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatcher" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">superleaf.operators.string.</span></span><span class="sig-name descname"><span class="pre">FuzzyMatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">targets:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">normalizer:</span> <span class="pre">~typing.Callable[[str],</span> <span class="pre">str]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;cyfunction</span> <span class="pre">default_process&gt;,</span> <span class="pre">substring:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/string.py#L37-L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.string.FuzzyMatcher" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.Operator" title="superleaf.operators.base.Operator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Operator</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.string.FuzzyMatcher.to_bool_operator">
@@ -610,7 +611,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.1.
     <br/>
   </p>
 </div>

@@ -11,6 +11,7 @@ superleaf.dataframe
    :recursive:
 
    column_ops
+   comparison
    display
    selection
    standardize
