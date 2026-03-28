@@ -93,24 +93,25 @@ class ComparisonFunctions:
         return bool_operator(lambda x: x in values, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
-    def contains(value: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
-        return bool_operator(lambda x: value in x, **_parse_exc_args(*exc_args, **exc_kwargs))
+    def contains(value: Any, exceptions=TypeError, fallback=False) -> BooleanOperator:
+        # Defaults to ignoring type errors and treating non-iterables as not containing the value
+        return bool_operator(lambda x: value in x, exceptions=exceptions, fallback=fallback)
 
     @staticmethod
-    def contains_all(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+    def contains_all(values: Any, exceptions=TypeError, fallback=False) -> BooleanOperator:
         if isinstance(values, str) or not isinstance(values, Iterable):
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
-        return bool_operator(lambda x: all(v in x for v in values), **_parse_exc_args(*exc_args, **exc_kwargs))
+        return bool_operator(lambda x: all(v in x for v in values), exceptions=exceptions, fallback=fallback)
 
     @staticmethod
-    def contains_any(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
+    def contains_any(values: Any, exceptions=TypeError, fallback=False) -> BooleanOperator:
         if isinstance(values, str) or not isinstance(values, Iterable):
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
-        return bool_operator(lambda x: any(v in x for v in values), **_parse_exc_args(*exc_args, **exc_kwargs))
+        return bool_operator(lambda x: any(v in x for v in values), exceptions=exceptions, fallback=fallback)
 
     @staticmethod
     def startswith(value: str, *exc_args, str_converter=str, raise_type_error=False, **exc_kwargs) -> BooleanOperator:
