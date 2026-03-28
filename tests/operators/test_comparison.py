@@ -27,8 +27,9 @@ def test_individual_comparisons():
 
     assert F.contains(0)([0, 1]) is True
     assert F.contains(2)([0, 1]) is False
+    assert F.contains(2)(1) is False
     with pytest.raises(TypeError):
-        F.contains(2)(1)
+        F.contains(2, exceptions="none")(1)
 
     assert F.contains_any(0)([0, 1, 2]) is True
     assert F.contains_any(3)([0, 1, 2]) is False
