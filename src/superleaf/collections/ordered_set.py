@@ -1,5 +1,5 @@
 import itertools
-from typing import Generic, Iterable, Iterator, Self, TypeVar
+from typing import Generic, Iterable, Iterator, TypeVar
 
 T = TypeVar('T')
 
@@ -18,22 +18,22 @@ class OrderedSet(Generic[T]):
     def __iter__(self) -> Iterator[T]:
         return iter(self._items)
 
-    def copy(self) -> Self:
+    def copy(self) -> "OrderedSet":
         return self.__class__(self._items)
 
-    def union(self, other: Iterable[T]) -> Self:
+    def union(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(itertools.chain(self, other))
 
-    def add(self, item: T) -> Self:
+    def add(self, item: T) -> "OrderedSet":
         self._dict[item] = None
 
-    def intersection(self, other: Iterable[T]) -> Self:
+    def intersection(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(filter(lambda x: x in other, self))
 
-    def __add__(self, other: Iterable[T]) -> Self:
+    def __add__(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(self.union(other))
 
-    def __radd__(self, other: Iterable[T]) -> Self:
+    def __radd__(self, other: Iterable[T]) -> "OrderedSet":
         if other == 0:
             return self
         else:
@@ -41,16 +41,16 @@ class OrderedSet(Generic[T]):
                 other = type(self)(other)
             return other + self
 
-    def __iadd__(self, other: Iterable[T]) -> Self:
+    def __iadd__(self, other: Iterable[T]) -> "OrderedSet":
         if not isinstance(other, self.__class__):
             other = self.__class__(other)
         self._dict.update(other._dict)
         return self
 
-    def __sub__(self, other: Iterable[T]) -> Self:
+    def __sub__(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(filter(lambda x: x not in other, self))
 
-    def __isub__(self, other: Iterable[T]) -> Self:
+    def __isub__(self, other: Iterable[T]) -> "OrderedSet":
         if not isinstance(other, self.__class__):
             other = self.__class__(other)
         for item in other:
@@ -61,7 +61,7 @@ class OrderedSet(Generic[T]):
     def __contains__(self, item: T) -> bool:
         return item in self._dict
 
-    def __eq__(self, other: Self | set[T]) -> Self:
+    def __eq__(self, other: "set[T] | OrderedSet") -> bool:
         if isinstance(other, set):
             return set(self._items) == other
         elif isinstance(other, OrderedSet):

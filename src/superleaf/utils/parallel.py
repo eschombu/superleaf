@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_compl
 from multiprocessing import cpu_count, Manager, current_process, shared_memory
 from multiprocessing.managers import SharedMemoryManager
 from threading import Thread, Event
-from typing import Optional, Self
+from typing import Optional
 
 from multiprocess import Pool
 import numpy as np
@@ -180,7 +180,7 @@ class SharedMemoryContainer(ABC):
 
     @classmethod
     @abstractmethod
-    def create(cls, *args, **kwargs) -> Self:
+    def create(cls, *args, **kwargs) -> "SharedMemoryContainer":
         pass
 
     @abstractmethod
@@ -189,12 +189,12 @@ class SharedMemoryContainer(ABC):
         pass
 
     @abstractmethod
-    def close(self) -> Self:
+    def close(self) -> "SharedMemoryContainer":
         """Close the shared memory."""
         pass
 
     @abstractmethod
-    def unlink(self) -> Self:
+    def unlink(self) -> "SharedMemoryContainer":
         """Unlink the shared memory."""
         pass
 
@@ -205,7 +205,7 @@ class SharedMemoryContainer(ABC):
 
     @classmethod
     @abstractmethod
-    def from_metadata(cls, metadata: dict) -> Self:
+    def from_metadata(cls, metadata: dict) -> "SharedMemoryContainer":
         pass
 
 
@@ -216,7 +216,7 @@ class SharedMemoryArray(SharedMemoryContainer):
         self.dtype = np.dtype(dtype)
 
     @classmethod
-    def create(cls, array: np.ndarray, smm: Optional[SharedMemoryManager] = None) -> Self:
+    def create(cls, array: np.ndarray, smm: Optional[SharedMemoryManager] = None) -> "SharedMemoryArray":
         if smm:
             shared_mem = smm.SharedMemory(size=array.nbytes)
         else:
@@ -226,7 +226,7 @@ class SharedMemoryArray(SharedMemoryContainer):
         return cls(shared_mem, array.shape, array.dtype)
 
     @classmethod
-    def create_empty(cls, shape: tuple, dtype, smm: Optional[SharedMemoryManager] = None) -> Self:
+    def create_empty(cls, shape: tuple, dtype, smm: Optional[SharedMemoryManager] = None) -> "SharedMemoryArray":
         size = np.prod(shape) * np.dtype(dtype).itemsize
         if smm:
             shared_mem = smm.SharedMemory(size=size)
@@ -237,11 +237,11 @@ class SharedMemoryArray(SharedMemoryContainer):
     def load(self) -> np.ndarray:
         return np.ndarray(self.shape, dtype=self.dtype, buffer=self.shared_mem.buf)
 
-    def close(self) -> Self:
+    def close(self) -> "SharedMemoryArray":
         self.shared_mem.close()
         return self
 
-    def unlink(self) -> Self:
+    def unlink(self) -> "SharedMemoryArray":
         self.shared_mem.unlink()
         return self
 
@@ -250,7 +250,7 @@ class SharedMemoryArray(SharedMemoryContainer):
         return {'name': self.shared_mem.name, 'shape': self.shape, 'dtype': str(self.dtype)}
 
     @classmethod
-    def from_metadata(cls, metadata: dict) -> Self:
+    def from_metadata(cls, metadata: dict) -> "SharedMemoryArray":
         shared_mem = shared_memory.SharedMemory(name=metadata['name'])
         return cls(shared_mem, metadata['shape'], metadata['dtype'])
 
@@ -260,7 +260,7 @@ class SharedMemoryList(SharedMemoryContainer):
         self.shared_mem = shared_mem
 
     @classmethod
-    def create(cls, array: list, smm: Optional[SharedMemoryManager] = None) -> Self:
+    def create(cls, array: list, smm: Optional[SharedMemoryManager] = None) -> "SharedMemoryList":
         if smm:
             shared_mem = smm.ShareableList(array)
         else:
@@ -270,11 +270,11 @@ class SharedMemoryList(SharedMemoryContainer):
     def load(self) -> list:
         return list(self.shared_mem)
 
-    def close(self) -> Self:
+    def close(self) -> "SharedMemoryList":
         self.shared_mem.shm.close()
         return self
 
-    def unlink(self) -> Self:
+    def unlink(self) -> "SharedMemoryList":
         self.shared_mem.shm.unlink()
         return self
 
@@ -283,7 +283,7 @@ class SharedMemoryList(SharedMemoryContainer):
         return {'name': self.shared_mem.shm.name}
 
     @classmethod
-    def from_metadata(cls, metadata: dict) -> Self:
+    def from_metadata(cls, metadata: dict) -> "SharedMemoryList":
         shared_mem = shared_memory.ShareableList(name=metadata['name'])
         return cls(shared_mem)
 
@@ -317,7 +317,7 @@ class PyArrowData(SharedMemoryContainer):
 
     @classmethod
     @abstractmethod
-    def create(cls, data, path: Optional[str] = None, dir: Optional[str] = None, overwrite: bool = False) -> Self:
+    def create(cls, data, path: Optional[str] = None, dir: Optional[str] = None, overwrite: bool = False) -> "PyArrowData":
         pass
 
     @abstractmethod
@@ -325,10 +325,10 @@ class PyArrowData(SharedMemoryContainer):
         """Load the data from the file."""
         pass
 
-    def close(self) -> Self:
+    def close(self) -> "PyArrowData":
         return self
 
-    def unlink(self) -> Self:
+    def unlink(self) -> "PyArrowData":
         return self
 
     @property
@@ -336,7 +336,7 @@ class PyArrowData(SharedMemoryContainer):
         return {'path': self.path}
 
     @classmethod
-    def from_metadata(cls, metadata: dict) -> Self:
+    def from_metadata(cls, metadata: dict) -> "PyArrowData":
         path = metadata['path']
         if not os.path.exists(path):
             raise FileNotFoundError(f"File {path} does not exist.")
@@ -347,7 +347,7 @@ class PyArrowDataFrame(PyArrowData):
     @classmethod
     def create(
             cls, df: pd.DataFrame, path: Optional[str] = None, dir: Optional[str] = None, overwrite: bool = False
-    ) -> Self:
+    ) -> "PyArrowDataFrame":
         path = cls._check_path(path, dir, overwrite)
         table = pa.Table.from_pandas(df)
         with pa.OSFile(path, 'wb') as sink:
@@ -364,7 +364,7 @@ class PyArrowArray(PyArrowDataFrame):
     @classmethod
     def create(
             cls, array: np.ndarray, path: Optional[str] = None, dir: Optional[str] = None, overwrite: bool = False
-    ) -> Self:
+    ) -> "PyArrowArray":
         if array.ndim > 2:
             raise NotImplementedError("Only arrays with <=2 dimensions are supported.")
         if array.ndim == 1:
@@ -382,18 +382,18 @@ class SharedDataDict(SharedMemoryContainer):
         self.data = data
 
     @classmethod
-    def create(cls, data: dict[str, SharedMemoryContainer]) -> Self:
+    def create(cls, data: dict[str, SharedMemoryContainer]) -> "SharedDataDict":
         return cls(data)
 
     def load(self) -> dict:
         return {k: v.load() for k, v in self.data.items()}
 
-    def close(self) -> Self:
+    def close(self) -> "SharedDataDict":
         for v in self.data.values():
             v.close()
         return self
 
-    def unlink(self) -> Self:
+    def unlink(self) -> "SharedDataDict":
         for v in self.data.values():
             v.unlink()
         return self
@@ -406,7 +406,7 @@ class SharedDataDict(SharedMemoryContainer):
         return metadata
 
     @classmethod
-    def from_metadata(cls, metadata: dict) -> Self:
+    def from_metadata(cls, metadata: dict) -> "SharedDataDict":
         data = {}
         for name, info in metadata.items():
             type_ = eval(info['class'])

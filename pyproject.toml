@@ -4,17 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superleaf"
-version = "0.2.6"
+version = "0.2.7"
 authors = [
     {name = "Erik Schomburg", email = "eschomburg@gmail.com"},
 ]
 description = "A library for intuitive and readable data manipulation, using functional and pipeable syntax."
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "matplotlib",
     "numpy",
     "pandas",
     "pendulum>=3.0.0",
+    "pytz",
     "rapidfuzz",
     "scipy",
 ]
