@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superleaf"
-version = "0.2.5"
+version = "0.2.6"
 authors = [
     {name = "Erik Schomburg", email = "eschomburg@gmail.com"},
 ]
@@ -15,12 +15,12 @@ dependencies = [
     "numpy",
     "pandas",
     "pendulum>=3.0.0",
+    "rapidfuzz",
     "scipy",
 ]
 
 [project.optional-dependencies]
 dev = ["flake8", "pydata-sphinx-theme", "pydoclint", "pytest", "pytest-mock"]
-notebook = ["jupyter"]
 parallel = ["multiprocess", "pyarrow", "tqdm"]
 
 [tool.pytest.ini_options]
