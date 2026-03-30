@@ -1,0 +1,25 @@
+superleaf.timeseries.datetime\_utils
+====================================
+
+.. automodule:: superleaf.timeseries.datetime_utils
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      as_dict
+      get_date_range
+      get_datetime_range
+      get_first_time_in_interval
+      get_hours_minutes_seconds
+      mean_time
+      midpoint
+      nearly_simultaneous
+      seconds_in_day
+      times_to_radians
+      to_date
+      to_datetime
+      to_period
+      to_seconds_in_day
+   
