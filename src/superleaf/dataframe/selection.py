@@ -7,7 +7,7 @@ from superleaf.dataframe.column_ops import Col, ColOp, Index
 from superleaf.collections.ordered_set import OrderedSet
 
 
-def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray[bool]:
+def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray:
     row_bools = np.ones(len(df)).astype(bool)
     for filt in filters:
         if isinstance(filt, ColOp):
@@ -17,6 +17,12 @@ def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.nd
                 row_bools = row_bools & df.apply(filt, axis=1)
             else:
                 row_bools = row_bools & filt(df)
+        elif isinstance(filt, dict):
+            filt_keys = set(filt.keys())
+            conflicting_keys = filt_keys.intersection(col_filters.keys())
+            if conflicting_keys:
+                raise ValueError(f"Received multiple filters for columns: {', '.join(conflicting_keys)}")
+            col_filters.update(filt)
         else:
             try:
                 row_bools = row_bools & np.array(list(filt))

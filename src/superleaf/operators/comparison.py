@@ -1,6 +1,7 @@
 import re
 from typing import Any, Callable, Iterable
 
+import numpy as np
 import pandas as pd
 
 from superleaf.operators.base import bool_operator, BooleanOperator
@@ -90,6 +91,7 @@ class ComparisonFunctions:
     def isin(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
         if isinstance(values, pd.Series):
             values = values.values
+        values = set(values)
         return bool_operator(lambda x: x in values, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
@@ -103,6 +105,7 @@ class ComparisonFunctions:
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
+        values = set(values)
         return bool_operator(lambda x: all(v in x for v in values), exceptions=exceptions, fallback=fallback)
 
     @staticmethod
@@ -111,6 +114,7 @@ class ComparisonFunctions:
             values = [values]
         elif isinstance(values, pd.Series):
             values = values.values
+        values = set(values)
         return bool_operator(lambda x: any(v in x for v in values), exceptions=exceptions, fallback=fallback)
 
     @staticmethod
@@ -171,3 +175,5 @@ class ComparisonFunctions:
 
     isna = bool_operator(_isna)
     notna = ~isna
+    isinf = bool_operator(np.isinf)
+    notinf = ~isinf
