@@ -91,7 +91,8 @@ class ComparisonFunctions:
     def isin(values: Any, *exc_args, **exc_kwargs) -> BooleanOperator:
         if isinstance(values, pd.Series):
             values = values.values
-        values = set(values)
+        if not isinstance(values, str):
+            values = set(values)
         return bool_operator(lambda x: x in values, **_parse_exc_args(*exc_args, **exc_kwargs))
 
     @staticmethod
