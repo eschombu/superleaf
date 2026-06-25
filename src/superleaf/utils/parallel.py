@@ -38,10 +38,10 @@ def _progress_updater(counter, total, pbar, stop_event, poll_interval=0.1):
         time.sleep(poll_interval)
 
 
-def _run_thread_pool(func, iterable, star=False, update_func=None, n_workers=4):
+def _run_thread_pool(func, iterable, star=False, update_func=None, n_workers=4, **pool_params):
     """Run tasks in a ThreadPoolExecutor with optional update callback."""
     results = []
-    with ThreadPoolExecutor(max_workers=n_workers) as executor:
+    with ThreadPoolExecutor(max_workers=n_workers, **pool_params) as executor:
         if star:
             futures = [executor.submit(func, *item) for item in iterable]
         else:
@@ -81,7 +81,7 @@ def _process_worker(func, enumerated_items, star, counter, lock, nthreads_per_pr
 
 
 def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_per_process=None, pbar_desc=None,
-           verbose=False):
+           verbose=False, max_tasks_per_child=None, **pool_params):
     """
     Apply ``func`` to every item in ``iterable``.
 
@@ -102,7 +102,7 @@ def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_
     if nthreads_per_process > 1 and mode == "thread":
         raise ValueError("nthreads_per_process > 1 is not supported in thread mode.")
 
-    if n_workers > 1 and mode == "process" and 'get_ipython' in globals():
+    if n_workers > 1 and mode == "process" and ('get_ipython' in globals() or 'JPY_PARENT_PID' in os.environ):
         # In Jupyter Notebook, use a different method to avoid issues with multiprocessing.
         mode = "notebook"
         if verbose:
@@ -118,59 +118,68 @@ def parmap(func, iterable, star=False, mode="process", n_workers=None, nthreads_
         return []
     results = []
 
-    if mode == "thread":
-        with tqdm(total=total, desc=pbar_desc) as pbar:
-            def update():
-                pbar.update(1)
-            try:
-                results = _run_thread_pool(func, iterable, star=star, update_func=update, n_workers=n_workers)
-            except KeyboardInterrupt:
-                print("KeyboardInterrupt detected in thread mode; exiting gracefully.")
-                raise
-
-    elif mode == "process":
-        manager = Manager()
-        counter = manager.Value('i', 0)
-        lock = manager.Lock()
-        chunks = _chunkify(iterable, n_workers)
-        stop_event = Event()
-
-        with tqdm(total=total, desc=pbar_desc) as pbar:
-            updater = Thread(target=_progress_updater, args=(counter, total, pbar, stop_event))
-            updater.daemon = True  # Ensure it doesn't block process exit.
-            updater.start()
-
-            try:
-                with ProcessPoolExecutor(max_workers=n_workers) as proc_executor:
-                    futures = [
-                        proc_executor.submit(
-                            _process_worker, func, chunk, star, counter, lock, nthreads_per_process, verbose)
-                        for chunk in chunks
-                    ]
-                    for future in as_completed(futures):
-                        results.extend(future.result())
-                # Results may not be in the original order, sort them using the indices with which they were returned
-                results.sort(key=lambda x: x[0])  # Sort by the original index
-                _, results = zip(*results)  # Unzip the results to get the values only
-            except KeyboardInterrupt:
-                print("KeyboardInterrupt detected in process mode; cancelling tasks...")
-                stop_event.set()  # Signal the updater thread to stop.
-                # Attempt to cancel pending futures.
-                for future in futures:
-                    future.cancel()
-                # Shutdown the executor without waiting.
-                proc_executor.shutdown(wait=False)
-                raise
-            finally:
-                stop_event.set()  # Ensure the updater thread exits.
-                updater.join(timeout=1)  # Wait briefly for it to finish.
-    elif mode == "notebook":
-        with Pool(n_workers) as p:
-            results = p.map(func, iterable, chunksize=32)
-        if verbose:
-            print('done.')
+    if n_workers == 1:
+        if star:
+            results = [func(*args) for args in tqdm(iterable, desc=pbar_desc, total=total)]
+        else:
+            results = [func(arg) for arg in tqdm(iterable, desc=pbar_desc, total=total)]
     else:
-        raise ValueError("mode must be either 'thread' or 'process'")
+        if mode == "thread":
+            with tqdm(total=total, desc=pbar_desc) as pbar:
+                def update():
+                    pbar.update(1)
+                try:
+                    results = _run_thread_pool(func, iterable, star=star, update_func=update, n_workers=n_workers,
+                                            **pool_params)
+                except KeyboardInterrupt:
+                    print("KeyboardInterrupt detected in thread mode; exiting gracefully.")
+                    raise
+        elif mode == "process":
+            manager = Manager()
+            counter = manager.Value('i', 0)
+            lock = manager.Lock()
+            chunks = _chunkify(iterable, n_workers)
+            stop_event = Event()
+
+            with tqdm(total=total, desc=pbar_desc) as pbar:
+                updater = Thread(target=_progress_updater, args=(counter, total, pbar, stop_event))
+                updater.daemon = True  # Ensure it doesn't block process exit.
+                updater.start()
+                if max_tasks_per_child is not None:
+                    pool_params['max_tasks_per_child'] = max_tasks_per_child
+                try:
+                    with ProcessPoolExecutor(max_workers=n_workers, **pool_params) as proc_executor:
+                        futures = [
+                            proc_executor.submit(
+                                _process_worker, func, chunk, star, counter, lock, nthreads_per_process, verbose)
+                            for chunk in chunks
+                        ]
+                        for future in as_completed(futures):
+                            results.extend(future.result())
+                    # Results may not be in original order, sort them using the indices with which they were returned
+                    results.sort(key=lambda x: x[0])  # Sort by the original index
+                    _, results = zip(*results)  # Unzip the results to get the values only
+                except KeyboardInterrupt:
+                    print("KeyboardInterrupt detected in process mode; cancelling tasks...")
+                    stop_event.set()  # Signal the updater thread to stop.
+                    # Attempt to cancel pending futures.
+                    for future in futures:
+                        future.cancel()
+                    # Shutdown the executor without waiting.
+                    proc_executor.shutdown(wait=False)
+                    raise
+                finally:
+                    stop_event.set()  # Ensure the updater thread exits.
+                    updater.join(timeout=1)  # Wait briefly for it to finish.
+        elif mode == "notebook":
+            if max_tasks_per_child is not None and 'maxtasksperchild' not in pool_params:
+                pool_params['maxtasksperchild'] = max_tasks_per_child
+            with Pool(n_workers, **pool_params) as p:
+                results = p.map(func, iterable, chunksize=32)
+            if verbose:
+                print('done.')
+        else:
+            raise ValueError("mode must be either 'thread' or 'process'")
 
     return results
 
