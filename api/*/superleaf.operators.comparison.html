@@ -27,21 +27,22 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../_static/documentation_options.js?v=58050c01"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/*/superleaf.operators.comparison';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="superleaf.operators.getters" href="superleaf.operators.getters.html" />
@@ -49,20 +50,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.2.7" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -88,7 +95,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -151,11 +158,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -168,8 +182,7 @@
           
           
           
-          <a href="https://github.com/eschombu/superleaf" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/eschombu/superleaf" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -237,11 +250,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -254,8 +274,7 @@
           
           
           
-          <a href="https://github.com/eschombu/superleaf" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/eschombu/superleaf" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -264,7 +283,14 @@
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
         <div class="sidebar-primary-item">
+
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
@@ -394,86 +420,86 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.comparison.</span></span><span class="sig-name descname"><span class="pre">ComparisonFunctions</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L64-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superleaf.operators.comparison.</span></span><span class="sig-name descname"><span class="pre">ComparisonFunctions</span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L65-L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.eq">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L65-L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.eq" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L66-L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.eq" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.ne">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ne</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L69-L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.ne" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ne</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L70-L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.ne" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.lt">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L73-L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.lt" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L74-L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.lt" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.le">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L77-L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.le" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L78-L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.le" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.gt">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L81-L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.gt" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L82-L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.gt" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.ge">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L85-L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.ge" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L86-L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.ge" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.isin">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L89-L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.isin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L90-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.isin" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.contains">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L95-L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L97-L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.contains_all">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L100-L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains_all" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L102-L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains_all" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.contains_any">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains_any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L108-L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains_any" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains_any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions=&lt;class</span> <span class="pre">'TypeError'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fallback=False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L111-L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.contains_any" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.startswith">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L116-L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.startswith" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L120-L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.startswith" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.endswith">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">endswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L121-L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.endswith" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">endswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L125-L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.endswith" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.startswith_one_of">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">values:</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">*exc_args,</span> <span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;,</span> <span class="pre">raise_type_error=False,</span> <span class="pre">**exc_kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L126-L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.startswith_one_of" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">values:</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">*exc_args,</span> <span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;,</span> <span class="pre">raise_type_error=False,</span> <span class="pre">**exc_kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L130-L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.startswith_one_of" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.endswith_one_of">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">endswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">values:</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">*exc_args,</span> <span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;,</span> <span class="pre">raise_type_error=False,</span> <span class="pre">**exc_kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L133-L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.endswith_one_of" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">endswith_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">values:</span> <span class="pre">~typing.Iterable[str],</span> <span class="pre">*exc_args,</span> <span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;,</span> <span class="pre">raise_type_error=False,</span> <span class="pre">**exc_kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L137-L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.endswith_one_of" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.matches_regex">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L140-L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.matches_regex" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_converter=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L144-L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.matches_regex" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.fuzzy_match">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fuzzy_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">80.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L155-L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.fuzzy_match" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fuzzy_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exc_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">80.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_type_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">exc_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superleaf.operators.base.html#superleaf.operators.base.BooleanOperator" title="superleaf.operators.base.BooleanOperator"><span class="pre">BooleanOperator</span></a></span></span><a class="reference external" href="https://github.com/eschombu/superleaf/blob/master/src/superleaf/operators/comparison.py#L159-L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.fuzzy_match" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -484,6 +510,16 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.notna">
 <span class="sig-name descname"><span class="pre">notna</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;superleaf.operators.base._NotBoolOp</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.notna" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.isinf">
+<span class="sig-name descname"><span class="pre">isinf</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;superleaf.operators.base.BooleanFunctionOperator</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.isinf" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superleaf.operators.comparison.ComparisonFunctions.notinf">
+<span class="sig-name descname"><span class="pre">notinf</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;superleaf.operators.base._NotBoolOp</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#superleaf.operators.comparison.ComparisonFunctions.notinf" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -535,8 +571,8 @@
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.eq"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.eq()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.ne"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.ne()</span></code></a></li>
@@ -556,6 +592,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.fuzzy_match"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.fuzzy_match()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.isna"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.isna</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.notna"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.notna</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.isinf"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.isinf</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superleaf.operators.comparison.ComparisonFunctions.notinf"><code class="docutils literal notranslate"><span class="pre">ComparisonFunctions.notinf</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -578,13 +616,13 @@
 </div>
 
   <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/api/*/superleaf.operators.comparison.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api/*/superleaf.operators.comparison.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
 
 </div></div>
               
@@ -599,8 +637,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -634,7 +672,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>
