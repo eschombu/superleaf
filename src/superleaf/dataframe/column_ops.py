@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable, Iterable, Optional, Union
 
+import numpy as np
 import pandas as pd
 
 
@@ -104,6 +105,21 @@ class ColOp(metaclass=ABCMeta):
             A new ColOp representing the mapped operation.
         """
         return _ColMapOp(self, f)
+
+    def eq(self, value) -> "ColOp":
+        """Test whether each element of the Series equals the given value.
+
+        Parameters
+        ----------
+        value : Any
+            A value to test equality against.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp that yields a boolean Series.
+        """
+        return _EqOp(self, value)
 
     def isin(self, values: Iterable[Any]) -> "ColOp":
         """Test whether each element of the Series is in the given values.
@@ -228,6 +244,16 @@ class ColOp(metaclass=ABCMeta):
             A new ColOp yielding a boolean Series where True indicates null values.
         """
         return self.apply(lambda s: s.isna())
+
+    def isinf(self) -> "ColOp":
+        """Test for infinite values in the Series.
+
+        Returns
+        -------
+        ColOp
+            A new ColOp yielding a boolean Series where True indicates infinite values.
+        """
+        return self.apply(lambda s: np.isinf(s))
 
     def astype(self, type_) -> "ColOp":
         """Cast the Series to a specified dtype.
