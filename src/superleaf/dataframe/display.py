@@ -50,7 +50,7 @@ class _PandasDisplayCM:
         return False
 
 
-def show_all(df, mode=None, columns=True, rows=True):
+def show_all(df: pd.DataFrame, mode=None, columns=True, rows=True, dropna=False):
     """Display a DataFrame with all rows and/or columns visible.
 
     Uses a context manager to temporarily override pandas’ display.max_columns
@@ -70,6 +70,8 @@ def show_all(df, mode=None, columns=True, rows=True):
     rows : bool, optional
         When mode is None, if True (default) all rows are shown.
     """
+    if dropna:
+        df = df.dropna(axis=1, how='all').dropna(axis=0, how='all')
     if mode == 'columns':
         cm = _PandasDisplayCM(all_columns=True)
     elif mode == 'rows':
