@@ -1,14 +1,15 @@
 import itertools
-from typing import Generic, Iterable, Iterator, TypeVar
+from typing import Any, Generic, Iterable, Iterator, TypeVar
 
 T = TypeVar('T')
+_NotSpecified = object()
 
 
 class OrderedSet(Generic[T]):
     """Similar interface to the native set class, but with item order maintained, and expanded functionality, including
     addition and summation. Implemented by storing the set items as keys in an internal dict."""
 
-    def __init__(self, items: Iterable[T] = None):
+    def __init__(self, items: Iterable[T] | None = None):
         self._dict: dict[T, None] = dict(zip(items, itertools.repeat(None))) if items is not None else {}
 
     @property
@@ -24,11 +25,29 @@ class OrderedSet(Generic[T]):
     def union(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(itertools.chain(self, other))
 
-    def add(self, item: T) -> "OrderedSet":
-        self._dict[item] = None
-
     def intersection(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(filter(lambda x: x in other, self))
+
+    def add(self, item: T) -> "OrderedSet":
+        self._dict[item] = None
+        return self
+
+    def pop(self, item: T, default=_NotSpecified) -> Any:
+        if item not in self:
+            if default is _NotSpecified:
+                raise ValueError(f"{item!r} not in set")
+            else:
+                return default
+        else:
+            self._dict.pop(item)
+            return item
+
+    def remove(self, item: T, ignore_missing=False) -> "OrderedSet":
+        if ignore_missing:
+            self.pop(item, None)
+        else:
+            self.pop(item)
+        return self
 
     def __add__(self, other: Iterable[T]) -> "OrderedSet":
         return self.__class__(self.union(other))
