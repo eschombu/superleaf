@@ -42,6 +42,11 @@ def test_dfilter(df):
     assert _eq(dfilter(df, col2=F.ge(0), col3=1, col5=1), df.iloc[[4]])
     assert _eq(dfilter(df, col2=F.ge(0), col3=Col("col5")), df.iloc[[4]])
 
+    # Test columns filter
+    assert _eq(dfilter(df, col2=F.ge(0), columns=F.matches_regex(r'col[3-5]')), dfilter(df, Col("col2") >= 0)[['col3',  'col4', 'col5']])
+    df2 = df.assign(columns=[0, 1, 2, 3, 4])
+    assert _eq(dfilter(df2, col2=F.ge(0), columns=F.gt(0)), dfilter(df2, Col("col2") >= 0, Col("columns") > 0))
+
 
 def test_partition(df):
     filtered, remaining = partition(df, col2=F.ge(0), col3=1, col5=1)

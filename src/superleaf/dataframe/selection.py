@@ -5,6 +5,7 @@ import pandas as pd
 
 from superleaf.dataframe.column_ops import Col, ColOp, Index
 from superleaf.collections.ordered_set import OrderedSet
+from superleaf.operators.comparison import ComparisonFunctions as F
 
 
 def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray:
@@ -73,7 +74,36 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
     --------
     >>> filtered_df = dfilter(df, Col('age') > 30, status='active')
     """
-    return df[_pass_filter(df, *filters, **col_filters)].copy()
+    if 'columns' in col_filters.keys() and 'columns' not in df.columns:
+        columns_filter = col_filters.pop('columns')
+        if not callable(columns_filter):
+            if isinstance(columns_filter, str):
+                columns_filter = [columns_filter]
+            col_filter = None
+            for col_filt in columns_filter:
+                if isinstance(col_filt, str):
+                    col_filt = F.eq(col_filt)
+                if col_filter is None:
+                    col_filter = col_filt
+                else:
+                    col_filter = col_filter & col_filt
+            columns_filter = col_filter
+        if columns_filter is not None:
+            col_bools = np.array([columns_filter(col) for col in df.columns])
+    else:
+        col_bools = None
+    if filters or col_filters:
+        row_bools = _pass_filter(df, *filters, **col_filters)
+    else:
+        row_bools = None
+    if row_bools is None and col_bools is None:
+        return df.copy()
+    elif row_bools is None:
+        return df.loc[:, col_bools].copy()
+    elif col_bools is None:
+        return df.loc[row_bools, :].copy()
+    else:
+        return df.loc[row_bools, col_bools].copy()
 
 
 def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, pd.DataFrame]:
