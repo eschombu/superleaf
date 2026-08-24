@@ -467,13 +467,13 @@ If False, only <code class="docutils literal notranslate"><span class="pre">pref
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>    <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">[</span>
-<span class="gp">... </span>        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
-<span class="gp">... </span>        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="s1">'metadata'</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>        <span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'score'</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span>
+<span class="gp">... </span>        <span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'score'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'extra'</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
 <span class="gp">... </span>        <span class="kc">None</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_dict_to_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_dict_to_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'metadata'</span><span class="p">)</span>
 <span class="go">   metadata_id  metadata_score  metadata_extra</span>
 <span class="go">0            1             9.0             NaN</span>
 <span class="go">1            2             7.0             5.0</span>
