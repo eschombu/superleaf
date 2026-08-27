@@ -115,3 +115,18 @@ def test_reorder_columns(df: pd.DataFrame):
         _ = reorder_columns(df, last_col, before=second_col, after=second_to_last)
     with pytest.raises(ValueError):
         _ = reorder_columns(df, last_col, back=True, before=second_col)
+
+    absent_col = "absent"
+    with pytest.raises(ValueError):
+        _ = reorder_columns(df, [absent_col, second_col, first_col], errors="invalid")
+    with pytest.raises(KeyError):
+        _ = reorder_columns(df, [absent_col, second_col, first_col], errors="raise")
+    with pytest.warns(Warning):
+        _ = reorder_columns(df, [absent_col, second_col, first_col], errors="warn")
+    new_df = reorder_columns(df, [absent_col, second_col, first_col], errors="ignore")
+    new_df_cols = list(new_df.columns)
+    assert df.shape == new_df.shape
+    assert new_df_cols != df_cols
+    assert set(new_df_cols) == set(df_cols)
+    assert new_df_cols[0] == second_col
+    assert new_df_cols[1] == first_col

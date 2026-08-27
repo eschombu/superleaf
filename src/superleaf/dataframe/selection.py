@@ -1,4 +1,5 @@
 from typing import Sequence, Union
+from warnings import warn
 
 import numpy as np
 import pandas as pd
@@ -138,6 +139,7 @@ def reorder_columns(
         back=False,
         after=None,
         before=None,
+        errors='raise',
 ) -> pd.DataFrame:
     """Reorders columns in a DataFrame based on the provided parameters.
 
@@ -172,6 +174,9 @@ def reorder_columns(
     --------
     >>> reordered_df = reorder_columns(df, ['age', 'name'], after='id')
     """
+    allowed_error_methods = ('raise', 'ignore', 'warn', 'warning')
+    if errors.lower() not in allowed_error_methods:
+        raise ValueError(f"`errors` must be one of {allowed_error_methods}")
     if isinstance(columns, str):
         columns = [columns]
     df_cols = OrderedSet(df.columns)
@@ -188,4 +193,13 @@ def reorder_columns(
         col_order = list((OrderedSet(df_cols[:insert_idx]) - columns) + columns + OrderedSet(df_cols[insert_idx:]))
     else:
         col_order = list(columns + df_cols)
-    return pd.DataFrame(df[col_order])
+    if errors == 'ignore':
+        return pd.DataFrame(df[[c for c in col_order if c in df.columns]])
+    else:
+        try:
+            return pd.DataFrame(df[col_order])
+        except KeyError as e:
+            if errors in ('warn', 'warning'):
+                warn(e.args[0])
+            else:
+                raise e
