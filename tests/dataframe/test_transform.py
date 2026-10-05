@@ -52,3 +52,25 @@ def test_expand_dict_to_cols(df):
                  expand_col2['col2'].apply(lambda d: d.get('field1', np.nan) if isinstance(d, dict) else np.nan))
 
     # TODO: Add tests for dropna, recursive, prefix, col_renamer, uniform_keys, default, etc.
+
+
+def test_expand_json_does_not_modify_input():
+    df = pd.DataFrame({"id": [1, 2], "meta": ['{"a": 1}', '{"a": 2, "b": 3}']})
+    original = df.copy()
+    result = expand_dict_to_cols(df, "meta")
+    pd.testing.assert_frame_equal(df, original)
+    assert list(result.columns) == ["id", "meta_a", "meta_b"]
+    assert result.meta_a.tolist() == [1, 2]
+
+
+def test_expand_json_detected_per_value():
+    df = pd.DataFrame({"meta": [None, '{"a": 1}', {"a": 2}, ""]})
+    result = expand_dict_to_cols(df, "meta")
+    assert _s_eq(result.meta_a, pd.Series([np.nan, 1, 2, np.nan]))
+
+
+def test_expand_recursive_uses_sep():
+    df = pd.DataFrame({"m": [{"a": {"b": 1}}, {"a": {"b": 2}}]})
+    result = expand_dict_to_cols(df, "m", recursive=True, sep=".")
+    assert list(result.columns) == ["m.a.b"]
+    assert result["m.a.b"].tolist() == [1, 2]

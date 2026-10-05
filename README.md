@@ -1,88 +1,94 @@
-# `superleaf`
+# superleaf
 
-<h3> <em>NOTE:</em> This package is still under development, it needs more documentation, and some components not related
-to its intended core uses may be removed.</h3>
-
-## A library for intuitive and readable data filtering and manipulation, using functional and pipeable syntax.
-
-When trying to select and filter `pandas` dataframes in somewhat complicated ways, the syntax can quickly get
-cumbersome. This library provides utilities for quickly and intuitively specifying ways to select and filter based on
-column and row conditions. It also includes utilities for piping and composing value accessor and manipulation operators
-on more general datatypes.
-
-## Installation
-
-This package is available on the Python Package Index (PyPI): https://pypi.org/project/superleaf/.
-```
-pip install superleaf
-```
-
-## Operators
-
-Some of the operators in this library have analogues in the Python standard library `operator` module, but the ones here
-can be more flexibly composed and piped.
-
-For example, let's say you want to take the logarithm of all of the values inside one of the fields of a sequence of data
-containers. You can achieve this with the following code:
+Readable, composable filters for pandas and plain Python data.
 
 ```
-import numpy as np
-from superleaf.operators import operator
-from superlead.getters import attr_getter
-
-exp_field_op = attr_getter("field_a") >> operator(np.log)  # "right shift" operator used for piping
-results_iter = map(exp_field_op, data_containers)
+pip install superleaf           # numpy + pandas only
+pip install "superleaf[fuzzy]"  # adds F.fuzzy_match (rapidfuzz)
 ```
 
-This produces an iterator with the same results as the following list comprehension:
-```
-results_list = [np.log(datum.field_a) for datum in data_containers]
-```
+## Filters as data
 
-## DataFrame column operators and selection/filtering
+A filter is a dict mapping columns to conditions. It can be built in one place, stored, combined and
+passed to `dfilter`:
 
-Row filtering, especially for complicated combinations of conditions, of pandas dataframes can have cumbersome and
-seemingly repetitive syntax. The `dfilter` and `Col` utilities can be used to more succinctly achieve complicated
-filtering and selection of portions of dataframes.
-
-For example, consider the following dataframe:
-```
+```python
 import pandas as pd
+from superleaf import F, dfilter, partition
 
 df = pd.DataFrame({
-    "col1": [          0,         1,          0,       1,      1,         1,      0],
-    "col2": [       -5.1,       2.2,        0.2,     1.7,   -1.1,    np.nan,    0.9],
-    "col3": [ "elephant", "giraffe", "Elephant", "Zebra",  "Emu",    "lion", "lion"],
+    "type": ["T4a", "T4b", "Mi1", None, "Tm3"],
+    "side": ["L", "R", "L", "R", "L"],
+    "size": [10.0, None, 3.5, 7.0, -1.0],
 })
+
+left_t4 = {"type": F.startswith("T4"), "side": "L"}
+dfilter(df, **left_t4)
+
+dfilter(df, size=F.isna | F.lt(0))
+dfilter(df, type=F.isin(["Mi1", "Tm3"]), columns=["type", "size"])
+kept, dropped = partition(df, type=F.notna)
 ```
 
-Let's say we want to select the rows where col1 == 1, col2 is NaN or negative, and col3 begins with the letter 'e':
-```
-sub_df = df[(df["col1"] == 1) & (df["col2"].isna() | (df["col2"] < 0)) & df["col3"].map(lambda s: s.lower().startswith('e'))]
-```
+Keyword values are matched by equality, `F.*` predicates and other callables are applied to each value,
+and `columns=` selects columns by name or predicate. Use `where` for conditions across columns:
 
-Using `superleaf`, we could do this with the following:
-```
-from superleaf.dataframe.selection import dfilter
-from superleaf.operator import ComparisonFunctions as F, str_op
+```python
+from superleaf import where
 
-sub_df = dfilter(df, col1=1, col2=(F.isna | F.lt(0)), col3=(str_op("lower") >> F.startswith("e")))
+dfilter(df, where(lambda d: d["size"] > d["size"].median()))
 ```
 
-This would fail if the values in col3 might not be strings. In this case, a fallback value can be set:
+## Predicates work on values and columns
+
+`F` predicates combine with `|`, `&` and `~`, and evaluate either a single value or a whole Series with
+the same result:
+
+```python
+is_valid = F.gt(0) | F.eq("n/a")
+is_valid(5)                        # True
+is_valid(None)                     # False: missing values only satisfy ne
+is_valid.on_series(df["size"])     # boolean Series; vectorized where possible
 ```
-from superleaf.operator import with_fallback
 
-sub_df = dfilter(df, col1=1, col2=(F.isna | F.lt(0)), col3=with_fallback(str_op("lower") >> F.startswith("e"), False))
+`&` and `|` short-circuit like `and` and `or`, so a type check on the left guards the right.
+
+The same predicate filters lists:
+
+```python
+from superleaf.sequences import filtered, partitioned
+
+filtered(F.startswith("T4"), ["T4a", "Mi1", "T4b"])   # ["T4a", "T4b"]
 ```
 
-## Utilities
+Available predicates: `eq`, `ne`, `lt`, `le`, `gt`, `ge`, `isin`, `contains`, `contains_all`, `contains_any`,
+`startswith`, `endswith`, `startswith_one_of`, `endswith_one_of`, `matches_regex`, `fuzzy_match`, `isna`,
+`notna`, `isinf`, `notinf`. Pass `fallback=` (and optionally `exceptions=`) to return a value instead of
+raising, e.g. `F.lt(0, fallback=False)("a")` is `False`.
 
-### Parallelization
+Custom predicates and pipelines:
 
+```python
+from superleaf.operators import attr_getter, bool_operator, str_op
 
-### Hash strings
+is_even = bool_operator(lambda x: x % 2 == 0)
+lower_starts_e = str_op("lower") >> F.startswith("e")   # pipe with >>
+get_score = attr_getter("score") >> F.ge(0.5)
+```
 
+## Compared with alternatives
 
-## Data structures and collections
+| | Reusable as data | Works on scalars and lists | Missing values / mixed types |
+|---|---|---|---|
+| `df.query("a > 0 and b == 'x'")` | as strings | no | follows pandas |
+| `df.loc[lambda d: (d.a > 0) & (d.b == "x")]` | as functions | no | follows pandas |
+| polars expressions | yes | no (polars frames only) | follows polars |
+| `dfilter(df, a=F.gt(0), b="x")` | yes | yes | same result per value as plain Python, with `fallback=` |
 
+## Other utilities
+
+- `superleaf.sequences`: `mapped`, `filtered`, `flatten`, `flatmap`, `groupby`, `partitioned`
+- `superleaf.dataframe`: `reorder_columns`, `expand_dict_to_cols`
+- `superleaf.collections`: `OrderedSet`, `SummableDict`
+
+See the [API reference](https://erikschomburg.com/superleaf/) and [CHANGELOG](CHANGELOG.md).

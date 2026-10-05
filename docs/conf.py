@@ -30,7 +30,7 @@ project = pyproject_data['project']['name']
 version = pyproject_data['project']['version']
 release = version
 author = pyproject_data['project']['authors'][0]['name']
-copyright = f'2025, {author}'
+copyright = f'2025-2026, {author}'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -62,6 +62,8 @@ autodoc_default_options = {
 }
 # For classes, also merge class doc + __init__ doc:
 autoclass_content = 'both'
+# Render docstring Attributes sections as fields, since autodoc also documents the members.
+napoleon_use_ivar = True
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

@@ -7,7 +7,7 @@ import pandas as pd
 from superleaf.collections import OrderedSet
 
 
-def notna(x) -> bool:
+def _notna(x) -> bool:
     try:
         # Faster operation is to use x==x, but list of null would return True
         return x is not None and not np.isnan(x)
@@ -44,7 +44,7 @@ def expand_dict_to_cols(
     df : pd.DataFrame
         The input DataFrame.
     cols : str or Sequence[str]
-        Column name or list of column names whose values are dicts to expand.
+        Column name or list of column names whose values are dicts, or JSON strings encoding dicts.
     fields : str or Sequence[str], optional
         Specific keys to extract from each dict. If None, all keys encountered
         (or, if ``uniform_keys=True``, the keys from the first non-null dict) will
@@ -79,7 +79,7 @@ def expand_dict_to_cols(
     Raises
     ------
     TypeError
-        If a non-dict-like value is encountered when expanding.
+        If a non-missing value is not dict-like.
 
     Examples
     --------
@@ -97,15 +97,20 @@ def expand_dict_to_cols(
     2          NaN             NaN             NaN
     """
 
+    def decode_json(value):
+        if isinstance(value, str):
+            return json.loads(value) if value else None
+        return value
+
     def has_vals(meta: Optional[dict]) -> bool:
         try:
-            return notna(meta) and len(meta) > 0
+            return _notna(meta) and len(meta) > 0
         except TypeError:
             raise TypeError(f"Expected a dictionary-like object, got {type(meta)} instead.")
 
     def get_field(key):
         def getter(meta: Optional[dict]):
-            if notna(meta):
+            if _notna(meta):
                 return meta.get(key, default)
             else:
                 return default
@@ -136,6 +141,8 @@ def expand_dict_to_cols(
                 fields=None,
                 prefix=f"{prefix}{field}{sep}",
                 with_col_prefix=with_col_prefix,
+                sep=sep,
+                dropna=dropna,
                 col_renamer=col_renamer,
                 recursive=True,
                 uniform_keys=uniform_keys,
@@ -143,12 +150,12 @@ def expand_dict_to_cols(
             )
             for col in new_cols:
                 vals = new_cols[col]
-                _notna = vals.notna()
-                new_df.loc[_notna, col] = vals[_notna]
+                present = vals.notna()
+                new_df.loc[present, col] = vals[present]
         else:
             new_col = get_new_col_name(prefix + str(field))
-            _notna = values.notna()
-            new_df.loc[_notna, new_col] = values[_notna]
+            present = values.notna()
+            new_df.loc[present, new_col] = values[present]
         return new_df
 
     if isinstance(fields, str):
@@ -164,19 +171,21 @@ def expand_dict_to_cols(
     new_col_map = {}
     for col in cols:
         current_cols = list(new_df.columns)
-        if col in df and df[col].map(has_vals).any():
-            if isinstance(df.iloc[0][col], str):
-                df[col] = df[col].map(lambda v: json.loads(v) if v else None)
+        if col not in df:
+            new_col_map[col] = []
+            continue
+        dicts = df[col].map(decode_json)
+        if dicts.map(has_vals).any():
             if fields is None:  # expand all
                 if uniform_keys:  # same keys in each item, allowing for increased efficiency
-                    first_one = df[df[col].map(has_vals)][col].iloc[0]
+                    first_one = dicts[dicts.map(has_vals)].iloc[0]
                     current_fields = list(first_one.keys())
                 else:
-                    current_fields = OrderedSet(df[col].dropna().map(lambda d: OrderedSet(d.keys())).sum())
+                    current_fields = OrderedSet(dicts[dicts.map(_notna)].map(lambda d: OrderedSet(d.keys())).sum())
             else:
                 current_fields = fields
             for field in current_fields:
-                values = df[col].map(get_field(field))
+                values = dicts.map(get_field(field))
                 if with_col_prefix:
                     col_prefix = prefix or f"{col}{sep}"
                 else:

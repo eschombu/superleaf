@@ -3,7 +3,7 @@ import pytest
 
 from superleaf.operators.base import operator
 from superleaf.operators.comparison import ComparisonFunctions as F
-from superleaf.sequences.serial import filtered, flatten, flat_map, groupby, mapped
+from superleaf.sequences.serial import filtered, flatten, flatmap, groupby, mapped, partitioned
 
 
 def _try_len(x) -> int:
@@ -68,6 +68,10 @@ def _get_str(x):
         return None
 
 
-def test_flat_map(seq):
+def test_flatmap(seq):
     joined_strs = "abcxyzed"
-    assert "".join(flat_map(_get_str, seq, depth=None, drop_null=True)) == joined_strs
+    assert "".join(flatmap(_get_str, seq, depth=None, drop_null=True)) == joined_strs
+
+
+def test_partitioned():
+    assert partitioned(lambda x: x > 1, [1, 2, 3, 0]) == ([2, 3], [1, 0])

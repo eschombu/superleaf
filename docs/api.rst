@@ -2,7 +2,10 @@ API Reference
 =============
 
 .. autosummary::
-   :toctree: api/*
+   :toctree: api
    :recursive:
 
-   superleaf
+   superleaf.operators
+   superleaf.dataframe
+   superleaf.sequences
+   superleaf.collections

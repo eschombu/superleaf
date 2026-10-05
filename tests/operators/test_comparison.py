@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from superleaf.operators.base import bool_operator
@@ -143,7 +144,37 @@ def test_generic_bool_op():
 def test_exception_fallback():
     with pytest.raises(TypeError):
         F.lt(0)("a")
-    assert F.lt(0, False)("a") is False
+    assert F.lt(0, fallback=False)("a") is False
     with pytest.raises(TypeError):
-        (F.lt(0, False) | F.gt(0))("a")
-    assert (F.lt(0, False) | F.gt(0, True))("a") is True
+        (F.lt(0, fallback=False) | F.gt(0))("a")
+    assert (F.lt(0, fallback=False) | F.gt(0, fallback=True))("a") is True
+
+
+def test_fallback_args_are_keyword_only():
+    with pytest.raises(TypeError):
+        F.lt(0, False)
+    assert F.lt(0, exceptions=TypeError)("a") is False
+    with pytest.raises(TypeError):
+        F.lt(0, fallback="x")
+
+
+def test_matches_regex_how():
+    assert F.matches_regex("b")("abc") is False
+    assert F.matches_regex("b", how="search")("abc") is True
+    assert F.matches_regex("ab", how="fullmatch")("abc") is False
+    assert F.matches_regex("abc", how="fullmatch")("abc") is True
+    with pytest.raises(ValueError):
+        F.matches_regex("a", how="find")
+
+
+def test_isin_unhashable_is_false():
+    assert F.isin([1, 2])([1]) is False
+
+
+def test_comparisons_with_missing_values():
+    for missing in [None, np.nan, pd.NA, pd.NaT]:
+        for op in [F.eq(1), F.lt(1), F.le(1), F.gt(1), F.ge(1)]:
+            assert op(missing) is False
+        assert F.ne(1)(missing) is True
+    assert F.eq(None)(None) is True
+    assert F.eq(None)(np.nan) is False

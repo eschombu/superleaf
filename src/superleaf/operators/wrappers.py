@@ -2,7 +2,33 @@ from functools import wraps
 from typing import Callable, Optional
 
 
-def with_fallback(f: Optional[Callable] = None, fallback=None, exceptions: type | str | None = Exception):
+def with_fallback(
+        f: Optional[Callable] = None, fallback=None, exceptions: type | tuple | str | None = Exception
+) -> Callable:
+    """Wrap a function to return ``fallback`` when it raises one of ``exceptions``.
+
+    Usable directly (``with_fallback(f, 0)``) or as a decorator, with or without arguments.
+
+    Parameters
+    ----------
+    f : callable, optional
+        Function to wrap. If omitted, a decorator is returned.
+    fallback : Any, optional
+        Value returned when one of ``exceptions`` is raised. Default None.
+    exceptions : type, tuple of types, or str, optional
+        Exceptions to catch. Default ``Exception``. ``"ignore"``/``"all"`` mean ``Exception``;
+        ``"raise"``/``"none"`` or None catch nothing.
+
+    Returns
+    -------
+    Callable
+        The wrapped function, or a decorator if ``f`` is None.
+
+    Raises
+    ------
+    ValueError
+        If ``exceptions`` is an unrecognized string.
+    """
     if isinstance(exceptions, str):
         if exceptions in ("ignore", "all"):
             exceptions = Exception

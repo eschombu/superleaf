@@ -1,16 +1,10 @@
-.. superleaf documentation master file, created by
-   sphinx-quickstart on Wed May 28 18:46:39 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+superleaf
+=========
 
-superleaf documentation
-=======================
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Readable, composable filters for pandas and plain Python data. See the
+`README <https://github.com/eschombu/superleaf#readme>`_ for an overview.
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
 
    api
