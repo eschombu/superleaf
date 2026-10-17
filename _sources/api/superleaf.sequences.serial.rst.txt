@@ -1,0 +1,17 @@
+superleaf.sequences.serial
+==========================
+
+.. automodule:: superleaf.sequences.serial
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      filtered
+      flatmap
+      flatten
+      groupby
+      mapped
+      partitioned
+   

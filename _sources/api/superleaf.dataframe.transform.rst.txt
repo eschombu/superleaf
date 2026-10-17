@@ -1,0 +1,12 @@
+superleaf.dataframe.transform
+=============================
+
+.. automodule:: superleaf.dataframe.transform
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      expand_dict_to_cols
+   

@@ -1,0 +1,14 @@
+﻿superleaf.dataframe
+===================
+
+.. automodule:: superleaf.dataframe
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   selection
+   transform

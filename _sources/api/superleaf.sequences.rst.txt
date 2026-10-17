@@ -1,0 +1,13 @@
+﻿superleaf.sequences
+===================
+
+.. automodule:: superleaf.sequences
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   serial

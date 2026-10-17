@@ -1,0 +1,18 @@
+﻿superleaf.operators
+===================
+
+.. automodule:: superleaf.operators
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   base
+   comparison
+   fuzzy
+   getters
+   string
+   wrappers

@@ -1,0 +1,14 @@
+superleaf.operators.fuzzy
+=========================
+
+.. automodule:: superleaf.operators.fuzzy
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      FuzzyMatchResult
+      FuzzyMatchResults
+      FuzzyMatcher
+   
