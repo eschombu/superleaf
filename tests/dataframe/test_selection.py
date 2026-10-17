@@ -219,3 +219,28 @@ def test_reorder_columns_warn_and_case(df):
 def test_reorder_columns_falsy_anchor():
     df = pd.DataFrame([[1, 2, 3]], columns=[0, 1, 2])
     assert list(reorder_columns(df, [2], after=0).columns) == [0, 2, 1]
+
+
+def test_dfilter_pd_col_expression(df):
+    expr = (pd.col("col2") >= 0) & (pd.col("col3") == pd.col("col5"))
+    assert _eq(dfilter(df, expr), df.iloc[[4]])
+    assert _eq(dfilter(df, pd.col("col2") > 0, col4=F.startswith("f"), columns=["col1", "col4"]),
+               df.loc[[4], ["col1", "col4"]])
+    passed, failed = partition(df, pd.col("col1") < 2)
+    assert passed.col1.tolist() == [0, 1] and failed.col1.tolist() == [2, 3, 4]
+
+
+def test_dfilter_pd_col_with_mask_named_column(df):
+    df2 = df.assign(_superleaf_mask=0)
+    assert dfilter(df2, pd.col("col1") > 3).col1.tolist() == [4]
+
+
+def test_dfilter_pd_col_keyword_raises(df):
+    with pytest.raises(TypeError, match="positionally"):
+        dfilter(df, col1=pd.col("col5"))
+
+
+def test_dfilter_result_is_independent(df):
+    result = dfilter(df, col1=F.gt(0))
+    df.loc[1, "col1"] = 100
+    assert result.loc[1, "col1"] == 1
