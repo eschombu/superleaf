@@ -9,6 +9,7 @@ authors = [
     {name = "Erik Schomburg", email = "eschomburg@gmail.com"},
 ]
 description = "A library for intuitive and readable data manipulation, using functional and pipeable syntax."
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.23",

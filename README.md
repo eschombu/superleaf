@@ -91,4 +91,4 @@ get_score = attr_getter("score") >> F.ge(0.5)
 - `superleaf.dataframe`: `reorder_columns`, `expand_dict_to_cols`
 - `superleaf.collections`: `OrderedSet`, `SummableDict`
 
-See the [API reference](https://erikschomburg.com/superleaf/) and [CHANGELOG](CHANGELOG.md).
+See the [API reference](https://erikschomburg.com/superleaf/) and [CHANGELOG](https://github.com/eschombu/superleaf/blob/main/CHANGELOG.md).
