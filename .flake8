@@ -3,4 +3,5 @@ max-line-length = 119
 extend-ignore = DOC105,DOC106,DOC107
 per-file-ignores =
     src/*/__init__.py:F401,
-    src/superleaf/dataframe/transform.py:DOC502
+    src/superleaf/dataframe/transform.py:DOC502,
+    src/superleaf/dataframe/selection.py:DOC502

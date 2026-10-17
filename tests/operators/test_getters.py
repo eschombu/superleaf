@@ -22,3 +22,10 @@ def test_nested_getter(obj):
 
     getter_plus_one = getter >> operator(lambda x: x + 1)
     assert getter_plus_one(obj) == 12
+
+
+def test_index_getter_default():
+    assert index_getter(5, default=None)([1, 2]) is None
+    assert index_getter("x", default=0)({}) == 0
+    with pytest.raises(IndexError):
+        index_getter(5)([1, 2])

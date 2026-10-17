@@ -1,136 +1,203 @@
-from typing import Sequence, Union
+from typing import Any, Callable, Sequence, Union
 from warnings import warn
 
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_scalar
 
-from superleaf.dataframe.column_ops import Col, ColOp, Index
 from superleaf.collections.ordered_set import OrderedSet
-from superleaf.operators.comparison import ComparisonFunctions as F
+from superleaf.operators.base import BooleanOperator
+from superleaf.operators.comparison import F
 
 
-def _pass_filter(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray:
-    row_bools = np.ones(len(df)).astype(bool)
+class where:
+    """Row filter evaluated on the whole DataFrame at once.
+
+    Use with :func:`dfilter` or :func:`partition` for vectorized conditions across columns.
+
+    Parameters
+    ----------
+    f : callable
+        Function from the DataFrame to a boolean Series or array with one value per row.
+
+    Examples
+    --------
+    >>> dfilter(df, where(lambda d: d["a"] > d["b"]))
+    """
+
+    def __init__(self, f: Callable[[pd.DataFrame], Any]):
+        self.f = f
+
+    def __call__(self, df: pd.DataFrame) -> Any:
+        return self.f(df)
+
+
+def _as_mask(values: Any, df: pd.DataFrame | pd.Series) -> np.ndarray:
+    if isinstance(values, pd.Series):
+        if not values.index.equals(df.index):
+            raise ValueError("Boolean Series filter must have the same index as the DataFrame")
+        if isinstance(values.dtype, pd.BooleanDtype):
+            values = values.fillna(False)
+    mask = np.asarray(values, dtype=bool)
+    if mask.shape != (len(df),):
+        raise ValueError(f"Filter produced shape {mask.shape}; expected ({len(df)},)")
+    return mask
+
+
+def _get_column(df: pd.DataFrame | pd.Series, col: Any) -> pd.Series:
+    if isinstance(df, pd.DataFrame):
+        return df[col]
+    if col == "index":
+        return pd.Series(df.index, index=df.index)
+    if col == df.name:
+        return df
+    raise KeyError(f"Keyword filter {col!r} for a Series must be 'index' or the Series name")
+
+
+def _column_mask(values: pd.Series, col: Any, filt: Any) -> np.ndarray:
+    if isinstance(filt, BooleanOperator):
+        return _as_mask(filt.on_series(values), values)
+    if callable(filt):
+        return np.fromiter((bool(filt(x)) for x in values), dtype=bool, count=len(values))
+    if is_scalar(filt):
+        return _as_mask(F.eq(filt).on_series(values), values)
+    raise TypeError(
+        f"Keyword filter {col!r} got a {type(filt).__name__}. Use F.isin(...) to test membership, "
+        "or F.eq(...) to compare with a non-scalar value."
+    )
+
+
+def _row_mask(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarray:
+    mask = np.ones(len(df), dtype=bool)
     for filt in filters:
-        if isinstance(filt, ColOp):
-            row_bools = row_bools & filt(df)
-        elif callable(filt):
-            if isinstance(df, pd.DataFrame):
-                row_bools = row_bools & df.apply(filt, axis=1)
-            else:
-                row_bools = row_bools & filt(df)
-        elif isinstance(filt, dict):
-            filt_keys = set(filt.keys())
-            conflicting_keys = filt_keys.intersection(col_filters.keys())
+        if isinstance(filt, dict):
+            conflicting_keys = set(filt.keys()).intersection(col_filters.keys())
             if conflicting_keys:
-                raise ValueError(f"Received multiple filters for columns: {', '.join(conflicting_keys)}")
+                raise ValueError(f"Received multiple filters for columns: {', '.join(map(str, conflicting_keys))}")
             col_filters.update(filt)
-        else:
-            try:
-                row_bools = row_bools & np.array(list(filt))
-            except Exception:
-                raise TypeError(
-                    "Positional filters must be column operators or callables to apply to each row"
-                )
-    for col, filt in col_filters.items():
-        if isinstance(df, pd.Series) and col.lower() == "index":
-            col_getter = Index()
-        else:
-            col_getter = Col(col)
-        if isinstance(filt, ColOp) or not callable(filt):
-            row_bools = row_bools & (col_getter == filt)(df)
+        elif isinstance(filt, where):
+            mask &= _as_mask(filt(df), df)
         elif callable(filt):
-            row_bools = row_bools & col_getter.map(filt)(df)
+            if isinstance(df, pd.Series):
+                values = filt.on_series(df) if isinstance(filt, BooleanOperator) else filt(df)
+                mask &= _as_mask(values, df)
+            elif len(df) > 0:
+                mask &= _as_mask(df.apply(filt, axis=1), df)
+        elif np.iterable(filt) and not isinstance(filt, str):
+            mask &= _as_mask(filt, df)
         else:
             raise TypeError(
-                "Keyword filters must be values, column operators, or callables to apply to each value in the column"
+                "Positional filters must be callables applied to each row, where(...) filters, dicts of "
+                f"column filters, or boolean sequences with one value per row; got {type(filt).__name__}"
             )
-    return row_bools
+    for col, filt in col_filters.items():
+        mask &= _column_mask(_get_column(df, col), col, filt)
+    return mask
+
+
+def _pop_column_mask(df: pd.DataFrame | pd.Series, col_filters: dict) -> np.ndarray | None:
+    if "columns" not in col_filters or (isinstance(df, pd.DataFrame) and "columns" in df.columns):
+        return None
+    selector = col_filters.pop("columns")
+    if selector is None:
+        return None
+    if isinstance(df, pd.Series):
+        raise TypeError("The columns filter is not supported for a Series")
+    if callable(selector):
+        selectors = [selector]
+    elif isinstance(selector, str) or not np.iterable(selector):
+        selectors = [selector]
+    else:
+        selectors = list(selector)
+    preds = [s if callable(s) else F.eq(s) for s in selectors]
+    return np.array([any(p(c) for p in preds) for c in df.columns], dtype=bool)
+
+
+def _select(df: pd.DataFrame | pd.Series, rows: np.ndarray, cols: np.ndarray | None) -> pd.DataFrame | pd.Series:
+    if isinstance(df, pd.Series):
+        return df[rows].copy()
+    if cols is None:
+        return df.loc[rows].copy()
+    return df.loc[rows, cols].copy()
 
 
 def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
-    """Filters a DataFrame by applying provided conditions.
+    """Select the rows of a DataFrame that pass every filter.
 
     Parameters
     ----------
     df : pd.DataFrame
-        The DataFrame to filter.
+        The DataFrame to filter. A Series is also accepted; its index can be filtered with ``index=...``.
     *filters
-        Variable positional arguments that can be:
-        - Instances of ColOp.
-        - Callables applied row-wise, returning boolean values.
-        - Iterable of boolean values indicating row selection.
+        Row filters, each one of:
+
+        - a callable, applied to each row (a Series) and returning a bool;
+        - a :class:`where`, evaluated once on the whole DataFrame;
+        - a dict of column filters, as for ``**col_filters`` (for column names that are not identifiers);
+        - a boolean sequence or Series with one value per row.
     **col_filters
-        Keyword arguments mapping column names to conditions, which can be:
-        - Values (equality filter).
-        - Instances of ColOp.
-        - Callables applied element-wise to the specified column.
+        Column filters, mapping a column name to one of:
+
+        - a :class:`~superleaf.operators.base.BooleanOperator` such as ``F.gt(0)``, evaluated with
+          ``on_series``;
+        - another callable, applied to each value;
+        - a scalar, selecting values equal to it (as ``F.eq``).
+
+        Lists and other non-scalar values raise ``TypeError``; use ``F.isin`` for membership.
+
+        The keyword ``columns``, unless it names a column of ``df``, selects columns instead of rows. It takes a
+        column name, a predicate on names, or a list of either; columns matching any of them are kept.
 
     Returns
     -------
     pd.DataFrame
-        A copy of the DataFrame containing only rows satisfying all filters.
+        A copy of the selected rows (and columns).
+
+    Raises
+    ------
+    TypeError
+        If a filter has an unsupported type.
+    ValueError
+        If a boolean filter's length or index does not match ``df``.
 
     Examples
     --------
-    >>> filtered_df = dfilter(df, Col('age') > 30, status='active')
+    >>> dfilter(df, status="active", age=F.ge(30))
+    >>> dfilter(df, name=F.startswith("A") | F.isna, columns=["name", "age"])
+    >>> dfilter(df, where(lambda d: d["score"] > d["threshold"]))
     """
-    if 'columns' in col_filters.keys() and 'columns' not in df.columns:
-        columns_filter = col_filters.pop('columns')
-        if not callable(columns_filter):
-            if isinstance(columns_filter, str):
-                columns_filter = [columns_filter]
-            col_filter = None
-            for col_filt in columns_filter:
-                if isinstance(col_filt, str):
-                    col_filt = F.eq(col_filt)
-                if col_filter is None:
-                    col_filter = col_filt
-                else:
-                    col_filter = col_filter & col_filt
-            columns_filter = col_filter
-        if columns_filter is not None:
-            col_bools = np.array([columns_filter(col) for col in df.columns])
-    else:
-        col_bools = None
-    if filters or col_filters:
-        row_bools = _pass_filter(df, *filters, **col_filters)
-    else:
-        row_bools = None
-    if row_bools is None and col_bools is None:
-        return df.copy()
-    elif row_bools is None:
-        return df.loc[:, col_bools].copy()
-    elif col_bools is None:
-        return df.loc[row_bools, :].copy()
-    else:
-        return df.loc[row_bools, col_bools].copy()
+    col_filters = dict(col_filters)
+    col_mask = _pop_column_mask(df, col_filters)
+    return _select(df, _row_mask(df, *filters, **col_filters), col_mask)
 
 
 def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Partitions a DataFrame into two subsets based on provided filtering conditions.
+    """Split a DataFrame into rows that pass every filter and rows that do not.
 
     Parameters
     ----------
     df : pd.DataFrame
-        The DataFrame to partition.
+        The DataFrame to split.
     *filters
-        Variable positional arguments (see ``dfilter`` documentation).
+        Row filters, as for :func:`dfilter`.
     **col_filters
-        Keyword arguments (see ``dfilter`` documentation).
+        Column filters, as for :func:`dfilter`, including ``columns``.
 
     Returns
     -------
-    tuple[pd.DataFrame, pd.DataFrame]
-        - First DataFrame contains rows matching the provided filters.
-        - Second DataFrame contains rows that do not match.
+    pd.DataFrame
+        Copy of the rows that pass.
+    pd.DataFrame
+        Copy of the remaining rows.
 
-    Example
-    -------
-    >>> passed_df, failed_df = partition(df, score=lambda x: x > 50)
+    Examples
+    --------
+    >>> passed, failed = partition(df, score=F.gt(50))
     """
-    row_bools = _pass_filter(df, *filters, **col_filters)
-    return df[row_bools].copy(), df[~row_bools].copy()
+    col_filters = dict(col_filters)
+    col_mask = _pop_column_mask(df, col_filters)
+    mask = _row_mask(df, *filters, **col_filters)
+    return _select(df, mask, col_mask), _select(df, ~mask, col_mask)
 
 
 def reorder_columns(
@@ -141,65 +208,67 @@ def reorder_columns(
         before=None,
         errors='raise',
 ) -> pd.DataFrame:
-    """Reorders columns in a DataFrame based on the provided parameters.
+    """Move columns to the front, the back, or next to another column.
 
     Parameters
     ----------
     df : pd.DataFrame
         The DataFrame whose columns to reorder.
-    columns : Union[str, Sequence[str]])
-        Column name or sequence of column names to reorder.
+    columns : str or sequence of str
+        Column(s) to move, in the order they should appear.
     back : bool, optional
-        If True, moves specified columns to the end. Default is False.
+        If True, move the columns to the end.
     after : str, optional
-        Column name after which the specified columns should be placed. Default is None.
+        Place the columns immediately after this column.
     before : str, optional
-        Column name before which the specified columns should be placed. Default is None.
+        Place the columns immediately before this column.
+    errors : {"raise", "warn", "ignore"}, optional
+        How to handle names in ``columns`` that are not in ``df``. With ``"warn"`` or ``"ignore"``, they are
+        skipped.
 
     Returns
     -------
     pd.DataFrame
-        A new DataFrame with reordered columns.
-
-    Notes
-    -----
-    Exactly one of ``back``, ``after``, or ``before`` can be used at a time.
+        A new DataFrame with reordered columns. With none of ``back``, ``after`` or ``before``, the columns
+        are moved to the front.
 
     Raises
     ------
     ValueError
-        If more than one of ``back``, ``after``, or ``before`` parameters are provided simultaneously.
+        If more than one of ``back``, ``after`` and ``before`` is given, or ``errors`` is invalid.
+    KeyError
+        If a column is missing and ``errors="raise"``.
 
     Examples
     --------
-    >>> reordered_df = reorder_columns(df, ['age', 'name'], after='id')
+    >>> reorder_columns(df, ["age", "name"], after="id")
     """
     allowed_error_methods = ('raise', 'ignore', 'warn', 'warning')
-    if errors.lower() not in allowed_error_methods:
+    errors = errors.lower()
+    if errors not in allowed_error_methods:
         raise ValueError(f"`errors` must be one of {allowed_error_methods}")
+    if sum([bool(back), after is not None, before is not None]) > 1:
+        raise ValueError("Only one of the following parameters can be used at a time: (back, after, before)")
     if isinstance(columns, str):
         columns = [columns]
     df_cols = OrderedSet(df.columns)
     columns = OrderedSet(columns)
-    if sum([back, after is not None, before is not None]) > 1:
-        raise ValueError("Only one of the following parameters can be used at a time: (back, after, before)")
+    missing = columns - df_cols
+    if missing:
+        message = f"Columns not found: {list(missing)}"
+        if errors == 'raise':
+            raise KeyError(message)
+        if errors in ('warn', 'warning'):
+            warn(message)
+        columns = columns - missing
     if back:
         col_order = list((df_cols - columns) + columns)
-    elif after or before:
-        if after:
+    elif after is not None or before is not None:
+        if after is not None:
             insert_idx = list(df.columns).index(after) + 1
-        else:  # before -- already enforced that before and after cannot both be True
+        else:
             insert_idx = list(df.columns).index(before)
         col_order = list((OrderedSet(df_cols[:insert_idx]) - columns) + columns + OrderedSet(df_cols[insert_idx:]))
     else:
         col_order = list(columns + df_cols)
-    if errors == 'ignore':
-        return pd.DataFrame(df[[c for c in col_order if c in df.columns]])
-    else:
-        try:
-            return pd.DataFrame(df[col_order])
-        except KeyError as e:
-            if errors in ('warn', 'warning'):
-                warn(e.args[0])
-            else:
-                raise e
+    return pd.DataFrame(df[col_order])

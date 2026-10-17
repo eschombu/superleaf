@@ -4,25 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superleaf"
-version = "0.2.10"
+version = "0.9.0"
 authors = [
     {name = "Erik Schomburg", email = "eschomburg@gmail.com"},
 ]
 description = "A library for intuitive and readable data manipulation, using functional and pipeable syntax."
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "matplotlib",
-    "numpy",
-    "pandas",
-    "pendulum>=3.0.0",
-    "pytz",
-    "rapidfuzz",
-    "scipy",
+    "numpy>=1.23",
+    "pandas>=2.0",
 ]
 
 [project.optional-dependencies]
-dev = ["flake8", "pydata-sphinx-theme", "pydoclint", "pytest", "pytest-mock"]
-parallel = ["multiprocess", "pyarrow", "tqdm"]
+fuzzy = ["rapidfuzz>=3.0"]
+dev = ["flake8", "pydata-sphinx-theme", "pydoclint", "pytest", "pytest-mock", "rapidfuzz>=3.0", "sphinx"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
