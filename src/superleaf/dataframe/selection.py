@@ -4,6 +4,7 @@ from warnings import warn
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_scalar
+from pandas.api.typing import Expression
 
 from superleaf.collections.ordered_set import OrderedSet
 from superleaf.operators.base import BooleanOperator
@@ -13,7 +14,8 @@ from superleaf.operators.comparison import F
 class where:
     """Row filter evaluated on the whole DataFrame at once.
 
-    Use with :func:`dfilter` or :func:`partition` for vectorized conditions across columns.
+    Use with :func:`dfilter` or :func:`partition` for vectorized conditions across columns. A ``pd.col``
+    expression can be passed directly instead.
 
     Parameters
     ----------
@@ -44,6 +46,16 @@ def _as_mask(values: Any, df: pd.DataFrame | pd.Series) -> np.ndarray:
     return mask
 
 
+def _eval_expression(df: pd.DataFrame | pd.Series, expr: Expression) -> pd.Series:
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("pd.col expressions can only filter a DataFrame")
+    name = "_superleaf_mask"
+    while name in df.columns:
+        name += "_"
+    # assign appends the new column last
+    return df.assign(**{name: expr}).iloc[:, -1]
+
+
 def _get_column(df: pd.DataFrame | pd.Series, col: Any) -> pd.Series:
     if isinstance(df, pd.DataFrame):
         return df[col]
@@ -55,6 +67,11 @@ def _get_column(df: pd.DataFrame | pd.Series, col: Any) -> pd.Series:
 
 
 def _column_mask(values: pd.Series, col: Any, filt: Any) -> np.ndarray:
+    if isinstance(filt, Expression):
+        raise TypeError(
+            f"Keyword filter {col!r} got a pd.col expression. Pass it positionally, e.g. "
+            f"dfilter(df, pd.col({col!r}) == ...)."
+        )
     if isinstance(filt, BooleanOperator):
         return _as_mask(filt.on_series(values), values)
     if callable(filt):
@@ -75,6 +92,8 @@ def _row_mask(df: pd.DataFrame | pd.Series, *filters, **col_filters) -> np.ndarr
             if conflicting_keys:
                 raise ValueError(f"Received multiple filters for columns: {', '.join(map(str, conflicting_keys))}")
             col_filters.update(filt)
+        elif isinstance(filt, Expression):
+            mask &= _as_mask(_eval_expression(df, filt), df)
         elif isinstance(filt, where):
             mask &= _as_mask(filt(df), df)
         elif callable(filt):
@@ -115,10 +134,10 @@ def _pop_column_mask(df: pd.DataFrame | pd.Series, col_filters: dict) -> np.ndar
 
 def _select(df: pd.DataFrame | pd.Series, rows: np.ndarray, cols: np.ndarray | None) -> pd.DataFrame | pd.Series:
     if isinstance(df, pd.Series):
-        return df[rows].copy()
+        return df[rows]
     if cols is None:
-        return df.loc[rows].copy()
-    return df.loc[rows, cols].copy()
+        return df.loc[rows]
+    return df.loc[rows, cols]
 
 
 def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
@@ -131,8 +150,9 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
     *filters
         Row filters, each one of:
 
-        - a callable, applied to each row (a Series) and returning a bool;
+        - a ``pd.col`` expression, such as ``pd.col("a") > pd.col("b")``;
         - a :class:`where`, evaluated once on the whole DataFrame;
+        - another callable, applied to each row (a Series) and returning a bool;
         - a dict of column filters, as for ``**col_filters`` (for column names that are not identifiers);
         - a boolean sequence or Series with one value per row.
     **col_filters
@@ -151,7 +171,7 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
     Returns
     -------
     pd.DataFrame
-        A copy of the selected rows (and columns).
+        The selected rows (and columns), as a new DataFrame.
 
     Raises
     ------
@@ -164,7 +184,7 @@ def dfilter(df: pd.DataFrame, *filters, **col_filters) -> pd.DataFrame:
     --------
     >>> dfilter(df, status="active", age=F.ge(30))
     >>> dfilter(df, name=F.startswith("A") | F.isna, columns=["name", "age"])
-    >>> dfilter(df, where(lambda d: d["score"] > d["threshold"]))
+    >>> dfilter(df, pd.col("score") > pd.col("threshold"), status="active")
     """
     col_filters = dict(col_filters)
     col_mask = _pop_column_mask(df, col_filters)
@@ -186,9 +206,9 @@ def partition(df: pd.DataFrame, *filters, **col_filters) -> tuple[pd.DataFrame, 
     Returns
     -------
     pd.DataFrame
-        Copy of the rows that pass.
+        The rows that pass.
     pd.DataFrame
-        Copy of the remaining rows.
+        The remaining rows.
 
     Examples
     --------

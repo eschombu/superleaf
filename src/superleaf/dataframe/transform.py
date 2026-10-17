@@ -128,8 +128,7 @@ def expand_dict_to_cols(
         else:
             return col
 
-    def add_new_cols(df: pd.DataFrame, values: pd.Series, field: str, prefix: str) -> pd.DataFrame:
-        new_df = df.copy()
+    def add_new_cols(new_df: pd.DataFrame, values: pd.Series, field: str, prefix: str) -> pd.DataFrame:
         if values.isna().all():
             if not dropna:
                 new_col = get_new_col_name(prefix + str(field))

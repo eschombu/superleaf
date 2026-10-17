@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0
+
+### Breaking changes
+
+- Requires pandas 3.0+, numpy 1.26+ and Python 3.11+. superleaf 0.9.x supports pandas 2 with the same API.
+- `dfilter` and `partition` no longer copy their results; pandas copy-on-write keeps them independent of
+  the input.
+
+### Added
+
+- `dfilter` and `partition` accept `pd.col` expressions as positional filters, e.g.
+  `dfilter(df, pd.col("a") > pd.col("b"), side="L")`.
+
 ## 0.9.0
 
 Superleaf is now a focused core: predicates, DataFrame filtering, sequence helpers and small collections.

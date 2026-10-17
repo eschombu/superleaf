@@ -7,6 +7,9 @@ pip install superleaf           # numpy + pandas only
 pip install "superleaf[fuzzy]"  # adds F.fuzzy_match (rapidfuzz)
 ```
 
+superleaf 1.x requires pandas 3 and Python 3.11+. For pandas 2, use `superleaf<1` (0.9.x has the same API
+without `pd.col` support).
+
 ## Filters as data
 
 A filter is a dict mapping columns to conditions. It can be built in one place, stored, combined and
@@ -31,11 +34,14 @@ kept, dropped = partition(df, type=F.notna)
 ```
 
 Keyword values are matched by equality, `F.*` predicates and other callables are applied to each value,
-and `columns=` selects columns by name or predicate. Use `where` for conditions across columns:
+and `columns=` selects columns by name or predicate. For conditions across columns, pass a `pd.col`
+expression, or `where` with any function of the DataFrame:
 
 ```python
 from superleaf import where
 
+is_t4_or_unsized = pd.col("type").str.startswith("T4") | pd.col("size").isna()
+dfilter(df, is_t4_or_unsized, side="L")
 dfilter(df, where(lambda d: d["size"] > d["size"].median()))
 ```
 
@@ -82,8 +88,9 @@ get_score = attr_getter("score") >> F.ge(0.5)
 |---|---|---|---|
 | `df.query("a > 0 and b == 'x'")` | as strings | no | follows pandas |
 | `df.loc[lambda d: (d.a > 0) & (d.b == "x")]` | as functions | no | follows pandas |
+| `df.loc[(pd.col("a") > 0) & (pd.col("b") == "x")]` | as expressions | no | follows pandas |
 | polars expressions | yes | no (polars frames only) | follows polars |
-| `dfilter(df, a=F.gt(0), b="x")` | yes | yes | same result per value as plain Python, with `fallback=` |
+| `dfilter(df, a=F.gt(0), b="x")` | as dicts | yes | same result per value as plain Python, with `fallback=` |
 
 ## Other utilities
 
