@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## 0.9.0
 
 Superleaf is now a focused core: predicates, DataFrame filtering, sequence helpers and small collections.
 It depends only on numpy and pandas.
